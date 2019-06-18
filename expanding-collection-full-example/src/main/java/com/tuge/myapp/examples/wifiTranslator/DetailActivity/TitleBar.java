@@ -109,7 +109,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
         mSubTitleText.setSingleLine();
         mSubTitleText.setGravity(Gravity.CENTER);
         mSubTitleText.setEllipsize(TextUtils.TruncateAt.END);
-        LayoutParams layoutParamsRight = new LayoutParams(200, LayoutParams.MATCH_PARENT);
+        LayoutParams layoutParamsRight = new LayoutParams(150, LayoutParams.MATCH_PARENT);
 
 
         mRightLayout.setPadding(mOutPadding, 0, mOutPadding, 0);

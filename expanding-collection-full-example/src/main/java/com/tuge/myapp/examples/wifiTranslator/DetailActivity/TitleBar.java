@@ -25,7 +25,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
     private static final int DEFAULT_MAIN_TEXT_SIZE = 18;
     private static final int DEFAULT_SUB_TEXT_SIZE = 12;
     private static final int DEFAULT_ACTION_TEXT_SIZE = 15;
-    private static final int DEFAULT_TITLE_BAR_HEIGHT = 48;
+    private static final int DEFAULT_TITLE_BAR_HEIGHT = 30;
 
     private static final String STATUS_BAR_HEIGHT_RES_NAME = "status_bar_height";
 
@@ -81,7 +81,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 //        mLeftLayout.setBackgroundColor(Color.RED);
         mLeftLayout.setGravity(Gravity.LEFT);
         mBackIV.setImageDrawable(getResources().getDrawable(R.mipmap.icon_back));
-        mBackIV.setPadding(0,50,0,50);
+        mBackIV.setPadding(0,5,0,5);
         mLeftLayout.addView(mBackIV);
         mCenterLayout = new LinearLayout(context);
         mRightLayout = new LinearLayout(context);
@@ -355,7 +355,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
             view = img;
         } else {
             TextView text = new TextView(getContext());
-            text.setGravity(Gravity.CENTER);
+            text.setGravity(Gravity.LEFT);
             text.setText(action.getText());
             text.setTextSize(DEFAULT_ACTION_TEXT_SIZE);
             if (mActionTextColor != 0) {

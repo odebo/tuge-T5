@@ -1,1 +1,1 @@
-include ':expanding-collection', ':expanding-collection-full-example', ':library'
+include ':expanding-collection', ':expanding-collection-full-example', ':library', ':powermenu'

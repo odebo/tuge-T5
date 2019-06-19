@@ -40,6 +40,18 @@ import androidx.annotation.Size;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.skydoves.powermenu.CustomPowerMenu;
+import com.skydoves.powermenu.MenuAnimation;
+import com.skydoves.powermenu.MenuEffect;
+import com.skydoves.powermenu.OnDismissedListener;
+import com.skydoves.powermenu.OnMenuItemClickListener;
+import com.skydoves.powermenu.PowerMenu;
+import com.skydoves.powermenu.PowerMenuItem;
+//import com.skydoves.powermenudemo.customs.adapters.CenterMenuAdapter;
+//import com.skydoves.powermenudemo.customs.adapters.CustomDialogMenuAdapter;
+//import com.skydoves.powermenudemo.customs.items.NameCardMenuItem;
+
+
 public  class SpeechTransActivity extends Activity implements MenuListener {
     SpringMenu mSpringMenu;
     private WaveLineView waveLineView;
@@ -49,7 +61,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
     TextView mTransRusult;
 
 
-    //    // 【重要】 - 语音翻译功能关键类
+    // 【重要】 - 语音翻译功能关键类
     private TransAsrClient client;
     private TransAsrConfig config;
     private static final String APP_ID = "20190514000297564";
@@ -82,41 +94,22 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
         Log.i("string",string+"00000"+this.getPackageName());
 
-
-//        mRgFade = (RadioGroup) findViewById(R.id.rg_enablefade);
-//        mFrictionBar = (SeekBar) findViewById(R.id.sb_friction);
-//        mTensionbar = (SeekBar) findViewById(R.id.sb_tension);
-//        mTvFriction = (TextView) findViewById(R.id.tv_friction);
-//        mTvTension = (TextView) findViewById(R.id.tv_tension);
-//        mIvIgnore = (ImageView) findViewById(R.id.iv_ignore);
-//        mRgFade.setOnCheckedChangeListener(this);
-//        mTensionbar.setOnSeekBarChangeListener(this);
-//        mFrictionBar.setOnSeekBarChangeListener(this);
-//        mFrictionBar.setMax(100);
-//        mTensionbar.setMax(100);
         //init SpringMenu
         mSpringMenu = new SpringMenu(this, R.layout.view_menu);
         mSpringMenu.setMenuListener(this);
         mSpringMenu.setFadeEnable(true);
         mSpringMenu.setChildSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20, 5));
         mSpringMenu.setDragOffset(0.4f);
-//        mSpringMenu.addIgnoredView(mFrictionBar
-//        );
-//        mSpringMenu.addIgnoredView(mTensionbar);
-        // init titlebar
-//        mTitleBar.setLeftText("回退");
+
         mTitleBar.setBackgroundColor(Color.parseColor("#008cc7"));
         mTitleBar.setDividerColor(Color.GRAY);
         mTitleBar.setTitleColor(Color.WHITE);
-//        mTitleBar.setElevation(10);
-//        mTitleBar.setLeftTextColor(Color.WHITE);
         mTitleBar.setActionTextColor(Color.WHITE);
+        mTitleBar.setTitle("TEST");
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-//                mSpringMenu.setDirection(SpringMenu.DIRECTION_LEFT);
-//                mSpringMenu.openMenu();
             }
         });
         mTitleBar.setRightClickListener(new View.OnClickListener() {
@@ -124,6 +117,12 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
             public void onClick(View v) {
                 mSpringMenu.setDirection(SpringMenu.DIRECTION_RIGHT);
                 mSpringMenu.openMenu();
+            }
+        });
+        mTitleBar.setCenterClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SpeechTransActivity.this, "TEST...", Toast.LENGTH_SHORT).show();
             }
         });
 //        mTitleBar.addAction(new TitleBar.Action() {

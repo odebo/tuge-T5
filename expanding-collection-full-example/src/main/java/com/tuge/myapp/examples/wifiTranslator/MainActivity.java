@@ -77,12 +77,6 @@ public class MainActivity extends Activity {
                 name.setText(cardData.getPersonName() + ":");
                 TextView message = (TextView) head.findViewById(R.id.message);
                 message.setText(cardData.getPersonMessage());
-                TextView viewsCount = (TextView) head.findViewById(R.id.socialViewsCount);
-                viewsCount.setText(" " + cardData.getPersonViewsCount());
-                TextView likesCount = (TextView) head.findViewById(R.id.socialLikesCount);
-                likesCount.setText(" " + cardData.getPersonLikesCount());
-                TextView commentsCount = (TextView) head.findViewById(R.id.socialCommentsCount);
-                commentsCount.setText(" " + cardData.getPersonCommentsCount());
 
                 // Add onclick listener to card header for toggle card state
                 head.setOnClickListener(new View.OnClickListener() {

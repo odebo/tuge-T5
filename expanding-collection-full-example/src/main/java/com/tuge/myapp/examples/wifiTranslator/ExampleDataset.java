@@ -15,62 +15,72 @@ public class ExampleDataset {
     private List<ECCardData> dataset;
 
     public ExampleDataset() {
-        dataset = new ArrayList<>(5);
+        dataset = new ArrayList<>(6);
 
-        CardData item5 = new CardData();
-        item5.setMainBackgroundResource(R.drawable.attractions);
-        item5.setHeadBackgroundResource(R.drawable.attractions_head);
-        item5.setHeadTitle("Attractions");
-        item5.setPersonMessage("Usus de bassus buxum, desiderium index!");
-        item5.setPersonName("Marjorie Ellis");
-        item5.setPersonPictureResource(R.drawable.marjorie_ellis);
-        item5.setListItems(prepareCommentsArray());
-        dataset.add(item5);
+        CardData item1 = new CardData();
+        item1.setMainBackgroundResource(R.drawable.card01);
+        item1.setHeadBackgroundResource(R.drawable.card01_head);
+        item1.setHeadTitle("Translation");
+        item1.setPersonMessage("Dialogue Translation");
+        item1.setPersonName("翻一翻");
+        item1.setPersonPictureResource(R.drawable.icon1);
+        item1.setListItems(prepareCommentsArray());
+        dataset.add(item1);
 
-        CardData item4 = new CardData();
-        item4.setMainBackgroundResource(R.drawable.city_scape);
-        item4.setHeadBackgroundResource(R.drawable.city_scape_head);
-        item4.setHeadTitle("City Scape");
-        item4.setPersonMessage("Solems manducare, tanquam neuter verpa.");
-        item4.setPersonName("Mattew Jordan");
-        item4.setPersonPictureResource(R.drawable.mattew_jordan);
-        item4.setListItems(prepareCommentsArray());
-        dataset.add(item4);
+        CardData item2 = new CardData();
+        item2.setMainBackgroundResource(R.drawable.card02);
+        item2.setHeadBackgroundResource(R.drawable.card02_head);
+        item2.setHeadTitle("Photo Translation");
+        item2.setPersonName("拍一拍");
+        item2.setPersonMessage("Photo Translation");
+        item2.setListItems(prepareCommentsArray());
+        item2.setPersonPictureResource(R.drawable.icon2);
+        dataset.add(item2);
 
         CardData item3 = new CardData();
-        item3.setMainBackgroundResource(R.drawable.cuisine);
-        item3.setHeadBackgroundResource(R.drawable.cuisine_head);
-        item3.setHeadTitle("Cuisine");
-        item3.setPersonMessage("Magnum lacteas ducunt ad orexis.");
-        item3.setPersonName("Ross Rodriguez");
-        item3.setPersonPictureResource(R.drawable.ross_rodriguez);
+        item3.setMainBackgroundResource(R.drawable.card03);
+        item3.setHeadBackgroundResource(R.drawable.card03_head);
+        item3.setHeadTitle("Intelligent Q&A");
+        item3.setPersonMessage("Intelligent Q&A");
+        item3.setPersonName("问一问");
+        item3.setPersonPictureResource(R.drawable.icon3);
         item3.setListItems(prepareCommentsArray());
         dataset.add(item3);
 
-        CardData item2 = new CardData();
-        item2.setMainBackgroundResource(R.drawable.nature);
-        item2.setHeadBackgroundResource(R.drawable.nature_head);
-        item2.setHeadTitle("Nature");
-        item2.setPersonName("Tina Caldwell");
-        item2.setPersonMessage("Nunquam perdere clabulare.");
-        item2.setListItems(prepareCommentsArray());
-        item2.setPersonPictureResource(R.drawable.tina_caldwell);
-        dataset.add(item2);
+        CardData item4 = new CardData();
+        item4.setMainBackgroundResource(R.drawable.card04);
+        item4.setHeadBackgroundResource(R.drawable.card04_head);
+        item4.setHeadTitle("Simultaneous");
+        item4.setPersonMessage("Simultaneous interpretation");
+        item4.setPersonName("同声传译");
+        item4.setPersonPictureResource(R.drawable.icon4);
+        item4.setListItems(prepareCommentsArray());
+        dataset.add(item4);
 
-        CardData item1 = new CardData();
-        item1.setMainBackgroundResource(R.drawable.night_life);
-        item1.setHeadBackgroundResource(R.drawable.night_life_head);
-        item1.setHeadTitle("Night Life");
-        item1.setPersonMessage("Cur adelphis studere?");
-        item1.setPersonName("Wallace Sutton");
-        item1.setPersonPictureResource(R.drawable.wallace_sutton);
-        item1.setListItems(prepareCommentsArray());
-        dataset.add(item1);
+        CardData item5 = new CardData();
+        item5.setMainBackgroundResource(R.drawable.card05);
+        item5.setHeadBackgroundResource(R.drawable.card05_head);
+        item5.setHeadTitle("Group Translation");
+        item5.setPersonMessage("Group Translation");
+        item5.setPersonName("组群翻译");
+        item5.setPersonPictureResource(R.drawable.icon5);
+        item5.setListItems(prepareCommentsArray());
+        dataset.add(item5);
+
+        CardData item6 = new CardData();
+        item6.setMainBackgroundResource(R.drawable.card06);
+        item6.setHeadBackgroundResource(R.drawable.card06_head);
+        item6.setHeadTitle("System Settings");
+        item6.setPersonMessage("System Settings");
+        item6.setPersonName("系统设置");
+        item6.setPersonPictureResource(R.drawable.icon6);
+        item6.setListItems(prepareCommentsArray());
+        dataset.add(item6);
 
     }
 
     public List<ECCardData> getDataset() {
-        Collections.shuffle(dataset);
+//        Collections.shuffle(dataset);
         return dataset;
     }
 

@@ -105,6 +105,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 //        mSpringMenu.addIgnoredView(mTensionbar);
         // init titlebar
 //        mTitleBar.setLeftText("回退");
+
         mTitleBar.setBackgroundColor(Color.parseColor("#64b4ff"));
         mTitleBar.setDividerColor(Color.GRAY);
         mTitleBar.setTitleColor(Color.WHITE);

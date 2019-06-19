@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/T5.iml" filepath="$PROJECT_DIR$/T5.iml" />
       <module fileurl="file://$PROJECT_DIR$/expanding-collection/expanding-collection.iml" filepath="$PROJECT_DIR$/expanding-collection/expanding-collection.iml" />
       <module fileurl="file://$PROJECT_DIR$/expanding-collection-full-example/expanding-collection-full-example.iml" filepath="$PROJECT_DIR$/expanding-collection-full-example/expanding-collection-full-example.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tuge-T5.iml" filepath="$PROJECT_DIR$/tuge-T5.iml" />
     </modules>
   </component>
 </project>

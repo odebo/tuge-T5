@@ -14,12 +14,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.SpringMenu;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar;
 import com.tuge.myapp.examples.wifiTranslator.MainActivity;
 import com.tuge.myapp.examples.wifiTranslator.R;
+import com.tuge.myapp.examples.wifiTranslator.view.BottomView;
+import com.tuge.myapp.examples.wifiTranslator.view.CameraLineView;
 import com.tuge.myapp.examples.wifiTranslator.view.CameraSurfaceView;
 
 import java.io.BufferedOutputStream;
@@ -29,6 +32,9 @@ import java.io.IOException;
 
 public class CameraActivity extends Activity implements View.OnClickListener{
     private CameraSurfaceView mCameraSurfaceView;
+    private BottomView mBottomView;
+    private RelativeLayout mLanLayout;
+    private CameraLineView mCameraLineView;
 
     private Camera.PictureCallback jpegPictureCallback = new Camera.PictureCallback() {
         @Override
@@ -65,8 +71,34 @@ public class CameraActivity extends Activity implements View.OnClickListener{
 
         ImageView img_take_photo = (ImageView) findViewById(R.id.img_take_photo);
         mCameraSurfaceView = (CameraSurfaceView) findViewById(R.id.sv_camera);
+        mLanLayout = findViewById(R.id.lan_select);
+        mCameraLineView = findViewById(R.id.cameraLine);
 
         img_take_photo.setOnClickListener(this);
+
+
+        mBottomView=(BottomView)findViewById(R.id.bottomView);
+        mBottomView.findViewById(R.id.recog).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBottomView.moveRight();
+                mLanLayout.setVisibility(View.INVISIBLE);
+                mCameraLineView.setVisibility(View.INVISIBLE);
+
+            }
+        });
+        mBottomView.findViewById(R.id.trans).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBottomView.moveLeft();
+                mLanLayout.setVisibility(View.VISIBLE);
+                mCameraLineView.setVisibility(View.VISIBLE);
+
+            }
+        });
+        mBottomView.init();
+        mBottomView.moveLeft();
+
 
     }
     public void savePic(byte[] data,String fileName) {

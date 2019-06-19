@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Size;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -105,9 +106,10 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 //        mSpringMenu.addIgnoredView(mTensionbar);
         // init titlebar
 //        mTitleBar.setLeftText("回退");
-        mTitleBar.setBackgroundColor(Color.parseColor("#64b4ff"));
+        mTitleBar.setBackgroundColor(Color.parseColor("#008cc7"));
         mTitleBar.setDividerColor(Color.GRAY);
         mTitleBar.setTitleColor(Color.WHITE);
+//        mTitleBar.setElevation(10);
 //        mTitleBar.setLeftTextColor(Color.WHITE);
         mTitleBar.setActionTextColor(Color.WHITE);
         mTitleBar.setLeftClickListener(new View.OnClickListener() {

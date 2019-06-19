@@ -62,7 +62,7 @@ public class PhotoTransActivity extends Activity {
         options.inScaled = false;
         Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
 
-        mPic.setImageBitmap(bitmap);
+        mPic.setImageBitmap(bitmap1);
         startTrans(mPicpath);
 
 
@@ -72,7 +72,7 @@ public class PhotoTransActivity extends Activity {
 
         int width = wm.getDefaultDisplay().getWidth();
         int height = wm.getDefaultDisplay().getHeight();
-        Log.i("wk","图片的宽度:"+bitmap.getWidth()+"图片的高度"+bitmap.getHeight());
+//        Log.i("wk","图片的宽度:"+bitmap.getWidth()+"图片的高度"+bitmap.getHeight());
 
 
     }
@@ -91,7 +91,7 @@ public class PhotoTransActivity extends Activity {
       Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
 
         // 源语言方向：Language.ZH，目标语言方向:Language.EN，详见技术文档
-        client.getOcrResult(Language.ZH, Language.EN, bitmap, new OcrCallback() {
+        client.getOcrResult(Language.ZH, Language.EN, bitmap1, new OcrCallback() {
             @Override
             public void onOcrResult(OcrResult ocrResult) {
                 Log.i("TTTTTT", ocrResult.getErrorMsg());

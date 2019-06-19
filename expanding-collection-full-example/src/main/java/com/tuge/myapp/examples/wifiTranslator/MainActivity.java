@@ -18,12 +18,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tuge.myapp.ECBackgroundSwitcherView;
 import com.tuge.myapp.ECCardData;
 import com.tuge.myapp.ECPagerView;
 import com.tuge.myapp.ECPagerViewAdapter;
 import com.tuge.myapp.examples.wifiTranslator.pojo.CardData;
+import com.tuge.myapp.examples.wifiTranslator.ui.CameraActivity;
+import com.tuge.myapp.examples.wifiTranslator.ui.PhotoTransActivity;
 import com.tuge.myapp.examples.wifiTranslator.ui.SpeechTransActivity;
 import com.tuge.myapp.examples.wifiTranslator.view.ItemsCountView;
 
@@ -40,7 +43,6 @@ public class MainActivity extends Activity {
 
       String string = getSignature();
 
-        Log.i("string",string+"00000"+this.getPackageName());
 
         // Create adapter for pager
         ECPagerViewAdapter adapter = new ECPagerViewAdapter(this, new ExampleDataset().getDataset()) {
@@ -83,14 +85,12 @@ public class MainActivity extends Activity {
 
 
 
-//                        Toast.makeText(MainActivity.this,String.valueOf(v.getId()),Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(MainActivity.this, SpeechTransActivity.class);
+                        Intent intent = new Intent(MainActivity.this, CameraActivity.class);
 
                         startActivity(intent);
 
 
-//                        ecPagerView.toggle();
                     }
                 });
             }
@@ -105,7 +105,8 @@ public class MainActivity extends Activity {
         ecPagerView.setOnCardSelectedListener(new ECPagerView.OnCardSelectedListener() {
             @Override
             public void cardSelected(int newPosition, int oldPosition, int totalElements) {
-               itemsCountView.update(newPosition, oldPosition, totalElements);
+
+//               itemsCountView.update(newPosition, oldPosition, totalElements);
             }
         });
     }

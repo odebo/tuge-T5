@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.tuge.myapp.examples.wifiTranslator.view.CameraSurfaceView
+        android:id="@+id/sv_camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <com.tuge.myapp.examples.wifiTranslator.view.CameraLineView
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@android:color/background_dark"
+        android:layout_alignParentBottom="true"
+        android:layout_height="120dp">
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:src="@drawable/back"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_height="40dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/bgGradientEnd"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:id="@+id/img_take_photo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/camera_icon_shutter_pressed"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

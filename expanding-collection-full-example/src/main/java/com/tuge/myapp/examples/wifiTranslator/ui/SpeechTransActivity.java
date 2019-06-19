@@ -71,7 +71,6 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_trans);
-        initPermission();
         mTitleBar = (TitleBar) findViewById(R.id.title_bar);
         mRecogResult = findViewById(R.id.recogResult);
         mTransRusult = findViewById(R.id.transResult);
@@ -106,7 +105,6 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 //        mSpringMenu.addIgnoredView(mTensionbar);
         // init titlebar
 //        mTitleBar.setLeftText("回退");
-
         mTitleBar.setBackgroundColor(Color.parseColor("#008cc7"));
         mTitleBar.setDividerColor(Color.GRAY);
         mTitleBar.setTitleColor(Color.WHITE);
@@ -302,28 +300,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
     //    protected abstract int getContentView();
 //
 //    protected abstract void init(Bundle saveInstanceState);
-    private void initPermission() {
-        String[] permissions = {
-                Manifest.permission.CAMERA,
-                Manifest.permission.ACCESS_NETWORK_STATE,
-                Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.CHANGE_WIFI_STATE
-        };
-        ArrayList<String> toApplyList = new ArrayList<String>();
 
-        for (String perm : permissions) {
-            if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this, perm)) {
-                toApplyList.add(perm);
-                // 进入到这里代表没有权限.
-            }
-        }
-        String[] tmpList = new String[toApplyList.size()];
-        if (!toApplyList.isEmpty()) {
-            ActivityCompat.requestPermissions(this, toApplyList.toArray(tmpList), 123);
-        }
-    }
 
     //开始识别
     private void startRecognize() {

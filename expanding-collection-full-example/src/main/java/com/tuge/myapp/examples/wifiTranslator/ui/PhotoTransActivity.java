@@ -27,6 +27,7 @@ import com.baidu.translate.ocr.entity.OcrResult;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.SpringMenu;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar;
 import com.tuge.myapp.examples.wifiTranslator.R;
+import com.tuge.myapp.examples.wifiTranslator.view.AutoFitTextView;
 import com.tuge.myapp.examples.wifiTranslator.view.CameraSurfaceView;
 
 import java.io.BufferedOutputStream;
@@ -71,7 +72,7 @@ public class PhotoTransActivity extends Activity {
 
         int width = wm.getDefaultDisplay().getWidth();
         int height = wm.getDefaultDisplay().getHeight();
-        Log.i("wk","图片的宽度:"+width+"图片的高度"+height);
+//        Log.i("wk","图片的宽度:"+bitmap.getWidth()+"图片的高度"+bitmap.getHeight());
 
 
     }
@@ -106,7 +107,7 @@ public class PhotoTransActivity extends Activity {
 
                     OcrContent ocrContent = list.get(i);
 
-                        TextView textView = new TextView(PhotoTransActivity.this);
+                        AutoFitTextView textView = new AutoFitTextView(PhotoTransActivity.this,null);
                         textView.setText(ocrContent.getDst());
 
                         textView.setBackgroundResource(android.R.color.darker_gray);
@@ -120,10 +121,12 @@ public class PhotoTransActivity extends Activity {
                     FrameLayout.LayoutParams layoutParams= new FrameLayout.LayoutParams(-2,-2);
 
                     layoutParams.width = right-left ;
+
                     layoutParams.height = bottom-top;
                     layoutParams.setMargins(left,top,0,0);//4个参数按顺序分别是左上右下
 
                     mcontainer.addView(textView);
+
                     textView.setLayoutParams(layoutParams);
 
                     Log.i("TTTTTT", ocrContent.getDst()+"zuobian"+ocrContent.getRect());

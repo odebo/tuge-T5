@@ -246,7 +246,7 @@ public class BannerLayout extends FrameLayout {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 int first = mLayoutManager.getCurrentPosition();
-                Log.d("xxx", "onScrollStateChanged");
+                Log.d("xxx", "onScrollStateChanged"+first);
                 if (currentIndex != first) {
                     currentIndex = first;
                 }

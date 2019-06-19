@@ -1,5 +1,6 @@
 package com.tuge.myapp.examples.wifiTranslator;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.core.content.ContextCompat;
 
 import com.tuge.myapp.ECBackgroundSwitcherView;
 import com.tuge.myapp.ECCardData;
@@ -29,7 +31,9 @@ import com.tuge.myapp.examples.wifiTranslator.ui.CameraActivity;
 import com.tuge.myapp.examples.wifiTranslator.ui.PhotoTransActivity;
 import com.tuge.myapp.examples.wifiTranslator.ui.SpeechTransActivity;
 import com.tuge.myapp.examples.wifiTranslator.view.ItemsCountView;
+import androidx.core.app.ActivityCompat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressLint("SetTextI18n")
@@ -42,7 +46,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
+        initPermission();
 //      String string = getSignature();
 
 
@@ -137,7 +141,28 @@ public class MainActivity extends Activity {
             }
         });
     }
+    private void initPermission() {
+        String[] permissions = {
+                Manifest.permission.CAMERA,
+                Manifest.permission.ACCESS_NETWORK_STATE,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.ACCESS_WIFI_STATE,
+                Manifest.permission.CHANGE_WIFI_STATE
+        };
+        ArrayList<String> toApplyList = new ArrayList<String>();
 
+        for (String perm : permissions) {
+            if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this, perm)) {
+                toApplyList.add(perm);
+                // 进入到这里代表没有权限.
+            }
+        }
+        String[] tmpList = new String[toApplyList.size()];
+        if (!toApplyList.isEmpty()) {
+            ActivityCompat.requestPermissions(this, toApplyList.toArray(tmpList), 123);
+        }
+    }
     private void  startIntent(Class activity){
 
 

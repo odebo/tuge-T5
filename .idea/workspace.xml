@@ -15,17 +15,8 @@
 =======
   <component name="ChangeListManager">
     <list default="true" id="2072a8c0-d5c6-4582-8c37-4ed2b00b76ae" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/DetailActivity/TitleBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/DetailActivity/TitleBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/expanding-collection-full-example/src/main/res/layout/activity_speech_trans.xml" beforeDir="false" afterPath="$PROJECT_DIR$/expanding-collection-full-example/src/main/res/layout/activity_speech_trans.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/expanding-collection-full-example/src/main/res/mipmap-hdpi/bg.png" beforeDir="false" afterPath="$PROJECT_DIR$/expanding-collection-full-example/src/main/res/mipmap-hdpi/bg.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/ui/SpeechTransActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/ui/SpeechTransActivity.java" afterDir="false" />
     </list>
 >>>>>>> 0add41852476a8f0a5161fa2227d546035b7c072
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -52,13 +43,14 @@
 =======
         <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/DetailActivity/MyAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
+            <state relative-caret-position="543">
               <caret line="53" column="9" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
 >>>>>>> 0add41852476a8f0a5161fa2227d546035b7c072
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="false">
 <<<<<<< HEAD
         <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/res/drawable/barry_allen.png">
@@ -80,6 +72,42 @@
                 <element signature="e#4801#4802#0" expanded="true" />
               </folding>
 >>>>>>> 0add41852476a8f0a5161fa2227d546035b7c072
+=======
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/ui/SpeechTransActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="109" column="59" selection-start-line="109" selection-start-column="59" selection-end-line="109" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/AndroidManifest.xml">
+          <provider editor-type-id="android-manifest" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="13" column="68" selection-start-line="13" selection-start-column="68" selection-end-line="13" selection-end-column="68" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/res/layout/view_menu.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="36" />
+>>>>>>> 44e143a5dc4b93e749ce6a61081e3640d9f91b17
             </state>
           </provider>
         </entry>
@@ -113,9 +141,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/DetailActivity/TitleBar.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="139">
               <caret line="111" column="60" selection-start-line="111" selection-start-column="60" selection-end-line="111" selection-end-column="60" />
 >>>>>>> 0add41852476a8f0a5161fa2227d546035b7c072
@@ -134,6 +163,10 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="146">
               <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+=======
+            <state relative-caret-position="975">
+              <caret line="79" column="19" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="19" />
+>>>>>>> 44e143a5dc4b93e749ce6a61081e3640d9f91b17
             </state>
           </provider>
           <provider editor-type-id="android-designer2" />
@@ -183,8 +216,10 @@
       <find>DEFAULT_ACTION_TEXT_SIZE</find>
       <find>left</find>
       <find>TitleBar</find>
-      <find>title_bar</find>
       <find>mDividerView</find>
+      <find>title_bar</find>
+      <find>layout</find>
+      <find>SdkVersion</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/expanding-collection-full-example/src/main</dir>
@@ -251,8 +286,10 @@
         <option value="$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/ExampleDataset.java" />
         <option value="$PROJECT_DIR$/expanding-collection-full-example/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/expanding-collection-full-example/src/main/res/layout/activity_speech_trans.xml" />
-        <option value="$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/ui/SpeechTransActivity.java" />
         <option value="$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/DetailActivity/TitleBar.java" />
+        <option value="$PROJECT_DIR$/expanding-collection-full-example/src/main/res/layout/view_menu.xml" />
+        <option value="$PROJECT_DIR$/expanding-collection-full-example/build.gradle" />
+        <option value="$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/ui/SpeechTransActivity.java" />
       </list>
     </option>
   </component>
@@ -266,6 +303,7 @@
     </navigator>
     <panes>
       <pane id="ProjectPane" />
+      <pane id="AndroidView" />
       <pane id="Scope">
         <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
@@ -373,23 +411,6 @@
               <item name="wifiTranslator" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="ui" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
-            <path>
-              <item name="tuge-T5" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="expanding-collection-full-example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="res" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="tuge-T5" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="expanding-collection-full-example" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="res" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="mipmap-hdpi" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -486,10 +507,13 @@
         </subPane>
       </pane>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <pane id="Scope" />
 =======
       <pane id="AndroidView" />
 >>>>>>> 0add41852476a8f0a5161fa2227d546035b7c072
+=======
+>>>>>>> 44e143a5dc4b93e749ce6a61081e3640d9f91b17
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -650,6 +674,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="55" y="23" width="1392" height="877" extended-state="0" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
@@ -658,6 +683,13 @@
 =======
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.25965664" />
 >>>>>>> 0add41852476a8f0a5161fa2227d546035b7c072
+=======
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.25894135" />
+>>>>>>> 44e143a5dc4b93e749ce6a61081e3640d9f91b17
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -665,6 +697,7 @@
       <window_info id="Designer" order="6" />
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
+<<<<<<< HEAD
 <<<<<<< HEAD
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.7296588" />
       <window_info anchor="bottom" id="Logcat" order="1" weight="0.32939634" />
@@ -679,16 +712,22 @@
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32939634" />
 =======
       <window_info anchor="bottom" id="Find" />
+=======
+>>>>>>> 44e143a5dc4b93e749ce6a61081e3640d9f91b17
       <window_info anchor="bottom" id="Run" order="0" />
       <window_info anchor="bottom" id="Logcat" order="1" />
       <window_info anchor="bottom" id="TODO" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.19397591" />
-      <window_info anchor="bottom" id="Terminal" order="4" weight="0.32891566" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="4" visible="true" weight="0.32891566" />
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="6" />
-      <window_info active="true" anchor="bottom" id="Build" order="7" visible="true" weight="0.20481928" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.20481928" />
       <window_info anchor="bottom" id="Android Profiler" order="8" />
+<<<<<<< HEAD
 >>>>>>> 0add41852476a8f0a5161fa2227d546035b7c072
+=======
+      <window_info anchor="bottom" id="Find" order="9" />
+>>>>>>> 44e143a5dc4b93e749ce6a61081e3640d9f91b17
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
@@ -960,10 +999,6 @@
     <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/res/drawable/card_head_gradient.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest" />
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
@@ -983,14 +1018,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="250">
           <caret line="43" column="54" selection-start-line="43" selection-start-column="54" selection-end-line="43" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/res/layout/view_menu.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -1027,21 +1054,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/DetailActivity/MyAdapter.java">
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-28/android/view/View.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="53" column="9" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+        <state relative-caret-position="15">
+          <caret line="15518" column="16" selection-start-line="15518" selection-start-column="16" selection-end-line="15518" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/ui/SpeechTransActivity.java">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/res/layout/view_menu.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="779">
-          <caret line="127" column="34" selection-start-line="127" selection-start-column="23" selection-end-line="127" selection-end-column="34" />
-          <folding>
-            <element signature="e#4744#4745#0" expanded="true" />
-            <element signature="e#4801#4802#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="300">
+          <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -1055,8 +1082,37 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/DetailActivity/TitleBar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="111" column="60" selection-start-line="111" selection-start-column="60" selection-end-line="111" selection-end-column="60" />
+        <state relative-caret-position="975">
+          <caret line="79" column="19" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="68" selection-start-line="13" selection-start-column="68" selection-end-line="13" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/DetailActivity/MyAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="53" column="9" selection-start-line="53" selection-start-column="9" selection-end-line="53" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/expanding-collection-full-example/src/main/java/com/tuge/myapp/examples/wifiTranslator/ui/SpeechTransActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="109" column="59" selection-start-line="109" selection-start-column="59" selection-end-line="109" selection-end-column="59" />
         </state>
       </provider>
     </entry>

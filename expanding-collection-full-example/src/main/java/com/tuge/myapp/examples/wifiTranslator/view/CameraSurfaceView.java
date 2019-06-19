@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
@@ -133,12 +134,15 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         float w = picSize.width;
         float h = picSize.height;
         parameters.setPictureSize(picSize.width, picSize.height);
+        Log.i("4444",picSize.width+"999"+picSize.height);
+
         this.setLayoutParams(new RelativeLayout.LayoutParams((int) (height * (h / w)), height));
         // 获取摄像头支持的PreviewSize列表
         List<Camera.Size> previewSizeList = parameters.getSupportedPreviewSizes();
         Camera.Size preSize = getProperSize(previewSizeList, ((float) height) / width);
         if (null != preSize) {
             parameters.setPreviewSize(preSize.width, preSize.height);
+
         }
 
         parameters.setJpegQuality(100); // 设置照片质量

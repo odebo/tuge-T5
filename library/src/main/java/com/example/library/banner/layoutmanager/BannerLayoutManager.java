@@ -746,6 +746,7 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
         } else {
 //            这里这里这里这里（修改的地方）
 
+
             layoutDecorated(scrap, 150 + left, mSpaceInOther + top,
                     150 + left + mDecoratedMeasurement, mSpaceInOther + top + mDecoratedMeasurementInOther);
         }

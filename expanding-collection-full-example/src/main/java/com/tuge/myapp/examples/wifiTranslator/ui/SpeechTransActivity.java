@@ -107,7 +107,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         // init titlebar
 //        mTitleBar.setLeftText("回退");
 //        mTitleBar.setBackgroundColor(Color.parseColor("#008cc7"));
-        mTitleBar.setBackgroundColor(Color.parseColor("#ccc"));
+        mTitleBar.setBackgroundColor(Color.parseColor("#cccccc"));
         mTitleBar.setDividerColor(Color.GRAY);
         mTitleBar.setTitleColor(Color.WHITE);
 //        mTitleBar.setElevation(10);

@@ -30,6 +30,8 @@ import com.tuge.myapp.examples.wifiTranslator.ui.PhotoTransActivity;
 import com.tuge.myapp.examples.wifiTranslator.ui.SpeechTransActivity;
 import com.tuge.myapp.examples.wifiTranslator.view.ItemsCountView;
 
+import java.util.List;
+
 @SuppressLint("SetTextI18n")
 public class MainActivity extends Activity {
 
@@ -41,14 +43,24 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-      String string = getSignature();
+//      String string = getSignature();
 
 
         // Create adapter for pager
-        ECPagerViewAdapter adapter = new ECPagerViewAdapter(this, new ExampleDataset().getDataset()) {
+
+        ExampleDataset  exampleDataset = new ExampleDataset();
+
+        List<ECCardData> datasets = exampleDataset.getDataset();
+
+        ECPagerViewAdapter adapter = new ECPagerViewAdapter(this, datasets) {
             @Override
             public void instantiateCard(LayoutInflater inflaterService, ViewGroup head, ListView list, final ECCardData data) {
                 final CardData cardData = (CardData) data;
+
+
+                int position = exampleDataset.getPostion(cardData);
+
+
 
                 // Create adapter for list inside a card and set adapter to card content
                 CommentArrayAdapter commentArrayAdapter = new CommentArrayAdapter(getApplicationContext(), cardData.getListItems());
@@ -58,6 +70,7 @@ public class MainActivity extends Activity {
                 list.setSelector(R.color.transparent);
                 list.setBackgroundColor(Color.WHITE);
                 list.setCacheColorHint(Color.TRANSPARENT);
+
 
                 // Add gradient to root header view
                 View gradient = new View(getApplicationContext());
@@ -84,11 +97,25 @@ public class MainActivity extends Activity {
                     public void onClick(final View v) {
 
 
+                        switch (position){
+
+                            case 0:
+                                startIntent(SpeechTransActivity.class);
+                                break;
+
+                            case 1:
+                                startIntent(CameraActivity.class);
+                                break;
+
+                                default:
+
+                                    break;
+
+                        }
 
 
-                        Intent intent = new Intent(MainActivity.this, CameraActivity.class);
 
-                        startActivity(intent);
+
 
 
                     }
@@ -109,6 +136,15 @@ public class MainActivity extends Activity {
                itemsCountView.update(newPosition, oldPosition, totalElements);
             }
         });
+    }
+
+    private void  startIntent(Class activity){
+
+
+
+        Intent intent = new Intent(MainActivity.this, activity);
+
+        startActivity(intent);
     }
 
     public  String getSignature(){

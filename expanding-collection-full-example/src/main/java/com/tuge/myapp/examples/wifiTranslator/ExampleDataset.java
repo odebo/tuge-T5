@@ -83,6 +83,12 @@ public class ExampleDataset {
 //        Collections.shuffle(dataset);
         return dataset;
     }
+    public  int getPostion (ECCardData cardData){
+
+
+        return  dataset.indexOf(cardData);
+
+    }
 
     private List<Comment> prepareCommentsArray() {
         Random random = new Random();

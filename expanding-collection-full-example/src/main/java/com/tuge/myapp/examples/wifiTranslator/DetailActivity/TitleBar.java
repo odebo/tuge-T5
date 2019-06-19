@@ -31,6 +31,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
 //    private TextView mLeftText;
     private  ImageView mBackIV;
+    private  ImageView mMenuIV;
     private  LinearLayout mLeftLayout;
     private LinearLayout mRightLayout;
     private LinearLayout mCenterLayout;
@@ -76,15 +77,20 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
     private void initView(Context context) {
 //        mLeftText = new TextView(context);
         mBackIV = new ImageView(context);
-
         mLeftLayout = new LinearLayout(context);
-//        mLeftLayout.setBackgroundColor(Color.RED);
         mLeftLayout.setGravity(Gravity.LEFT);
         mBackIV.setImageDrawable(getResources().getDrawable(R.mipmap.icon_back));
         mBackIV.setPadding(0,5,0,5);
         mLeftLayout.addView(mBackIV);
-        mCenterLayout = new LinearLayout(context);
+
+        mMenuIV = new ImageView(context);
         mRightLayout = new LinearLayout(context);
+        mRightLayout.setGravity(Gravity.RIGHT);
+        mMenuIV.setImageDrawable(getResources().getDrawable(R.mipmap.icon_menu));
+        mMenuIV.setPadding(0,5,0,5);
+        mRightLayout.addView(mMenuIV);
+
+        mCenterLayout = new LinearLayout(context);
         mDividerView = new View(context);
 
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
@@ -109,8 +115,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
         mSubTitleText.setSingleLine();
         mSubTitleText.setGravity(Gravity.CENTER);
         mSubTitleText.setEllipsize(TextUtils.TruncateAt.END);
-        LayoutParams layoutParamsRight = new LayoutParams(150, LayoutParams.MATCH_PARENT);
-
+        LayoutParams layoutParamsRight = new LayoutParams(100, LayoutParams.MATCH_PARENT);
 
         mRightLayout.setPadding(mOutPadding, 0, mOutPadding, 0);
 //mRightLayout.setBackgroundColor(Color.RED);
@@ -143,6 +148,11 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
         mLeftLayout.setOnClickListener(l);
 //        mLeftText.setOnClickListener(l);
+    }
+
+    public void setRightClickListener(OnClickListener l) {
+
+        mRightLayout.setOnClickListener(l);
     }
 
 //    public void setLeftText(CharSequence title) {

@@ -106,6 +106,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 //        mSpringMenu.addIgnoredView(mTensionbar);
         // init titlebar
 //        mTitleBar.setLeftText("回退");
+
         mTitleBar.setBackgroundColor(Color.parseColor("#008cc7"));
         mTitleBar.setDividerColor(Color.GRAY);
         mTitleBar.setTitleColor(Color.WHITE);
@@ -120,24 +121,31 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 //                mSpringMenu.openMenu();
             }
         });
-        mTitleBar.addAction(new TitleBar.Action() {
+        mTitleBar.setRightClickListener(new View.OnClickListener() {
             @Override
-            public String getText() {
-                return "";
-            }
-
-            @Override
-            public int getDrawable() {
-                return R.mipmap.icon_menu;
-            }
-
-            @Override
-            public void performAction(View view) {
-//                点击菜单
+            public void onClick(View v) {
                 mSpringMenu.setDirection(SpringMenu.DIRECTION_RIGHT);
                 mSpringMenu.openMenu();
             }
         });
+//        mTitleBar.addAction(new TitleBar.Action() {
+//            @Override
+//            public String getText() {
+//                return "";
+//            }
+//
+//            @Override
+//            public int getDrawable() {
+//                return R.mipmap.icon_menu;
+//            }
+//
+//            @Override
+//            public void performAction(View view) {
+////                点击菜单
+//                mSpringMenu.setDirection(SpringMenu.DIRECTION_RIGHT);
+//                mSpringMenu.openMenu();
+//            }
+//        });
 
         ListBean[] listBeen = {new ListBean(R.mipmap.icon_home, getString(R.string.home)), new ListBean(R.mipmap.icon_speech, getString(R.string.speechTranslate)), new ListBean(R.mipmap.icon_photo, getString(R.string.photoTranslate)), new ListBean(R.mipmap.icon_ask, getString(R.string.ask)),new ListBean(R.mipmap.icon_simu, getString(R.string.simultaneous)),new ListBean(R.mipmap.icon_group, getString(R.string.GroupTranslate)),new ListBean(R.mipmap.icon_setting, getString(R.string.Setting))};
         MyAdapter adapter = new MyAdapter(this, listBeen);

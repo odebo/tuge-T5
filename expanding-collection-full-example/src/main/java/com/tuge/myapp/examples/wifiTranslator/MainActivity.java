@@ -106,7 +106,7 @@ public class MainActivity extends Activity {
             @Override
             public void cardSelected(int newPosition, int oldPosition, int totalElements) {
 
-//               itemsCountView.update(newPosition, oldPosition, totalElements);
+               itemsCountView.update(newPosition, oldPosition, totalElements);
             }
         });
     }

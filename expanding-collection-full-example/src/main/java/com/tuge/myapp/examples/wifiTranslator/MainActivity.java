@@ -91,7 +91,6 @@ public class MainActivity extends Activity {
 
 
 
-                        Toast.makeText(MainActivity.this,String.valueOf(v.getId()),Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(MainActivity.this, CameraActivity.class);
 

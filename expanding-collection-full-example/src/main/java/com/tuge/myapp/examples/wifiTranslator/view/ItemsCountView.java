@@ -47,6 +47,7 @@ public class ItemsCountView extends LinearLayout {
             textView.setTextAppearance(context, R.style.positionIndicator);
         }
 
+        textView.setTextSize(32);
         addView(textView, new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
     }
 
@@ -58,6 +59,7 @@ public class ItemsCountView extends LinearLayout {
             textView.setTextAppearance(context, R.style.positionIndicatorCurrent);
         }
         textView.setLayoutParams(new TextSwitcher.LayoutParams(TextSwitcher.LayoutParams.WRAP_CONTENT, TextSwitcher.LayoutParams.WRAP_CONTENT));
+        textView.setTextSize(32);
         return textView;
     }
 

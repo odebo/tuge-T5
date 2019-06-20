@@ -1,37 +1,37 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
-INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
-INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
-INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
-INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
-INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
-INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
+ADDED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
+INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
+INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
+INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
+INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
+INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
+INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
 	package
-		ADDED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:11-43
-		INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
-		INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
+		ADDED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:11-43
+		INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
+		INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
 	android:versionName
-		INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
-		ADDED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
-		INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
+		INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
+		ADDED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
+		INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
+		ADDED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
 	android:versionCode
-		INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
-		ADDED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
-		INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
+		INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
+		ADDED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml:1:1-46
+		INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
 uses-sdk
-INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
-INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
-INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
-INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
+INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
+INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
+INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
+INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
-		ADDED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
-		INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
+		INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
+		ADDED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
+		INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
-		ADDED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
-		INJECTED from /Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/tuge-T5/powermenu/src/main/AndroidManifest.xml
+		INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
+		ADDED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml
+		INJECTED from /Users/dev/tuge-T5/powermenu/src/main/AndroidManifest.xml

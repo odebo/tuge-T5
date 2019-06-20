@@ -88,10 +88,11 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         try {
             releaseCameraAndPreview();
             mCamera = Camera.open(id);
-            mCamera.autoFocus(mAutoFocusCallback);
+//            mCamera.autoFocus(mAutoFocusCallback);
 
             qOpened = (mCamera != null);
         } catch (Exception e) {
+            Log.i("xingji",e.getMessage());
             e.printStackTrace();
         }
 

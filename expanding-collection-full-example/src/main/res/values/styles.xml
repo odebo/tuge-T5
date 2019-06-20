@@ -11,7 +11,7 @@
 
     <style name="cameraScrollerBar">
         <item name="android:textSize">13.0sp</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingLeft">6.0dip</item>
         <item name="android:paddingRight">6.0dip</item>

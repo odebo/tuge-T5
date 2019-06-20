@@ -36,6 +36,7 @@ public class CameraActivity extends Activity implements View.OnClickListener{
     private RelativeLayout mLanLayout;
     private CameraLineView mCameraLineView;
 
+    Boolean isTransPhoto;
     private Camera.PictureCallback jpegPictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
@@ -46,20 +47,30 @@ public class CameraActivity extends Activity implements View.OnClickListener{
                     +File.separator
                     +"PicTest_"+1+".jpg";
             savePic(data,fileName);
+            if (isTransPhoto){
 
-            Intent intent = new Intent(CameraActivity.this, PhotoTransActivity.class);
+                startIntent(PhotoTransActivity.class,fileName);
+            }else{
 
-            intent.putExtra("picPath",fileName);
+                startIntent(ObjectRecActivity.class,fileName);
+            }
 
 
-            startActivity(intent);
 
 
 //            Toast.makeText(CameraActivity.this, "拍照成功", Toast.LENGTH_SHORT).show();
 
         }
     };
+    private void  startIntent(Class activity,String path){
 
+
+
+        Intent intent = new Intent(CameraActivity.this, activity);
+        intent.putExtra("picPath",path);
+
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +95,7 @@ public class CameraActivity extends Activity implements View.OnClickListener{
                 mBottomView.moveRight();
                 mLanLayout.setVisibility(View.INVISIBLE);
                 mCameraLineView.setVisibility(View.INVISIBLE);
+                isTransPhoto =  false;
 
             }
         });
@@ -93,11 +105,12 @@ public class CameraActivity extends Activity implements View.OnClickListener{
                 mBottomView.moveLeft();
                 mLanLayout.setVisibility(View.VISIBLE);
                 mCameraLineView.setVisibility(View.VISIBLE);
+                isTransPhoto = true;
 
             }
         });
         mBottomView.init();
-        mBottomView.moveLeft();
+//        mBottomView.moveLeft();
 
 
     }

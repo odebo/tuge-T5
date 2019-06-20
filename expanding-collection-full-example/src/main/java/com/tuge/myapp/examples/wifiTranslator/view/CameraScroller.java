@@ -2,6 +2,7 @@ package com.tuge.myapp.examples.wifiTranslator.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Scroller;
@@ -49,6 +50,7 @@ public class CameraScroller extends ViewGroup{
 
     protected void onLayout(boolean changed, int left,int top,int right, int bottom){
         int cCount = getChildCount();
+        Log.i("eefefefefe", String.valueOf(cCount));
         int childLeft=0;
         int childRight=0;
         int selectedMode=Util.getCurrentSelectedIndex();
@@ -79,7 +81,7 @@ public class CameraScroller extends ViewGroup{
         }
 
         TextView indexText=(TextView)getChildAt(selectedMode);
-        indexText.setTextColor(getResources().getColor(R.color.cardview_light_background));
+        indexText.setTextColor(getResources().getColor(R.color.cameraIndexPointColor));
     }
 
     protected void onMeasure(int widthMeasureSpec,int heightMeasureSpec){

@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 public class CameraLineView extends View {
 
     Paint paint;
-    public CameraLineView(Context context, @Nullable AttributeSet attrs) {
+    public CameraLineView(Context context,  AttributeSet attrs) {
         super(context, attrs);
         paint = new Paint();//初始化画笔
         paint.setColor(Color.WHITE);//设置颜色为白色

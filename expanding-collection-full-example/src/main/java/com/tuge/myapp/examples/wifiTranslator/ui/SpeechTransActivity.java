@@ -8,6 +8,7 @@ import android.content.pm.Signature;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -62,6 +63,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
     SpringMenu mSpringMenu;
     private WaveLineView waveLineView;
+
+    private DisplayMetrics metrics;
 
     TitleBar mTitleBar;
     TextView mRecogResult;
@@ -163,24 +166,6 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
                 langMenu.showAsDropDown(v);
             }
         });
-//        mTitleBar.addAction(new TitleBar.Action() {
-//            @Override
-//            public String getText() {
-//                return "";
-//            }
-//
-//            @Override
-//            public int getDrawable() {
-//                return R.mipmap.icon_menu;
-//            }
-//
-//            @Override
-//            public void performAction(View view) {
-////                点击菜单
-//                mSpringMenu.setDirection(SpringMenu.DIRECTION_RIGHT);
-//                mSpringMenu.openMenu();
-//            }
-//        });
 
         ListBean[] listBeen = {new ListBean(R.mipmap.icon_home, getString(R.string.home)), new ListBean(R.mipmap.icon_speech, getString(R.string.speechTranslate)), new ListBean(R.mipmap.icon_photo, getString(R.string.photoTranslate)), new ListBean(R.mipmap.icon_ask, getString(R.string.ask)),new ListBean(R.mipmap.icon_simu, getString(R.string.simultaneous)),new ListBean(R.mipmap.icon_group, getString(R.string.GroupTranslate)),new ListBean(R.mipmap.icon_setting, getString(R.string.Setting))};
         MyAdapter adapter = new MyAdapter(this, listBeen);
@@ -225,6 +210,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         });
 
 
+        getMetrics();
+
         transModeMap.put("中文 <-> 英语", "mix_zh_en");
         transModeMap.put("中文 <-> 日语", "mix_zh_jp");
         transModeMap.put("中文 <-> 韩语", "mix_zh_kor");
@@ -256,7 +243,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
                 .setAutoDismiss(true)
 //                .setLifecycleOwner((LifecycleOwner)this)
                 .setAnimation(MenuAnimation.SHOWUP_BOTTOM_RIGHT)
-                .setWidth(300)
+                .setWidth(metrics.widthPixels)
+                .setMenuShadow(10)
                 .setMenuEffect(MenuEffect.BODY)
                 .setMenuRadius(10f)
                 .setMenuShadow(10f)
@@ -325,11 +313,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
             e.printStackTrace();
         }
 
-
-        return "308201dd30820146020101300d06092a864886f70d010105050030373116301406035504030c0d416e64726f69642044656275673110300e060355040a0c07416e64726f6964310b3009060355040613025553301e170d3137313231313032353830305a170d3437313230343032353830305a30373116301406035504030c0d416e64726f69642044656275673110300e060355040a0c07416e64726f6964310b300906035504061302555330819f300d06092a864886f70d010101050003818d0030818902818100c024d9a60a001519261d124ea5e348dad1020412a5208304ae568106263046256ca5fd5ce3b95737ded84bec7ccc599ff33f55185198d58e44b8fc0af15d69b132bb1a1d56d9d50c1a5872ea5205e6b91bc465f54342986d4c7307034dcfc5cc26eb8b7de07996be83fe553efbe2db06c52045a0db9685c892be3e1dab90cb610203010001300d06092a864886f70d0101050500038181009fa0aed2eda927cd9b1c3471c6f17a2278ba56ba015e028359242772183f656943a40f24a2b5a87e9607a2ea3d96a057f03dc570e356bcb6e2e2f1a171944dbeb07d741a2dcd05694d996ff69e0f261acaed14e0b3a61a87b0c572b9097bd01e416928f0bc7479689ab54228d6a5f7b780547950412b48f30a6b09db227a1b4a";
-//        return "";
-
-
+        return "";
     }
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -486,5 +470,16 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
             }
 
         });
+    }
+
+    // 获取屏幕像素
+    private void getMetrics() {
+
+        metrics =new DisplayMetrics();
+
+        getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+//        int width = metrics.widthPixels;
+//        int height = metrics.heightPixels;
+
     }
 }

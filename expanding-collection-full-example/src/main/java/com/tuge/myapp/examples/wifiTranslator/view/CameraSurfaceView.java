@@ -123,7 +123,10 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     }
 
     private void setCameraParams(int width, int height) {
+
         Camera.Parameters parameters = mCamera.getParameters();
+        Log.i("4444", String.valueOf(mCamera.getParameters().getPreviewSize().width)+String.valueOf(mCamera.getParameters().getPreviewSize().height));
+
         // 获取摄像头支持的PictureSize列表
         List<Camera.Size> pictureSizeList = parameters.getSupportedPictureSizes();
         /**从列表中选取合适的分辨率*/
@@ -135,7 +138,6 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         float w = picSize.width;
         float h = picSize.height;
         parameters.setPictureSize(picSize.width, picSize.height);
-        Log.i("4444",picSize.width+"999"+picSize.height);
 
         this.setLayoutParams(new RelativeLayout.LayoutParams((int) (height * (h / w)), height));
         // 获取摄像头支持的PreviewSize列表

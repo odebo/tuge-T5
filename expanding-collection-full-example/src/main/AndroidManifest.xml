@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.ObjectRecActivity"></activity>
+        <activity android:name=".ui.LangActivity"></activity>
+        <activity android:name=".ui.ObjectRecActivity" />
         <activity android:name=".ui.CameraActivity" />
         <activity android:name=".ui.SpeechTransActivity" />
         <activity android:name=".ui.PhotoTransActivity" />

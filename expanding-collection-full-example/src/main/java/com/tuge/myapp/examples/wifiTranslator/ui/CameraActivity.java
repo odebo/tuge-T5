@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -35,8 +36,10 @@ public class CameraActivity extends Activity implements View.OnClickListener{
     private BottomView mBottomView;
     private RelativeLayout mLanLayout;
     private CameraLineView mCameraLineView;
+    private ImageView mBackButton;
+    private LinearLayout mOri,mDes;
 
-    Boolean isTransPhoto;
+    boolean isTransPhoto=true;
     private Camera.PictureCallback jpegPictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
@@ -47,6 +50,7 @@ public class CameraActivity extends Activity implements View.OnClickListener{
                     +File.separator
                     +"PicTest_"+1+".jpg";
             savePic(data,fileName);
+
             if (isTransPhoto){
 
                 startIntent(PhotoTransActivity.class,fileName);
@@ -84,6 +88,11 @@ public class CameraActivity extends Activity implements View.OnClickListener{
         mCameraSurfaceView = (CameraSurfaceView) findViewById(R.id.sv_camera);
         mLanLayout = findViewById(R.id.lan_select);
         mCameraLineView = findViewById(R.id.cameraLine);
+        mBackButton = findViewById(R.id.back);
+        mOri = findViewById(R.id.ori);
+        mDes = findViewById(R.id.des);
+        mBackButton.setOnClickListener(this);
+        mOri.setOnClickListener(this);
 
         img_take_photo.setOnClickListener(this);
 
@@ -168,6 +177,14 @@ public class CameraActivity extends Activity implements View.OnClickListener{
             case R.id.img_take_photo:
 
                 takePhoto();
+
+                break;
+            case R.id.back:
+                finish();
+
+            case R.id.ori:
+                Intent intent = new Intent(CameraActivity.this,LangActivity.class);
+                startActivity(intent);
 
                 break;
 

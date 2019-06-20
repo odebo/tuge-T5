@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/expanding-collection/expanding-collection.iml" filepath="$PROJECT_DIR$/expanding-collection/expanding-collection.iml" />
       <module fileurl="file://$PROJECT_DIR$/expanding-collection-full-example/expanding-collection-full-example.iml" filepath="$PROJECT_DIR$/expanding-collection-full-example/expanding-collection-full-example.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/powermenu/powermenu.iml" filepath="$PROJECT_DIR$/powermenu/powermenu.iml" />
       <module fileurl="file://$PROJECT_DIR$/tuge-T5.iml" filepath="$PROJECT_DIR$/tuge-T5.iml" />
     </modules>
   </component>

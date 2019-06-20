@@ -6,8 +6,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -32,15 +34,32 @@ import com.tuge.myapp.examples.wifiTranslator.adapter.WebBannerAdapter;
 import com.tuge.myapp.examples.wifiTranslator.view.WaveLineView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Size;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
+
+import com.skydoves.powermenu.CustomPowerMenu;
+import com.skydoves.powermenu.MenuAnimation;
+import com.skydoves.powermenu.MenuEffect;
+import com.skydoves.powermenu.OnDismissedListener;
+import com.skydoves.powermenu.OnMenuItemClickListener;
+import com.skydoves.powermenu.PowerMenu;
+import com.skydoves.powermenu.PowerMenuItem;
+//import com.skydoves.powermenudemo.customs.adapters.CenterMenuAdapter;
+//import com.skydoves.powermenudemo.customs.adapters.CustomDialogMenuAdapter;
+//import com.skydoves.powermenudemo.customs.items.NameCardMenuItem;
+
 
 public  class SpeechTransActivity extends Activity implements MenuListener {
+
     SpringMenu mSpringMenu;
     private WaveLineView waveLineView;
 
@@ -49,7 +68,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
     TextView mTransRusult;
 
 
-    //    // 【重要】 - 语音翻译功能关键类
+    // 【重要】 - 语音翻译功能关键类
     private TransAsrClient client;
     private TransAsrConfig config;
     private static final String APP_ID = "20190514000297564";
@@ -64,6 +83,31 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 //    ImageView mIvIgnore;
 //
 //    RadioGroup mRgFade;
+
+    // 翻译模式Map
+    private Map<String, String> transModeMap = new HashMap<>();
+    // 翻译语种选择菜单
+    private static String curTransModeTxt = "中文 <-> 英语"; // 当前翻译模式
+    private PowerMenu langMenu;
+    private OnMenuItemClickListener<PowerMenuItem> onLanMenuItemClickListener =
+            new OnMenuItemClickListener<PowerMenuItem>() {
+                @Override
+                public void onItemClick(int position, PowerMenuItem item) {
+
+                    curTransModeTxt = item.getTitle();
+                    langMenu.setSelectedPosition(position);
+
+                    // 更新TitleBar的翻译模式文案
+                    mTitleBar.setTitle(curTransModeTxt);
+                }
+            };
+    private OnDismissedListener onLanMenuDismissedListener =
+            new OnDismissedListener() {
+                @Override
+                public void onDismissed() {
+                    Log.d("Test", "onDismissed hamburger menu");
+                }
+            };
 
 
 
@@ -82,41 +126,24 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
         Log.i("string",string+"00000"+this.getPackageName());
 
-
-//        mRgFade = (RadioGroup) findViewById(R.id.rg_enablefade);
-//        mFrictionBar = (SeekBar) findViewById(R.id.sb_friction);
-//        mTensionbar = (SeekBar) findViewById(R.id.sb_tension);
-//        mTvFriction = (TextView) findViewById(R.id.tv_friction);
-//        mTvTension = (TextView) findViewById(R.id.tv_tension);
-//        mIvIgnore = (ImageView) findViewById(R.id.iv_ignore);
-//        mRgFade.setOnCheckedChangeListener(this);
-//        mTensionbar.setOnSeekBarChangeListener(this);
-//        mFrictionBar.setOnSeekBarChangeListener(this);
-//        mFrictionBar.setMax(100);
-//        mTensionbar.setMax(100);
         //init SpringMenu
         mSpringMenu = new SpringMenu(this, R.layout.view_menu);
         mSpringMenu.setMenuListener(this);
         mSpringMenu.setFadeEnable(true);
         mSpringMenu.setChildSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20, 5));
         mSpringMenu.setDragOffset(0.4f);
-//        mSpringMenu.addIgnoredView(mFrictionBar
-//        );
-//        mSpringMenu.addIgnoredView(mTensionbar);
-        // init titlebar
-//        mTitleBar.setLeftText("回退");
-        mTitleBar.setBackgroundColor(Color.parseColor("#008cc7"));
+
+//        mTitleBar.setBackgroundColor(Color.parseColor("#008cc7"));
+        mTitleBar.setBackgroundColor(this.getResources().getColor(R.color.colorPrimaryBlue));
         mTitleBar.setDividerColor(Color.GRAY);
         mTitleBar.setTitleColor(Color.WHITE);
-//        mTitleBar.setElevation(10);
-//        mTitleBar.setLeftTextColor(Color.WHITE);
         mTitleBar.setActionTextColor(Color.WHITE);
+        mTitleBar.setTitle(curTransModeTxt);
+        mTitleBar.setTitleSize(14);
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-//                mSpringMenu.setDirection(SpringMenu.DIRECTION_LEFT);
-//                mSpringMenu.openMenu();
             }
         });
         mTitleBar.setRightClickListener(new View.OnClickListener() {
@@ -124,6 +151,16 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
             public void onClick(View v) {
                 mSpringMenu.setDirection(SpringMenu.DIRECTION_RIGHT);
                 mSpringMenu.openMenu();
+            }
+        });
+        mTitleBar.setCenterClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (langMenu.isShowing()) {
+                    langMenu.dismiss();
+                    return;
+                }
+                langMenu.showAsDropDown(v);
             }
         });
 //        mTitleBar.addAction(new TitleBar.Action() {
@@ -188,6 +225,53 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         });
 
 
+        transModeMap.put("中文 <-> 英语", "mix_zh_en");
+        transModeMap.put("中文 <-> 日语", "mix_zh_jp");
+        transModeMap.put("中文 <-> 韩语", "mix_zh_kor");
+        transModeMap.put("中文 <-> 法语", "mix_zh_fra");
+        transModeMap.put("中文 <-> 德语", "mix_zh_de");
+        transModeMap.put("中文 <-> 俄语", "mix_zh_ru");
+        transModeMap.put("中文 <-> 泰语", "mix_zh_th");
+        transModeMap.put("中文 <-> 西班牙语", "mix_zh_spa");
+        transModeMap.put("中文 <-> 葡萄牙语", "mix_zh_pt");
+        transModeMap.put("中文 <-> 阿拉伯语", "mix_zh_ara");
+        transModeMap.put("日语 <-> 英语", "mix_jp_en");
+        transModeMap.put("日语 <-> 韩语", "mix_jp_kor");
+        transModeMap.put("英语 <-> 韩语", "mix_en_kor");
+
+        langMenu = new PowerMenu.Builder(this)
+                .addItem(new PowerMenuItem("中文 <-> 英语", true))
+                .addItem(new PowerMenuItem("中文 <-> 日语", false))
+                .addItem(new PowerMenuItem("中文 <-> 韩语", false))
+                .addItem(new PowerMenuItem("中文 <-> 法语", false))
+                .addItem(new PowerMenuItem("中文 <-> 德语", false))
+                .addItem(new PowerMenuItem("中文 <-> 俄语", false))
+                .addItem(new PowerMenuItem("中文 <-> 泰语", false))
+                .addItem(new PowerMenuItem("中文 <-> 西班牙语", false))
+                .addItem(new PowerMenuItem("中文 <-> 葡萄牙语", false))
+                .addItem(new PowerMenuItem("中文 <-> 阿拉伯语", false))
+                .addItem(new PowerMenuItem("日语 <-> 英语", false))
+                .addItem(new PowerMenuItem("日语 <-> 韩语", false))
+                .addItem(new PowerMenuItem("英语 <-> 韩语", false))
+                .setAutoDismiss(true)
+//                .setLifecycleOwner((LifecycleOwner)this)
+                .setAnimation(MenuAnimation.SHOWUP_BOTTOM_RIGHT)
+                .setWidth(300)
+                .setMenuEffect(MenuEffect.BODY)
+                .setMenuRadius(10f)
+                .setMenuShadow(10f)
+                .setTextColor(this.getResources().getColor(R.color.md_grey_800))
+                .setTextSize(14)
+                .setTextGravity(Gravity.CENTER)
+                .setTextTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
+                .setSelectedTextColor(Color.WHITE)
+                .setMenuColor(Color.WHITE)
+                .setSelectedMenuColor(this.getResources().getColor(R.color.colorPrimaryBlue))
+                .setOnMenuItemClickListener(onLanMenuItemClickListener)
+                .setOnDismissListener(onLanMenuDismissedListener)
+                .setPreferenceName("HamburgerPowerMenu")
+                .setInitializeRule(Lifecycle.Event.ON_CREATE, 0)
+                .build();
 
     }
 
@@ -311,8 +395,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 //        client.setConfig(config);
         // ======================== 配置结束================================
 
-
-        Map<String, ?> extraParams = WifiTranslatorConfig.getTranslatorConfig(this, "mix_zh_en");
+        Map<String, ?> extraParams = WifiTranslatorConfig.getTranslatorConfig(this, transModeMap.get(curTransModeTxt));
 
         Log.i("ttttttt",extraParams.toString());
 

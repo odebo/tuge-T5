@@ -18,8 +18,11 @@
 
     <color name="colorListDivider">#e6e6e6</color>
 
-
     <color name="black">#000000</color>
     <color name="cameraIndexPointColor">#ff12c700</color>
+
+    <color name="md_grey_800">#424242</color>
+
+    <color name="colorPrimaryBlue">#2195f2</color>
 
 </resources>

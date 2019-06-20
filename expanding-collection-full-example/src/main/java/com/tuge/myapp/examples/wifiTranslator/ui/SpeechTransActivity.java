@@ -256,7 +256,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
                 .setAutoDismiss(true)
 //                .setLifecycleOwner((LifecycleOwner)this)
                 .setAnimation(MenuAnimation.SHOWUP_BOTTOM_RIGHT)
-                .setWidth(300)
+//                .setWidth(300)
                 .setMenuEffect(MenuEffect.BODY)
                 .setMenuRadius(10f)
                 .setMenuShadow(10f)
@@ -276,8 +276,6 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
     }
 
     public  void  initData(){
-
-
 
         BannerLayout recyclerBanner =  findViewById(R.id.recycler);
         mCardLayout.setVisibility(View.VISIBLE);

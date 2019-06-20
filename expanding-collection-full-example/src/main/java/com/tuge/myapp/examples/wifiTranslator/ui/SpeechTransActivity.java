@@ -277,20 +277,18 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
     public  void  initData(){
 
-
-
         BannerLayout recyclerBanner =  findViewById(R.id.recycler);
         mCardLayout.setVisibility(View.VISIBLE);
         recyclerBanner.setItemSpace(50);
         recyclerBanner.setCenterScale(Float.valueOf("1.5"));
         recyclerBanner.setShowIndicator(false);
         List<String> list = new ArrayList<>();
-        list.add("http://img0.imgtn.bdimg.com/it/u=3184221534,2238244948&fm=27&gp=0.jpg");
-        list.add("http://img3.imgtn.bdimg.com/it/u=3967183915,4078698000&fm=27&gp=0.jpg");
-        list.add("http://img0.imgtn.bdimg.com/it/u=1352823040,1166166164&fm=27&gp=0.jpg");
-        list.add("http://img3.imgtn.bdimg.com/it/u=2293177440,3125900197&fm=27&gp=0.jpg");
-        list.add("http://img4.imgtn.bdimg.com/it/u=1794621527,1964098559&fm=27&gp=0.jpg");
-        list.add("http://img4.imgtn.bdimg.com/it/u=1243617734,335916716&fm=27&gp=0.jpg");
+        list.add("http://img0.imgtn.bdimg.com/it/u=1906633814,2989154540&fm=26&gp=0.jpg");
+        list.add("http://img1.imgtn.bdimg.com/it/u=2070401313,2266534250&fm=26&gp=0.jpg");
+        list.add("http://img0.imgtn.bdimg.com/it/u=2148165365,2638783661&fm=26&gp=0.jpg");
+//        list.add("http://img3.imgtn.bdimg.com/it/u=2293177440,3125900197&fm=27&gp=0.jpg");
+//        list.add("http://img4.imgtn.bdimg.com/it/u=1794621527,1964098559&fm=27&gp=0.jpg");
+//        list.add("http://img4.imgtn.bdimg.com/it/u=1243617734,335916716&fm=27&gp=0.jpg");
         WebBannerAdapter  webBannerAdapter=new WebBannerAdapter(this,list);
 //        webBannerAdapter.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
 //            @Override
@@ -328,7 +326,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         }
 
 
-        return "";
+        return "308201dd30820146020101300d06092a864886f70d010105050030373116301406035504030c0d416e64726f69642044656275673110300e060355040a0c07416e64726f6964310b3009060355040613025553301e170d3137313231313032353830305a170d3437313230343032353830305a30373116301406035504030c0d416e64726f69642044656275673110300e060355040a0c07416e64726f6964310b300906035504061302555330819f300d06092a864886f70d010101050003818d0030818902818100c024d9a60a001519261d124ea5e348dad1020412a5208304ae568106263046256ca5fd5ce3b95737ded84bec7ccc599ff33f55185198d58e44b8fc0af15d69b132bb1a1d56d9d50c1a5872ea5205e6b91bc465f54342986d4c7307034dcfc5cc26eb8b7de07996be83fe553efbe2db06c52045a0db9685c892be3e1dab90cb610203010001300d06092a864886f70d0101050500038181009fa0aed2eda927cd9b1c3471c6f17a2278ba56ba015e028359242772183f656943a40f24a2b5a87e9607a2ea3d96a057f03dc570e356bcb6e2e2f1a171944dbeb07d741a2dcd05694d996ff69e0f261acaed14e0b3a61a87b0c572b9097bd01e416928f0bc7479689ab54228d6a5f7b780547950412b48f30a6b09db227a1b4a";
+//        return "";
 
 
     }

@@ -8,6 +8,7 @@ import android.content.pm.Signature;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -62,6 +63,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
     SpringMenu mSpringMenu;
     private WaveLineView waveLineView;
+
+    private DisplayMetrics metrics;
 
     TitleBar mTitleBar;
     TextView mRecogResult;
@@ -163,24 +166,6 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
                 langMenu.showAsDropDown(v);
             }
         });
-//        mTitleBar.addAction(new TitleBar.Action() {
-//            @Override
-//            public String getText() {
-//                return "";
-//            }
-//
-//            @Override
-//            public int getDrawable() {
-//                return R.mipmap.icon_menu;
-//            }
-//
-//            @Override
-//            public void performAction(View view) {
-////                点击菜单
-//                mSpringMenu.setDirection(SpringMenu.DIRECTION_RIGHT);
-//                mSpringMenu.openMenu();
-//            }
-//        });
 
         ListBean[] listBeen = {new ListBean(R.mipmap.icon_home, getString(R.string.home)), new ListBean(R.mipmap.icon_speech, getString(R.string.speechTranslate)), new ListBean(R.mipmap.icon_photo, getString(R.string.photoTranslate)), new ListBean(R.mipmap.icon_ask, getString(R.string.ask)),new ListBean(R.mipmap.icon_simu, getString(R.string.simultaneous)),new ListBean(R.mipmap.icon_group, getString(R.string.GroupTranslate)),new ListBean(R.mipmap.icon_setting, getString(R.string.Setting))};
         MyAdapter adapter = new MyAdapter(this, listBeen);
@@ -225,6 +210,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         });
 
 
+        getMetrics();
+
         transModeMap.put("中文 <-> 英语", "mix_zh_en");
         transModeMap.put("中文 <-> 日语", "mix_zh_jp");
         transModeMap.put("中文 <-> 韩语", "mix_zh_kor");
@@ -256,7 +243,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
                 .setAutoDismiss(true)
 //                .setLifecycleOwner((LifecycleOwner)this)
                 .setAnimation(MenuAnimation.SHOWUP_BOTTOM_RIGHT)
-//                .setWidth(300)
+                .setWidth(metrics.widthPixels)
+                .setMenuShadow(10)
                 .setMenuEffect(MenuEffect.BODY)
                 .setMenuRadius(10f)
                 .setMenuShadow(10f)
@@ -283,12 +271,12 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         recyclerBanner.setCenterScale(Float.valueOf("1.5"));
         recyclerBanner.setShowIndicator(false);
         List<String> list = new ArrayList<>();
-        list.add("http://img0.imgtn.bdimg.com/it/u=3184221534,2238244948&fm=27&gp=0.jpg");
-        list.add("http://img3.imgtn.bdimg.com/it/u=3967183915,4078698000&fm=27&gp=0.jpg");
-        list.add("http://img0.imgtn.bdimg.com/it/u=1352823040,1166166164&fm=27&gp=0.jpg");
-        list.add("http://img3.imgtn.bdimg.com/it/u=2293177440,3125900197&fm=27&gp=0.jpg");
-        list.add("http://img4.imgtn.bdimg.com/it/u=1794621527,1964098559&fm=27&gp=0.jpg");
-        list.add("http://img4.imgtn.bdimg.com/it/u=1243617734,335916716&fm=27&gp=0.jpg");
+        list.add("http://img0.imgtn.bdimg.com/it/u=1906633814,2989154540&fm=26&gp=0.jpg");
+        list.add("http://img1.imgtn.bdimg.com/it/u=2070401313,2266534250&fm=26&gp=0.jpg");
+        list.add("http://img0.imgtn.bdimg.com/it/u=2148165365,2638783661&fm=26&gp=0.jpg");
+//        list.add("http://img3.imgtn.bdimg.com/it/u=2293177440,3125900197&fm=27&gp=0.jpg");
+//        list.add("http://img4.imgtn.bdimg.com/it/u=1794621527,1964098559&fm=27&gp=0.jpg");
+//        list.add("http://img4.imgtn.bdimg.com/it/u=1243617734,335916716&fm=27&gp=0.jpg");
         WebBannerAdapter  webBannerAdapter=new WebBannerAdapter(this,list);
 //        webBannerAdapter.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
 //            @Override
@@ -325,10 +313,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
             e.printStackTrace();
         }
 
-
         return "";
-
-
     }
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -485,5 +470,16 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
             }
 
         });
+    }
+
+    // 获取屏幕像素
+    private void getMetrics() {
+
+        metrics =new DisplayMetrics();
+
+        getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
+//        int width = metrics.widthPixels;
+//        int height = metrics.heightPixels;
+
     }
 }

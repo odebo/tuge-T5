@@ -47,9 +47,7 @@ public class PhotoTransActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        //全屏无状态栏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.activity_photo_trans);
 
         mPicpath = getIntent().getStringExtra("picPath");
@@ -62,7 +60,7 @@ public class PhotoTransActivity extends Activity {
         options.inScaled = false;
         Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
 
-        mPic.setImageBitmap(bitmap1);
+        mPic.setImageBitmap(bitmap);
         startTrans(mPicpath);
 
 
@@ -72,7 +70,7 @@ public class PhotoTransActivity extends Activity {
 
         int width = wm.getDefaultDisplay().getWidth();
         int height = wm.getDefaultDisplay().getHeight();
-//        Log.i("wk","图片的宽度:"+bitmap.getWidth()+"图片的高度"+bitmap.getHeight());
+       Log.i("wk","图片的宽度:"+bitmap.getWidth()+"图片的高度"+bitmap.getHeight());
 
 
     }
@@ -91,10 +89,10 @@ public class PhotoTransActivity extends Activity {
       Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
 
         // 源语言方向：Language.ZH，目标语言方向:Language.EN，详见技术文档
-        client.getOcrResult(Language.ZH, Language.EN, bitmap1, new OcrCallback() {
+        client.getOcrResult(Language.ZH, Language.EN, bitmap, new OcrCallback() {
             @Override
             public void onOcrResult(OcrResult ocrResult) {
-                Log.i("TTTTTT", ocrResult.getErrorMsg());
+                Log.i("TTTTTT", ocrResult.getErrorMsg()+ocrResult.getError());
                 if (ocrResult.getError()!=0){
 
                     Toast.makeText(PhotoTransActivity.this,"识别有误",Toast.LENGTH_SHORT).show();

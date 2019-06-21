@@ -54,6 +54,7 @@ import com.skydoves.powermenu.OnDismissedListener;
 import com.skydoves.powermenu.OnMenuItemClickListener;
 import com.skydoves.powermenu.PowerMenu;
 import com.skydoves.powermenu.PowerMenuItem;
+import com.tuge.translatorlib.TranslatorUtils;
 //import com.skydoves.powermenudemo.customs.adapters.CenterMenuAdapter;
 //import com.skydoves.powermenudemo.customs.adapters.CustomDialogMenuAdapter;
 //import com.skydoves.powermenudemo.customs.items.NameCardMenuItem;
@@ -441,6 +442,9 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
                             @Override
                             public void run() {
                                 try {
+                                    String result1 = TranslatorUtils.getSearchResult(result.getAsrResult());
+                                    Log.i("555555",result1);
+
 //                        DOWNLOAD();
 
                                 } catch (Exception e) {

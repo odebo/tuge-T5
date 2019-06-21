@@ -8,6 +8,9 @@ import android.content.pm.Signature;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,6 +27,7 @@ import com.baidu.translate.asr.TransAsrConfig;
 import com.baidu.translate.asr.data.RecognitionResult;
 import com.baidu.translate.wifitranslator.WifiTranslatorConfig;
 import com.example.library.banner.BannerLayout;
+import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.ListBean;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MenuListener;
@@ -39,6 +43,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Size;
@@ -55,6 +61,10 @@ import com.skydoves.powermenu.OnMenuItemClickListener;
 import com.skydoves.powermenu.PowerMenu;
 import com.skydoves.powermenu.PowerMenuItem;
 import com.tuge.translatorlib.TranslatorUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 //import com.skydoves.powermenudemo.customs.adapters.CenterMenuAdapter;
 //import com.skydoves.powermenudemo.customs.adapters.CustomDialogMenuAdapter;
 //import com.skydoves.powermenudemo.customs.items.NameCardMenuItem;
@@ -70,6 +80,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
     TitleBar mTitleBar;
     TextView mRecogResult;
     TextView mTransRusult;
+    ArrayList<String> mImagelist,mKeyWord;
 
 
     // 【重要】 - 语音翻译功能关键类
@@ -125,7 +136,6 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         mCardLayout = findViewById(R.id.cardLayout);
 
         initClient();
-//        initData();
         String string = getSignature();
 
         Log.i("string",string+"00000"+this.getPackageName());
@@ -186,6 +196,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
 
         waveLineView = (WaveLineView) findViewById(R.id.waveLineView);
+//        initData();
 
         findViewById(R.id.speechBtn).setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -264,21 +275,30 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
     }
 
-    public  void  initData(){
+    public  void  initData(String result,ArrayList<String> keyWord){
+
+        if (keyWord.size()>0) {
+            SpannableString spannableString = getString(result, keyWord);
+            mRecogResult.setText(spannableString);
+        }else{
+
+            mRecogResult.setText(result);
+
+        }
 
         BannerLayout recyclerBanner =  findViewById(R.id.recycler);
         mCardLayout.setVisibility(View.VISIBLE);
         recyclerBanner.setItemSpace(50);
         recyclerBanner.setCenterScale(Float.valueOf("1.5"));
         recyclerBanner.setShowIndicator(false);
-        List<String> list = new ArrayList<>();
-        list.add("http://img0.imgtn.bdimg.com/it/u=1906633814,2989154540&fm=26&gp=0.jpg");
-        list.add("http://img1.imgtn.bdimg.com/it/u=2070401313,2266534250&fm=26&gp=0.jpg");
-        list.add("http://img0.imgtn.bdimg.com/it/u=2148165365,2638783661&fm=26&gp=0.jpg");
-//        list.add("http://img3.imgtn.bdimg.com/it/u=2293177440,3125900197&fm=27&gp=0.jpg");
-//        list.add("http://img4.imgtn.bdimg.com/it/u=1794621527,1964098559&fm=27&gp=0.jpg");
-//        list.add("http://img4.imgtn.bdimg.com/it/u=1243617734,335916716&fm=27&gp=0.jpg");
-        WebBannerAdapter  webBannerAdapter=new WebBannerAdapter(this,list);
+//         mImagelist = new ArrayList<>();
+//        mImagelist.add("http://img0.imgtn.bdimg.com/it/u=1906633814,2989154540&fm=26&gp=0.jpg");
+//        mImagelist.add("http://img1.imgtn.bdimg.com/it/u=2070401313,2266534250&fm=26&gp=0.jpg");
+//        mImagelist.add("http://img0.imgtn.bdimg.com/it/u=2148165365,2638783661&fm=26&gp=0.jpg");
+//        mImagelist.add("http://img3.imgtn.bdimg.com/it/u=2293177440,3125900197&fm=27&gp=0.jpg");
+//        mImagelist.add("http://img4.imgtn.bdimg.com/it/u=1794621527,1964098559&fm=27&gp=0.jpg");
+//        mImagelist.add("http://img4.imgtn.bdimg.com/it/u=1243617734,335916716&fm=27&gp=0.jpg");
+        WebBannerAdapter  webBannerAdapter=new WebBannerAdapter(this,mImagelist);
 //        webBannerAdapter.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
 //            @Override
 //            public void onItemClick(int position) {
@@ -289,6 +309,24 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         recyclerBanner.setAdapter(webBannerAdapter);
         waveLineView.setVisibility(View.INVISIBLE);
 
+    }
+//    高亮显示专词
+    private  SpannableString getString(String all,List<String> keyWord){
+
+//for (int i=0;i<keyWord.size();i++) {
+    SpannableString spannableString = new SpannableString(all);
+
+    Pattern p = Pattern.compile(keyWord.get(0));
+
+    Matcher m = p.matcher(spannableString);
+
+    while (m.find()) {
+        int start = m.start();
+        int end = m.end();
+        spannableString.setSpan(new ForegroundColorSpan(Color.RED), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    }
+//}
+        return spannableString;
     }
 
     public  String getSignature(){
@@ -427,7 +465,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
                     if (result.getError() == 0) { // 表示正常，有识别结果
                         Log.d(TAG, "最终识别结果：" + result.getAsrResult());
 
-                        initData();
+//                        initData();
 
                         mRecogResult.setText(result.getAsrResult());
                         mTransRusult.setText(result.getTransResult());
@@ -437,10 +475,9 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
                             @Override
                             public void run() {
                                 try {
-                                    String result1 = TranslatorUtils.getSearchResult(result.getAsrResult());
-                                    Log.i("555555",result1);
 
-//                        DOWNLOAD();
+
+                                    imageSearch(result.getAsrResult());
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -475,6 +512,40 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
         });
     }
+
+//     专词识别+图搜
+
+    private  void  imageSearch(String result) throws JSONException {
+
+
+        String searchResult = TranslatorUtils.getSearchResult(result);
+Log.i("search",searchResult);
+        JSONArray searchResultArray = new JSONArray(searchResult);
+        mImagelist = new ArrayList<>();
+        mKeyWord = new ArrayList<>();
+
+
+        for (int i=0;i<searchResultArray.length();i++){
+
+            JSONObject object = searchResultArray.getJSONObject(i);
+
+
+            mImagelist.add(object.getString("ObjUrl"));
+
+
+            mKeyWord.add(object.getString("Lexer"));
+
+        }
+Log.i("666666666",mKeyWord.toString());
+        SpeechTransActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+              initData(result,mKeyWord);
+            }
+        });
+
+}
 
     // 获取屏幕像素
     private void getMetrics() {

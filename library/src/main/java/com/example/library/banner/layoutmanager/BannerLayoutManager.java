@@ -202,7 +202,8 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
 
     public BannerLayoutManager(Context context, int orientation, boolean reverseLayout) {
         setEnableBringCenterToFront(true);
-        setMaxVisibleItemCount(2);
+//        修改修改了
+        setMaxVisibleItemCount(3);
         setOrientation(orientation);
         setReverseLayout(reverseLayout);
         setAutoMeasureEnabled(true);
@@ -747,8 +748,8 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
 //            这里这里这里这里（修改的地方）
 
 
-            layoutDecorated(scrap, 150 + left, mSpaceInOther + top,
-                    150 + left + mDecoratedMeasurement, mSpaceInOther + top + mDecoratedMeasurementInOther);
+            layoutDecorated(scrap, mSpaceMain + left, mSpaceInOther + top,
+                    mSpaceMain + left + mDecoratedMeasurement, mSpaceInOther + top + mDecoratedMeasurementInOther);
         }
         setItemViewProperty(scrap, targetOffset);
     }

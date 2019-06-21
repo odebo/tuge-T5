@@ -32,18 +32,27 @@
             android:orientation="horizontal"
             android:layout_alignParentLeft="true"
             android:layout_height="match_parent">
-            <TextView
-            android:layout_width="wrap_content"
-            android:text="中文"
-            android:layout_centerVertical="true"
-            android:textColor="@android:color/white"
-            android:gravity="center"
-            android:layout_height="match_parent" />
-            <ImageView
-                android:layout_width="30dp"
-                android:gravity="center"
-                android:src="@drawable/arrow_down"
-                android:layout_height="30dp" />
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:text="中文"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:gravity="center"-->
+            <!--android:layout_height="match_parent" />-->
+            <!--<ImageView-->
+                <!--android:layout_width="30dp"-->
+                <!--android:gravity="center"-->
+                <!--android:src="@drawable/arrow_down"-->
+                <!--android:layout_height="30dp" />-->
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:theme="@style/SpinnerStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/lang" />
+            <!--指定数据源-->
+
         </LinearLayout>
 
         <ImageView
@@ -60,18 +69,24 @@
             android:orientation="horizontal"
             android:layout_alignParentRight="true"
             android:layout_height="match_parent">
-            <TextView
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:text="英文"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_height="match_parent" />-->
+            <!--<ImageView-->
+                <!--android:layout_width="30dp"-->
+                <!--android:gravity="center"-->
+                <!--android:src="@drawable/arrow_down"-->
+                <!--android:layout_height="30dp" />-->
+            <Spinner
+                android:id="@+id/spinner2"
+                android:theme="@style/SpinnerStyle"
                 android:layout_width="wrap_content"
-                android:text="英文"
-                android:layout_centerVertical="true"
-                android:textColor="@android:color/white"
-                android:gravity="center"
-                android:layout_height="match_parent" />
-            <ImageView
-                android:layout_width="30dp"
-                android:gravity="center"
-                android:src="@drawable/arrow_down"
-                android:layout_height="30dp" />
+                android:layout_height="wrap_content"
+                android:entries="@array/lang" />
         </LinearLayout>
 
     </RelativeLayout>

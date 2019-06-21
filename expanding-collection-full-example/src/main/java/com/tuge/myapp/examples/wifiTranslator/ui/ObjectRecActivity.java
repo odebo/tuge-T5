@@ -49,7 +49,6 @@ public class ObjectRecActivity extends Activity {
         mPic =findViewById(R.id.picIV);
         mPic.setImageBitmap(bitmap);
         mcontainer = findViewById(R.id.container);
-//        initData();
         new Thread(new Runnable(){
             @Override
             public void run() {
@@ -69,7 +68,6 @@ public class ObjectRecActivity extends Activity {
     }
     private void initData(){
 
-//        results = Arrays.asList(new String[]{"红酒", "上海", "正常"});
         RecogResultAdapter adapter = new RecogResultAdapter(this,results);
 
         ListView listView =  findViewById(R.id.listView);
@@ -81,8 +79,9 @@ public class ObjectRecActivity extends Activity {
 
         results = new ArrayList<>();
 
-      String  result = "{ \"wineNameCn\": \"奔富Bin2西拉幕合怀特红葡萄酒\", \"regionEn\": \"South Australia\", \"color\": \"深紫红色/Dark Violet\", \"wineNameEn\": \"Penfolds Bin 2 Shiraz Mataro\", \"hasdetail\": 1, \"wineryCn\": \"奔富\", \"classifyBySugar\": \"干型/Dry\", \"tasteTemperature\": \"12-18℃\", \"regionCn\": \"南澳\", \"wineryEn\": \"Penfolds\", \"countryEn\": \"Australia\", \"description\": \"此酒为深紫红色\"}";
-//              TranslatorUtils.getImageInfo(path);
+      String  result =
+//              "{ \"wineNameCn\": \"奔富Bin2西拉幕合怀特红葡萄酒\", \"regionEn\": \"South Australia\", \"color\": \"深紫红色/Dark Violet\", \"wineNameEn\": \"Penfolds Bin 2 Shiraz Mataro\", \"hasdetail\": 1, \"wineryCn\": \"奔富\", \"classifyBySugar\": \"干型/Dry\", \"tasteTemperature\": \"12-18℃\", \"regionCn\": \"南澳\", \"wineryEn\": \"Penfolds\", \"countryEn\": \"Australia\", \"description\": \"此酒为深紫红色\"}";
+              TranslatorUtils.getImageInfo(path);
         Log.i("识别到的结果",result);
 
         JSONObject obj = new JSONObject(result);
@@ -100,7 +99,20 @@ public class ObjectRecActivity extends Activity {
                 results.add(vol);
 
             }
-            initData();
+
+            ObjectRecActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+
+                        initData();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+
 
         } catch (JSONException e) {
             e.printStackTrace();

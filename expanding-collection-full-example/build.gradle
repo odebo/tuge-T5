@@ -54,7 +54,7 @@ android {
 dependencies {
 
     implementation(name: 'trans-ocr-sdk_v1.0.1', ext: 'aar')
-    implementation(name: 'translatorlib-1.0.0', ext: 'aar')
+    implementation(name: 'translatorlib-1.0.2', ext: 'aar')
 
     implementation(name: 'translate-asr-sdk_v1.1.2', ext: 'aar')
     implementation(name: 'translate-asr-tts_v1.1.2', ext: 'aar')

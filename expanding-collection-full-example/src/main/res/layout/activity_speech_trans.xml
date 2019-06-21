@@ -74,13 +74,15 @@
         android:layout_centerInParent="true"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
+
         <com.tuge.myapp.examples.wifiTranslator.view.WaveLineView
             android:id="@+id/waveLineView"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            app:wlvBackgroundColor="@android:color/transparent"
+            android:layout_below="@+id/center"
+            android:layout_alignStart="@+id/center"
             android:layout_weight="3"
-            />
+            app:wlvBackgroundColor="@android:color/transparent" />
 
         <!-- popup蒙板 -->
 

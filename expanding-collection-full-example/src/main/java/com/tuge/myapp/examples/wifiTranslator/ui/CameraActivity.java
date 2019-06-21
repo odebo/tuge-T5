@@ -12,10 +12,12 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.SpringMenu;
@@ -30,6 +32,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class CameraActivity extends Activity implements View.OnClickListener{
     private CameraSurfaceView mCameraSurfaceView;
@@ -38,6 +41,7 @@ public class CameraActivity extends Activity implements View.OnClickListener{
     private CameraLineView mCameraLineView;
     private ImageView mBackButton;
     private LinearLayout mOri,mDes;
+    private Spinner mOriSpinner,mDesSpinner;
 
     boolean isTransPhoto=true;
     private Camera.PictureCallback jpegPictureCallback = new Camera.PictureCallback() {
@@ -95,6 +99,20 @@ public class CameraActivity extends Activity implements View.OnClickListener{
         mOri.setOnClickListener(this);
 
         img_take_photo.setOnClickListener(this);
+
+        mOriSpinner = (Spinner) findViewById(R.id.spinner1);
+        mDesSpinner = findViewById(R.id.spinner2);
+
+
+
+        //适配器
+     ArrayAdapter<String>   arr_adapter= new ArrayAdapter<String>(this, R.layout.lang_layout,getResources().getStringArray(R.array.lang));
+        //设置样式
+        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //加载适配器
+        mOriSpinner.setAdapter(arr_adapter);
+        mDesSpinner.setAdapter(arr_adapter);
+
 
 
         mBottomView=(BottomView)findViewById(R.id.bottomView);
@@ -182,11 +200,13 @@ public class CameraActivity extends Activity implements View.OnClickListener{
             case R.id.back:
                 finish();
 
-            case R.id.ori:
-                Intent intent = new Intent(CameraActivity.this,LangActivity.class);
-                startActivity(intent);
-
                 break;
+
+//            case R.id.ori:
+//                Intent intent = new Intent(CameraActivity.this,LangActivity.class);
+//                startActivity(intent);
+//
+//                break;
 
             default:
                 break;

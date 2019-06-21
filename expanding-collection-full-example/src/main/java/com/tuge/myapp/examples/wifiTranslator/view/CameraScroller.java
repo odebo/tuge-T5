@@ -32,7 +32,7 @@ public class CameraScroller extends ViewGroup{
         }
         selectedText=(TextView)getChildAt(nextIndex);
         if(selectedText!=null){
-            selectedText.setTextColor(getResources().getColor(R.color.cameraIndexPointColor));
+            selectedText.setTextColor(getResources().getColor(R.color.colorPrimaryBlue));
         }
     }
 

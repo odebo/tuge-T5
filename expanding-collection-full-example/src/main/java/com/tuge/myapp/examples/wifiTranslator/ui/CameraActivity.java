@@ -144,7 +144,7 @@ public class CameraActivity extends Activity implements View.OnClickListener{
     public void savePic(byte[] data,String fileName) {
         BitmapFactory.Options options = new BitmapFactory.Options();
 //
-        options.inSampleSize = 2;  //这里表示原来图片的1/2
+//        options.inSampleSize = 2;  //这里表示原来图片的1/2
         // 保存图片操作
         Bitmap bmp= BitmapFactory.decodeByteArray(data, 0, data.length,options);
         Matrix m = new Matrix();

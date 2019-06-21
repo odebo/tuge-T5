@@ -162,7 +162,18 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
         this.moveSpeed = moveSpeed;
     }
     protected void setItemViewProperty(View itemView, float targetOffset) {
+
         float scale = calculateScale(targetOffset + mSpaceMain);
+        Log.i("EEEE", String.valueOf(scale));
+        if (scale>1.0){
+            itemView.setAlpha(1);
+
+        }else{
+
+            itemView.setAlpha((float) 0.3);
+
+        }
+
         itemView.setScaleX(scale);
         itemView.setScaleY(scale);
     }
@@ -202,7 +213,7 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
 
     public BannerLayoutManager(Context context, int orientation, boolean reverseLayout) {
         setEnableBringCenterToFront(true);
-//        修改修改了
+//        修改了修改了
         setMaxVisibleItemCount(3);
         setOrientation(orientation);
         setReverseLayout(reverseLayout);

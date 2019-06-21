@@ -2,6 +2,8 @@ package com.tuge.myapp.examples.wifiTranslator.ui;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -16,6 +18,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,6 +39,7 @@ import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MenuListener;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MyAdapter;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.SpringMenu;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar;
+import com.tuge.myapp.examples.wifiTranslator.MainActivity;
 import com.tuge.myapp.examples.wifiTranslator.R;
 import com.tuge.myapp.examples.wifiTranslator.adapter.WebBannerAdapter;
 import com.tuge.myapp.examples.wifiTranslator.view.WaveLineView;
@@ -301,12 +307,51 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 //        mImagelist.add("http://img4.imgtn.bdimg.com/it/u=1794621527,1964098559&fm=27&gp=0.jpg");
 //        mImagelist.add("http://img4.imgtn.bdimg.com/it/u=1243617734,335916716&fm=27&gp=0.jpg");
         WebBannerAdapter  webBannerAdapter=new WebBannerAdapter(this,mImagelist);
-//        webBannerAdapter.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                Toast.makeText(SpeechTransActivity.this, "点击了第  " + position+"  项", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        webBannerAdapter.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
+            @Override
+            public void onItemClick(int position, ImageView imageView) {
+
+                Log.i("DIANJI",imageView.getImageMatrix().toString());
+
+                ImageView imageView1 = new ImageView(SpeechTransActivity.this);
+
+                imageView1.setImageDrawable(getResources().getDrawable(R.drawable.card01));
+
+
+                Dialog dialog = new Dialog(SpeechTransActivity.this,R.style.FullActivity);
+
+                WindowManager.LayoutParams attributes = getWindow().getAttributes();
+                attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
+                attributes.height = WindowManager.LayoutParams.MATCH_PARENT;
+                 dialog.getWindow().setAttributes(attributes);
+
+
+                dialog.setContentView(imageView1);
+                dialog.show();
+//                ImageView imageView1 = new ImageView(SpeechTransActivity.this);
+//
+////                imageView1.setImageMatrix(imageView.getImageMatrix());
+//
+//                imageView1.setImageDrawable(getResources().getDrawable(R.drawable.card01));
+//
+//                ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(-2,-2);
+//
+//                //展示在dialog上面的大图
+//              Dialog  dialog = new Dialog(SpeechTransActivity.this,R.style.FullActivity);
+//
+//                WindowManager.LayoutParams attributes = getWindow().getAttributes();
+//                attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
+//                attributes.height = WindowManager.LayoutParams.MATCH_PARENT;
+//
+//                dialog.getWindow().setAttributes(attributes);
+//
+//                dialog.setContentView(imageView1);
+//                dialog.show();
+
+            }
+            });
+
+
 //
         recyclerBanner.setAdapter(webBannerAdapter);
         waveLineView.setVisibility(View.INVISIBLE);

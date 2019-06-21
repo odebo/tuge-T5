@@ -60,12 +60,16 @@ public class WebBannerAdapter extends RecyclerView.Adapter<WebBannerAdapter.MzVi
         ImageView img = (ImageView) holder.imageView;
 
         Log.i("posiotnnn", String.valueOf(urlList.size()));
+
+
+
+
         Glide.with(context).load(url).into(img);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onBannerItemClickListener != null) {
-                    onBannerItemClickListener.onItemClick(P);
+                    onBannerItemClickListener.onItemClick(P,img);
                 }
 
             }

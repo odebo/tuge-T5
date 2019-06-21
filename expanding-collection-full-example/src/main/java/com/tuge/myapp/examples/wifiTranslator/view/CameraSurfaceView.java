@@ -2,6 +2,7 @@ package com.tuge.myapp.examples.wifiTranslator.view;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -32,12 +33,26 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         mHolder.addCallback(this);
     }
 
+
     private void getScreenMatrix(Context context) {
         WindowManager WM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics outMetrics = new DisplayMetrics();
         WM.getDefaultDisplay().getMetrics(outMetrics);
         mScreenWidth = outMetrics.widthPixels;
         mScreenHeight = outMetrics.heightPixels;
+    }
+    /**
+     * 开始预览相机内容
+     */
+    private void startPreview(Camera camera ,SurfaceHolder holder){
+        try {
+            camera.setPreviewDisplay(holder);
+            //将Camera预览角度进行调整
+            camera.setDisplayOrientation(90);
+            camera.startPreview();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void takePicture(Camera.ShutterCallback mShutterCallback, Camera.PictureCallback rawPictureCallback, Camera.PictureCallback jpegPictureCallback) {
@@ -72,12 +87,77 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         if (mCamera != null) {
-            setCameraParams(mScreenWidth, mScreenHeight);
+//           setCameraParams(mScreenWidth, mScreenHeight);
+
+            Camera.Parameters parameters = mCamera.getParameters();
+            // 设置照片格式
+            parameters.setPictureFormat(PixelFormat.JPEG);
+
+            //parameters.setFlashMode(Parameters.FLASH_MODE_TORCH);//加上闪光灯模式会报错
+            // 1连续对焦
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+
+            Log.i("7777",this.getWidth()+"888"+this.getHeight());
+
+
+
+//            List<Camera.Size> sizeList = parameters.getSupportedPreviewSizes();//获取所有支持的camera尺寸
+//            Camera.Size optionSize = getOptimalPreviewSize(sizeList, this.getWidth(),this.getHeight());//获取一个最为适配的camera.size
+//            parameters.setPreviewSize(optionSize.width,optionSize.height);//把camera.size赋值到parameters
+
+
+//
+//            //设置大小和方向等参数
+//		 设置照相机参数
+            mCamera.setParameters(parameters);
+            // 开始拍照
+            mCamera.startPreview();
+            mCamera.cancelAutoFocus();// 一定要加上这句，才可以连续聚集
 
             mCamera.startPreview();
         }
     }
 
+    /**
+     * 解决预览变形问题
+     * @param sizes
+     * @param w
+     * @param h
+     * @return
+     */
+    private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {
+        final double ASPECT_TOLERANCE = 0.1;
+        double targetRatio = (double) w / h;
+        if (sizes == null) return null;
+
+        Camera.Size optimalSize = null;
+        double minDiff = Double.MAX_VALUE;
+
+        int targetHeight = h;
+
+        // Try to find an size match aspect ratio and size
+        for (Camera.Size size : sizes) {
+            double ratio = (double) size.width / size.height;
+            if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE) continue;
+            if (Math.abs(size.height - targetHeight) < minDiff) {
+                optimalSize = size;
+                minDiff = Math.abs(size.height - targetHeight);
+            }
+        }
+
+        // Cannot find the one match the aspect ratio, ignore the requirement
+        if (optimalSize == null) {
+            minDiff = Double.MAX_VALUE;
+            for (Camera.Size size : sizes) {
+                if (Math.abs(size.height - targetHeight) < minDiff) {
+                    optimalSize = size;
+                    minDiff = Math.abs(size.height - targetHeight);
+                }
+            }
+        }
+        return optimalSize;
+
+    }
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         releaseCameraAndPreview();
@@ -88,7 +168,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         try {
             releaseCameraAndPreview();
             mCamera = Camera.open(id);
-//            mCamera.autoFocus(mAutoFocusCallback);
+            mCamera.autoFocus(mAutoFocusCallback);
 
             qOpened = (mCamera != null);
         } catch (Exception e) {
@@ -125,6 +205,8 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     private void setCameraParams(int width, int height) {
 
         Camera.Parameters parameters = mCamera.getParameters();
+//        Log.i("4444", String.valueOf(width+"-"height));
+
         Log.i("4444", String.valueOf(mCamera.getParameters().getPreviewSize().width)+String.valueOf(mCamera.getParameters().getPreviewSize().height));
 
         // 获取摄像头支持的PictureSize列表

@@ -86,39 +86,75 @@ public class ObjectRecActivity extends Activity {
 
         JSONObject obj = new JSONObject(result);
 
-        try {
+         if (obj.has("currency")){
 
-            Iterator it = obj.keys();
-            String vol = "";//值
-            String key = null;//键
-            while(it.hasNext()){//遍历JSONObject
-                key = (String) it.next().toString();
-                vol = obj.getString(key);
-                Log.i("vvvvv",vol);
+            JSONObject object = obj.getJSONObject("currency");
+            if (object.getInt("hasdetail")==1) {
+                results.add("名称：" + "&" + object.getString("currencyName"));
+                results.add("代码：" + "&" + object.getString("currencyCode"));
+                results.add("面值：" + "&" + object.getString("currencyDenomination"));
+                results.add("年份：" + "&" + object.getString("year"));
+            }else{
 
-                results.add(vol);
+                results.add("currencyName");
+            }
+        }else if(obj.has("redwine")){
+
+
+             JSONObject object = obj.getJSONObject("redwine");
+             if (object.getInt("hasdetail")==1) {
+                 results.add("名称：" + "&" + object.getString("wineNameCn"));
+                 results.add("国家：" + "&" + object.getString("countryCn"));
+                 results.add("产区：" + "&" + object.getString("regionCn"));
+                 results.add("酒庄：" + "&" + object.getString("wineryCn"));
+                 results.add("糖分：" + "&" + object.getString("classifyBySugar"));
+
+             }else{
+
+                 results.add("wineNameCn");
+             }
+
+         }else {
+
+
+
+
+                 try {
+
+                     Iterator it = obj.keys();
+                     String vol = "";//值
+                     String key = null;//键
+                     while (it.hasNext()) {//遍历JSONObject
+                         key = (String) it.next().toString();
+                         vol = obj.getString(key);
+                         Log.i("vvvvv", vol);
+
+                         results.add(vol);
+
+                     }
+
+
+
+
+                 } catch (JSONException e) {
+                     e.printStackTrace();
+                 }
+             }
+
+
+
+        ObjectRecActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+
+                    initData();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
-
-            ObjectRecActivity.this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-
-                        initData();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            });
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
+        });
 //      mcontainer.setVisibility(View.VISIBLE);
 
 

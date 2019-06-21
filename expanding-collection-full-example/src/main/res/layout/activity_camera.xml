@@ -8,12 +8,12 @@
     <com.tuge.myapp.examples.wifiTranslator.view.CameraSurfaceView
         android:id="@+id/sv_camera"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom"
+        android:layout_height="match_parent"
         />
     <com.tuge.myapp.examples.wifiTranslator.view.CameraLineView
         android:id="@+id/cameraLine"
         android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_above="@+id/lan_select"
         android:layout_height="match_parent" />
 

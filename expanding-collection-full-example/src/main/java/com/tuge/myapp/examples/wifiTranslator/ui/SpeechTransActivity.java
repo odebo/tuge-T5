@@ -278,7 +278,9 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
     public  void  initData(String result,ArrayList<String> keyWord){
 
         if (keyWord.size()>0) {
-            SpannableString spannableString = getString(result, keyWord);
+            SpannableString spannableString =  getString(result,keyWord);
+
+
             mRecogResult.setText(spannableString);
         }else{
 
@@ -310,21 +312,23 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         waveLineView.setVisibility(View.INVISIBLE);
 
     }
-//    高亮显示专词
-    private  SpannableString getString(String all,List<String> keyWord){
+    //    高亮显示专词
+    private SpannableString getString(String all, ArrayList<String> keyWord){
 
-//for (int i=0;i<keyWord.size();i++) {
-    SpannableString spannableString = new SpannableString(all);
+        SpannableString spannableString = new SpannableString(all);
+        for (int i=0;i<keyWord.size();i++) {
 
-    Pattern p = Pattern.compile(keyWord.get(0));
+            Pattern p = Pattern.compile(keyWord.get(i));
 
-    Matcher m = p.matcher(spannableString);
+            Matcher m = p.matcher(spannableString);
 
-    while (m.find()) {
-        int start = m.start();
-        int end = m.end();
-        spannableString.setSpan(new ForegroundColorSpan(Color.RED), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    }
+            while (m.find()) {
+                int start = m.start();
+                int end = m.end();
+
+                spannableString.setSpan(new ForegroundColorSpan(Color.RED), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+        }
 //}
         return spannableString;
     }

@@ -108,7 +108,7 @@ public class CameraActivity extends Activity implements View.OnClickListener{
         //适配器
      ArrayAdapter<String>   arr_adapter= new ArrayAdapter<String>(this, R.layout.lang_layout,getResources().getStringArray(R.array.lang));
         //设置样式
-        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         //加载适配器
         mOriSpinner.setAdapter(arr_adapter);
         mDesSpinner.setAdapter(arr_adapter);

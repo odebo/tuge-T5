@@ -12,6 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,6 +46,10 @@ public class PhotoTransActivity extends Activity {
     private ImageView  mPic;
     private String    mPicpath;
     private FrameLayout mcontainer;
+//    扫描线
+    Animation mTop2Bottom, mBottom2Top;
+    boolean stopAnimation = false;
+    private ImageView  scanImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -58,15 +65,75 @@ public class PhotoTransActivity extends Activity {
 
         mPic =findViewById(R.id.picIV);
         mcontainer = findViewById(R.id.container);
+        scanImage = findViewById(R.id.scan_line);
         Bitmap bitmap = BitmapFactory.decodeFile(mPicpath);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inScaled = false;
         Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
 
         mPic.setImageBitmap(bitmap);
+
+//扫描实现
+        mTop2Bottom = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
+                TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0f,
+                TranslateAnimation.RELATIVE_TO_PARENT, 0.7f);
+
+        mBottom2Top = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
+                TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0.7f,
+                TranslateAnimation.RELATIVE_TO_PARENT, 0f);
+
+        mBottom2Top.setRepeatMode(Animation.RESTART);
+        mBottom2Top.setInterpolator(new LinearInterpolator());
+        mBottom2Top.setDuration(1200);
+        mBottom2Top.setFillEnabled(true);//使其可以填充效果从而不回到原地
+        mBottom2Top.setFillAfter(true);//不回到起始位置
+//如果不添加setFillEnabled和setFillAfter则动画执行结束后会自动回到远点
+        mBottom2Top.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+                if (!stopAnimation){
+                    scanImage.startAnimation(mTop2Bottom);
+                }
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        mTop2Bottom.setRepeatMode(Animation.RESTART);
+        mTop2Bottom.setInterpolator(new LinearInterpolator());
+        mTop2Bottom.setDuration(1200);
+        mTop2Bottom.setFillEnabled(true);
+        mTop2Bottom.setFillAfter(true);
+        mTop2Bottom.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (!stopAnimation){
+                    scanImage.startAnimation(mBottom2Top);
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        scanImage.startAnimation(mTop2Bottom);
         startTrans(mPicpath);
-
-
 
 
         WindowManager wm = this.getWindowManager();
@@ -95,6 +162,9 @@ public class PhotoTransActivity extends Activity {
         client.getOcrResult(Language.ZH, Language.EN, bitmap, new OcrCallback() {
             @Override
             public void onOcrResult(OcrResult ocrResult) {
+
+                stopAnimation=true;
+                scanImage.clearAnimation();
                 Log.i("TTTTTT", ocrResult.getErrorMsg()+ocrResult.getError());
                 if (ocrResult.getError()!=0){
 

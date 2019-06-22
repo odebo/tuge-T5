@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.graphics.*;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.*;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -95,6 +96,7 @@ public class SpringMenu extends RelativeLayout implements SpringListener {
         mDecorView = (ViewGroup) ((Activity) context).getWindow().getDecorView();
         mContent = (ViewGroup) mDecorView.getChildAt(0);
         mMenuView = new MenuView(getContext(), layoutRes);
+//        mMenuView.setDisableTouch(true);
         mFadeView = new View(context);
         mFadeView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mFadeView.setBackgroundColor(Color.argb(180, 0, 0, 0));
@@ -392,7 +394,9 @@ public class SpringMenu extends RelativeLayout implements SpringListener {
                     arcDrawY = arcDrawY < 0 ? 1 : arcDrawY;
                     endSpring();
                     float dis = !isOpen ? ev.getRawX() - lastDownX : -ev.getRawX() + lastDownX;
-                    drawArc(mDirection == DIRECTION_LEFT ? dis : -dis);
+
+                    if (mDirection == DIRECTION_LEFT)return true;
+                   drawArc(mDirection == DIRECTION_LEFT ? dis : -dis);
                     return true;
                 }
                 break;
@@ -410,7 +414,9 @@ public class SpringMenu extends RelativeLayout implements SpringListener {
                        if (mSpring.getCurrentValue() > 0.55f) {
 //      左滑效果
                             openMenu();
-                        } else if (mSpring.getCurrentValue() > START_VALUE) {
+//                           mMenuView.setDisableTouch(false);
+
+                       } else if (mSpring.getCurrentValue() > START_VALUE) {
                             resumeMenu();
                         }
                     } else {

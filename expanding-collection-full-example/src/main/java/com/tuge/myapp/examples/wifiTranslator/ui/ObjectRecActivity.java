@@ -146,6 +146,7 @@ public class ObjectRecActivity extends Activity {
 
         stopAnimation=true;
         scanImage.clearAnimation();
+        mcontainer.setVisibility(View.VISIBLE);
 
 
         RecogResultAdapter adapter = new RecogResultAdapter(this,results);
@@ -172,10 +173,10 @@ public class ObjectRecActivity extends Activity {
 
             JSONObject object = obj.getJSONObject("currency");
             if (object.getInt("hasdetail")==1) {
-                results.add("名称：" + "&" + object.getString("currencyName"));
-                results.add("代码：" + "&" + object.getString("currencyCode"));
-                results.add("面值：" + "&" + object.getString("currencyDenomination"));
-                results.add("年份：" + "&" + object.getString("year"));
+                results.add("名称 " + "&" + object.getString("currencyName"));
+                results.add("代码 " + "&" + object.getString("currencyCode"));
+                results.add("面值 " + "&" + object.getString("currencyDenomination"));
+                results.add("年份 " + "&" + object.getString("year"));
             }else{
 
                 results.add("currencyName");
@@ -185,11 +186,11 @@ public class ObjectRecActivity extends Activity {
 
              JSONObject object = obj.getJSONObject("redwine");
              if (object.getInt("hasdetail")==1) {
-                 results.add("名称：" + "&" + object.getString("wineNameCn"));
-                 results.add("国家：" + "&" + object.getString("countryCn"));
-                 results.add("产区：" + "&" + object.getString("regionCn"));
-                 results.add("酒庄：" + "&" + object.getString("wineryCn"));
-                 results.add("糖分：" + "&" + object.getString("classifyBySugar"));
+                 results.add("名称 " + "&" + object.getString("wineNameCn"));
+                 results.add("国家 " + "&" + object.getString("countryCn"));
+                 results.add("产区 " + "&" + object.getString("regionCn"));
+                 results.add("酒庄 " + "&" + object.getString("wineryCn"));
+                 results.add("糖分 " + "&" + object.getString("classifyBySugar"));
 
              }else{
 

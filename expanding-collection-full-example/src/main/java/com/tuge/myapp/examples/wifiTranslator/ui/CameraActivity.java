@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
@@ -27,12 +30,14 @@ import com.tuge.myapp.examples.wifiTranslator.R;
 import com.tuge.myapp.examples.wifiTranslator.view.BottomView;
 import com.tuge.myapp.examples.wifiTranslator.view.CameraLineView;
 import com.tuge.myapp.examples.wifiTranslator.view.CameraSurfaceView;
+import com.tuge.myapp.examples.wifiTranslator.view.FocusImageView;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CameraActivity extends Activity implements View.OnClickListener{
     private CameraSurfaceView mCameraSurfaceView;
@@ -42,8 +47,20 @@ public class CameraActivity extends Activity implements View.OnClickListener{
     private ImageView mBackButton;
     private LinearLayout mOri,mDes;
     private Spinner mOriSpinner,mDesSpinner;
+    private FocusImageView mFocusImageView;
 
     boolean isTransPhoto=true;
+    private  Camera.AutoFocusCallback autoFocusCallback = new Camera.AutoFocusCallback() {
+        @Override
+        public void onAutoFocus(boolean b, Camera camera) {
+
+            mFocusImageView.onFocusSuccess();
+
+            Log.i("bbb",String.valueOf(b));
+
+        }
+    };
+
     private Camera.PictureCallback jpegPictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
@@ -92,6 +109,15 @@ public class CameraActivity extends Activity implements View.OnClickListener{
         mCameraSurfaceView = (CameraSurfaceView) findViewById(R.id.sv_camera);
         mLanLayout = findViewById(R.id.lan_select);
         mCameraLineView = findViewById(R.id.cameraLine);
+        mCameraSurfaceView.setmAutoFocusCallback(autoFocusCallback);
+        mFocusImageView = findViewById(R.id.focusImageView);
+        mCameraSurfaceView.setListener(new CameraSurfaceView.onListener() {
+            @Override
+            public void OnListener(Point point) {
+
+                mFocusImageView.startFocus(point);
+            }
+        });
         mBackButton = findViewById(R.id.back);
         mOri = findViewById(R.id.ori);
         mDes = findViewById(R.id.des);
@@ -105,10 +131,12 @@ public class CameraActivity extends Activity implements View.OnClickListener{
 
 
 
+
+
         //适配器
      ArrayAdapter<String>   arr_adapter= new ArrayAdapter<String>(this, R.layout.lang_layout,getResources().getStringArray(R.array.lang));
         //设置样式
-        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //加载适配器
         mOriSpinner.setAdapter(arr_adapter);
         mDesSpinner.setAdapter(arr_adapter);
@@ -116,6 +144,8 @@ public class CameraActivity extends Activity implements View.OnClickListener{
 
 
         mBottomView=(BottomView)findViewById(R.id.bottomView);
+        mBottomView.init();
+
         mBottomView.findViewById(R.id.recog).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,12 +166,18 @@ public class CameraActivity extends Activity implements View.OnClickListener{
 
             }
         });
-        mBottomView.init();
 //        mBottomView.moveLeft();
 
 
     }
-    public void savePic(byte[] data,String fileName) {
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
+    public void savePic(byte[] data, String fileName) {
         BitmapFactory.Options options = new BitmapFactory.Options();
 //
 //        options.inSampleSize = 2;  //这里表示原来图片的1/2

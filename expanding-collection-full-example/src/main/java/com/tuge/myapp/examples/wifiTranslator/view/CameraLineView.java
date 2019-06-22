@@ -16,7 +16,7 @@ public class CameraLineView extends View {
         super(context, attrs);
         paint = new Paint();//初始化画笔
         paint.setColor(Color.WHITE);//设置颜色为白色
-        paint.setStrokeWidth(2);//设置宽度为3
+        paint.setStrokeWidth(1);//设置宽度为3
     }
 
 

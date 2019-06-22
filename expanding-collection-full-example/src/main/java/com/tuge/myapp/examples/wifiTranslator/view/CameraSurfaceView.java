@@ -3,17 +3,28 @@ package com.tuge.myapp.examples.wifiTranslator.view;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.PixelFormat;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.hardware.Camera;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.LogUtil;
+
 import java.io.IOException;
+import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Callback, Camera.AutoFocusCallback {
@@ -31,8 +42,155 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         getScreenMatrix(context);
         mHolder = getHolder();
         mHolder.addCallback(this);
+
+
+        this.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                //设置聚焦
+                Point point = new Point((int) motionEvent.getX(), (int) motionEvent.getY());
+
+                if (listener!=null) {
+                    listener.OnListener(point);
+                }//                onCameraFocus(point);
+
+             Camera.Parameters mParameters =  mCamera.getParameters();
+
+                int areaX = (int) (motionEvent.getX() / CameraSurfaceView.this.getWidth() * 2000) - 1000; // 获取映射区域的X坐标
+                int areaY = (int) (motionEvent.getY() / CameraSurfaceView.this.getWidth()  * 2000) - 1000; // 获取映射区域的Y坐标
+                Log.e("MainActivity", "X坐标：" + motionEvent.getX()+",Y坐标："+motionEvent.getY());
+                // 创建Rect区域
+                Rect focusArea = new Rect();
+                focusArea.left = Math.max(areaX - 100, -1000); // 取最大或最小值，避免范围溢出屏幕坐标
+                focusArea.top = Math.max(areaY - 100, -1000);
+                focusArea.right = Math.min(areaX + 100, 1000);
+                focusArea.bottom = Math.min(areaY + 100, 1000);
+                // 创建Camera.Area
+                Camera.Area cameraArea = new Camera.Area(focusArea, 1000);
+                List<Camera.Area> meteringAreas = new ArrayList<Camera.Area>();
+                List<Camera.Area> focusAreas = new ArrayList<Camera.Area>();
+                if (mParameters.getMaxNumMeteringAreas() > 0) {
+                    meteringAreas.add(cameraArea);
+                    focusAreas.add(cameraArea);
+                }
+                mParameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO); // 设置对焦模式
+                mParameters.setFocusAreas(focusAreas); // 设置对焦区域
+                mParameters.setMeteringAreas(meteringAreas); // 设置测光区域
+                try {
+                    mCamera.cancelAutoFocus(); // 每次对焦前，需要先取消对焦
+                    mCamera.setParameters(mParameters); // 设置相机参数
+                    mCamera.autoFocus(mAutoFocusCallback); // 开启对焦
+
+                } catch (Exception e) {
+                }
+
+                    return false;
+            }
+        });
+    }
+    /**
+     * 相机对焦  默认不需要延时
+     *
+     * @param point
+     */
+    private void onCameraFocus(final Point point) {
+        onCameraFocus(point, false);
+
+    }
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+        }
+    };
+    /**
+     * 相机对焦
+     *
+     * @param point
+     * @param needDelay 是否需要延时
+     */
+    public void onCameraFocus(final Point point, boolean needDelay) {
+        long delayDuration = needDelay ? 300 : 0;
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+
+//                    if (onFocus(point, mAutoFocusCallback)) {
+////                        mFocusImageView.startFocus(point);
+//
+//
+//                }
+            }
+        }, delayDuration);
+    }
+    /**
+     * 手动聚焦
+     *
+     * @param point 触屏坐标
+     */
+    protected boolean onFocus(Point point, Camera.AutoFocusCallback callback) {
+        if (mCamera == null) {
+            return false;
+        }
+
+        Camera.Parameters parameters = null;
+        try {
+            parameters = mCamera.getParameters();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        //不支持设置自定义聚焦，则使用自动聚焦，返回
+
+        if(Build.VERSION.SDK_INT >= 14) {
+
+            if (parameters.getMaxNumFocusAreas() <= 0) {
+                return focus(callback);
+            }
+
+
+            List<Camera.Area> areas = new ArrayList<Camera.Area>();
+            int left = point.x - 300;
+            int top = point.y - 300;
+            int right = point.x + 300;
+            int bottom = point.y + 300;
+            left = left < -1000 ? -1000 : left;
+            top = top < -1000 ? -1000 : top;
+            right = right > 1000 ? 1000 : right;
+            bottom = bottom > 1000 ? 1000 : bottom;
+            areas.add(new Camera.Area(new Rect(left, top, right, bottom), 100));
+            parameters.setFocusAreas(areas);
+            try {
+                //本人使用的小米手机在设置聚焦区域的时候经常会出异常，看日志发现是框架层的字符串转int的时候出错了，
+                //目测是小米修改了框架层代码导致，在此try掉，对实际聚焦效果没影响
+                mCamera.setParameters(parameters);
+            } catch (Exception e) {
+                // TODO: handle exception
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+
+        return focus(callback);
+    }
+    private boolean focus(Camera.AutoFocusCallback callback) {
+        try {
+            mCamera.autoFocus(callback);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
+    public void setmAutoFocusCallback(Camera.AutoFocusCallback mAutoFocusCallback) {
+        this.mAutoFocusCallback = mAutoFocusCallback;
+    }
 
     private void getScreenMatrix(Context context) {
         WindowManager WM = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -79,6 +237,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         try {
             mCamera.setPreviewDisplay(holder);
 
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -101,9 +260,18 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
 
 
-//            List<Camera.Size> sizeList = parameters.getSupportedPreviewSizes();//获取所有支持的camera尺寸
-//            Camera.Size optionSize = getOptimalPreviewSize(sizeList, this.getWidth(),this.getHeight());//获取一个最为适配的camera.size
-//            parameters.setPreviewSize(optionSize.width,optionSize.height);//把camera.size赋值到parameters
+            List<Camera.Size> sizeList = parameters.getSupportedPreviewSizes();//获取所有支持的camera尺寸
+            for (int i=0;i<sizeList.size();i++){
+                Camera.Size size = sizeList.get(i);
+                LogUtil.showTestInfo(size.width+"=="+size.height);
+
+
+            }
+            Camera.Size optionSize = getOptimalPreviewSize(sizeList, this.getWidth(),this.getHeight());//获取一个最为适配的camera.size
+            parameters.setPreviewSize(optionSize.width,optionSize.height);//把camera.size赋值到parameters
+//            parameters.setPictureSize(optionSize.width,optionSize.height);//把camera.size赋值到parameters
+
+            LogUtil.showTestInfo(optionSize.width+"=="+optionSize.height);
 
 
 //
@@ -115,6 +283,8 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
             mCamera.cancelAutoFocus();// 一定要加上这句，才可以连续聚集
 
             mCamera.startPreview();
+            mCamera.autoFocus(mAutoFocusCallback);
+
         }
     }
 
@@ -168,7 +338,6 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         try {
             releaseCameraAndPreview();
             mCamera = Camera.open(id);
-            mCamera.autoFocus(mAutoFocusCallback);
 
             qOpened = (mCamera != null);
         } catch (Exception e) {
@@ -194,7 +363,19 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
             return false;
         }
     }
-
+    public interface  onListener{
+        void OnListener(Point point);
+    }
+    /**
+     *定义一个变量储存数据
+     */
+    private onListener listener;
+    /**
+     *提供公共的方法,并且初始化接口类型的数据
+     */
+    public void setListener( onListener listener){
+        this.listener = listener;
+    }
 
     @Override
     public void onAutoFocus(boolean success, Camera camera) {

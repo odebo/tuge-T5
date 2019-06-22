@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -35,6 +36,7 @@ import com.example.library.banner.BannerLayout;
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.ListBean;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.LogUtil;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MenuListener;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MyAdapter;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.SpringMenu;
@@ -87,6 +89,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
     TextView mRecogResult;
     TextView mTransRusult;
     ArrayList<String> mImagelist,mKeyWord;
+    private  Dialog dialog;
 
 
     // 【重要】 - 语音翻译功能关键类
@@ -297,7 +300,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         BannerLayout recyclerBanner =  findViewById(R.id.recycler);
         mCardLayout.setVisibility(View.VISIBLE);
         recyclerBanner.setItemSpace(50);
-        recyclerBanner.setCenterScale(Float.valueOf("1.5"));
+        recyclerBanner.setCenterScale(Float.valueOf("1.2"));
         recyclerBanner.setShowIndicator(false);
 //         mImagelist = new ArrayList<>();
 //        mImagelist.add("http://img0.imgtn.bdimg.com/it/u=1906633814,2989154540&fm=26&gp=0.jpg");
@@ -307,47 +310,27 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 //        mImagelist.add("http://img4.imgtn.bdimg.com/it/u=1794621527,1964098559&fm=27&gp=0.jpg");
 //        mImagelist.add("http://img4.imgtn.bdimg.com/it/u=1243617734,335916716&fm=27&gp=0.jpg");
         WebBannerAdapter  webBannerAdapter=new WebBannerAdapter(this,mImagelist);
+
         webBannerAdapter.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
             @Override
             public void onItemClick(int position, ImageView imageView) {
 
-                Log.i("DIANJI",imageView.getImageMatrix().toString());
-
+                Drawable drawable = imageView.getDrawable();
                 ImageView imageView1 = new ImageView(SpeechTransActivity.this);
-
-                imageView1.setImageDrawable(getResources().getDrawable(R.drawable.card01));
-
-
-                Dialog dialog = new Dialog(SpeechTransActivity.this,R.style.FullActivity);
-
-                WindowManager.LayoutParams attributes = getWindow().getAttributes();
-                attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
-                attributes.height = WindowManager.LayoutParams.MATCH_PARENT;
-                 dialog.getWindow().setAttributes(attributes);
-
-
+                imageView1.setLayoutParams(new WindowManager.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT));
+                imageView1.setImageDrawable(drawable);
+                imageView1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (dialog!=null && dialog.isShowing()){
+                            LogUtil.showTestInfo("取消dialog");
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                dialog = new Dialog(SpeechTransActivity.this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
                 dialog.setContentView(imageView1);
                 dialog.show();
-//                ImageView imageView1 = new ImageView(SpeechTransActivity.this);
-//
-////                imageView1.setImageMatrix(imageView.getImageMatrix());
-//
-//                imageView1.setImageDrawable(getResources().getDrawable(R.drawable.card01));
-//
-//                ViewGroup.LayoutParams params = new LinearLayout.LayoutParams(-2,-2);
-//
-//                //展示在dialog上面的大图
-//              Dialog  dialog = new Dialog(SpeechTransActivity.this,R.style.FullActivity);
-//
-//                WindowManager.LayoutParams attributes = getWindow().getAttributes();
-//                attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
-//                attributes.height = WindowManager.LayoutParams.MATCH_PARENT;
-//
-//                dialog.getWindow().setAttributes(attributes);
-//
-//                dialog.setContentView(imageView1);
-//                dialog.show();
-
             }
             });
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Scroller;
 import android.widget.TextView;
 
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.LogUtil;
 import com.tuge.myapp.examples.wifiTranslator.R;
 
 /**
@@ -46,6 +47,11 @@ public class CameraScroller extends ViewGroup{
 
     protected void onFinishInflate(){
         super.onFinishInflate();
+
+        LogUtil.showTestInfo("ffffffff");
+
+
+
     }
 
     protected void onLayout(boolean changed, int left,int top,int right, int bottom){
@@ -81,7 +87,7 @@ public class CameraScroller extends ViewGroup{
         }
 
         TextView indexText=(TextView)getChildAt(selectedMode);
-        indexText.setTextColor(getResources().getColor(R.color.cameraIndexPointColor));
+        indexText.setTextColor(getResources().getColor(R.color.colorPrimaryBlue));
     }
 
     protected void onMeasure(int widthMeasureSpec,int heightMeasureSpec){

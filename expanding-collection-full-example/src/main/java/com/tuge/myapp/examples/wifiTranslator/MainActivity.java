@@ -148,6 +148,7 @@ public class MainActivity extends Activity {
                 Manifest.permission.RECORD_AUDIO,
                 Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.ACCESS_WIFI_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 Manifest.permission.CHANGE_WIFI_STATE
         };
         ArrayList<String> toApplyList = new ArrayList<String>();

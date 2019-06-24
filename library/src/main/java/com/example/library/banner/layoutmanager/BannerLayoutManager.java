@@ -162,7 +162,18 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
         this.moveSpeed = moveSpeed;
     }
     protected void setItemViewProperty(View itemView, float targetOffset) {
+
         float scale = calculateScale(targetOffset + mSpaceMain);
+        Log.i("EEEE", String.valueOf(scale));
+        if (scale>1.0){
+            itemView.setAlpha(1);
+
+        }else{
+
+            itemView.setAlpha((float) 0.3);
+
+        }
+
         itemView.setScaleX(scale);
         itemView.setScaleY(scale);
     }
@@ -202,7 +213,8 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
 
     public BannerLayoutManager(Context context, int orientation, boolean reverseLayout) {
         setEnableBringCenterToFront(true);
-        setMaxVisibleItemCount(2);
+//        修改了修改了
+        setMaxVisibleItemCount(3);
         setOrientation(orientation);
         setReverseLayout(reverseLayout);
         setAutoMeasureEnabled(true);
@@ -747,8 +759,8 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
 //            这里这里这里这里（修改的地方）
 
 
-            layoutDecorated(scrap, 150 + left, mSpaceInOther + top,
-                    150 + left + mDecoratedMeasurement, mSpaceInOther + top + mDecoratedMeasurementInOther);
+            layoutDecorated(scrap, mSpaceMain + left, mSpaceInOther + top,
+                    mSpaceMain + left + mDecoratedMeasurement, mSpaceInOther + top + mDecoratedMeasurementInOther);
         }
         setItemViewProperty(scrap, targetOffset);
     }

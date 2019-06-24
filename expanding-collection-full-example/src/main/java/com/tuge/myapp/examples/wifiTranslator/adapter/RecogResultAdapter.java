@@ -50,8 +50,15 @@ public class RecogResultAdapter extends BaseAdapter {
             /*得到各个控件的对象*/
             holder.title = (TextView)view.findViewById(R.id.key);
             holder.text = (TextView) view.findViewById(R.id.value);
-            holder.text.setText(mData.get(i));
 
+            if (mData.get(i).contains("&")){
+
+                holder.title.setText(mData.get(i).split("&")[0]);
+                holder.text.setText(mData.get(i).split("&")[1]);
+
+            }else {
+                holder.text.setText(mData.get(i));
+            }
             view.setTag(holder); //绑定ViewHolder对象
         }
         else {

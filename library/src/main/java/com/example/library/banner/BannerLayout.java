@@ -179,7 +179,8 @@ public class BannerLayout extends FrameLayout {
     //设置当前图片缩放系数
     public void setCenterScale(float centerScale) {
         this.centerScale = centerScale;
-        mLayoutManager.setCenterScale(centerScale);
+       mLayoutManager.setCenterScale(centerScale);
+
     }
 
     //设置跟随手指的移动速度
@@ -348,7 +349,7 @@ public class BannerLayout extends FrameLayout {
     }
 
     public interface OnBannerItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(int position,ImageView imageView);
     }
 
 

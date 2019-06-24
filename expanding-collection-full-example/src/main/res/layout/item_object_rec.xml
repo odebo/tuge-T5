@@ -11,19 +11,19 @@
         android:layout_width="wrap_content"
         android:text="名称："
         android:id="@+id/key"
+        android:textSize="20dp"
         android:gravity="center_vertical"
         android:textColor="@android:color/white"
-        android:layout_weight="1"
         android:layout_marginLeft="30dp"
-        android:layout_height="40dp" />
+        android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/value"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:text="红酒"
+        android:textSize="20dp"
+        android:minHeight="50dp"
         android:textColor="@android:color/white"
         android:gravity="center_vertical"
-
-        android:layout_weight="1"
-        android:layout_height="40dp" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

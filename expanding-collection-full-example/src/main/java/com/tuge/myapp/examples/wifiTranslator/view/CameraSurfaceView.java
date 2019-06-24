@@ -261,6 +261,8 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
 
             List<Camera.Size> sizeList = parameters.getSupportedPreviewSizes();//获取所有支持的camera尺寸
+            Camera.Size size1 = sizeList.get(0);
+
             for (int i=0;i<sizeList.size();i++){
                 Camera.Size size = sizeList.get(i);
                 LogUtil.showTestInfo(size.width+"=="+size.height);
@@ -268,8 +270,8 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
 
             }
             Camera.Size optionSize = getOptimalPreviewSize(sizeList, this.getWidth(),this.getHeight());//获取一个最为适配的camera.size
-            parameters.setPreviewSize(optionSize.width,optionSize.height);//把camera.size赋值到parameters
-//            parameters.setPictureSize(optionSize.width,optionSize.height);//把camera.size赋值到parameters
+//            parameters.setPreviewSize(optionSize.width,optionSize.height);//把camera.size赋值到parameters
+            parameters.setPictureSize(size1.width,size1.height);//把camera.size赋值到parameters
 
             LogUtil.showTestInfo(optionSize.width+"=="+optionSize.height);
 
@@ -280,7 +282,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
             mCamera.setParameters(parameters);
             // 开始拍照
             mCamera.startPreview();
-            mCamera.cancelAutoFocus();// 一定要加上这句，才可以连续聚集
+//            mCamera.cancelAutoFocus();// 一定要加上这句，才可以连续聚集
 
             mCamera.startPreview();
             mCamera.autoFocus(mAutoFocusCallback);

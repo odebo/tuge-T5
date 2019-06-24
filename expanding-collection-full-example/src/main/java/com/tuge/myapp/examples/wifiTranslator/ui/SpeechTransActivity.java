@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -156,6 +157,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         mSpringMenu.setChildSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20, 5));
         mSpringMenu.setDragOffset(0.4f);
 
+
 //        mTitleBar.setBackgroundColor(Color.parseColor("#008cc7"));
         mTitleBar.setBackgroundColor(this.getResources().getColor(R.color.colorPrimaryBlue));
         mTitleBar.setDividerColor(Color.GRAY);
@@ -191,6 +193,28 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         MyAdapter adapter = new MyAdapter(this, listBeen);
         ListView listView = (ListView) mSpringMenu.findViewById(R.id.test_listView);
         listView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new MyAdapter.onListener() {
+            @Override
+            public void OnListener(int position) {
+                if (position==0){
+
+                    finish();
+                }else if(position==1){
+
+                    mSpringMenu.closeMenu();
+                }else if(position==2){
+
+                    Intent intent = new Intent(SpeechTransActivity.this,CameraActivity.class);
+                    intent.putExtra("flag",1);
+                    startActivity(intent);
+                }else{
+
+                    Toast.makeText(SpeechTransActivity.this,"该功能正在开发中",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
 
 //        LayoutInflater.from(this).inflate(getContentView(),viewContent);
 //        init(savedInstanceState);
@@ -284,7 +308,9 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
     }
 
-    public  void  initData(String result,ArrayList<String> keyWord){
+
+
+    public  void  initData(String result, ArrayList<String> keyWord){
 
         if (keyWord.size()>0) {
             SpannableString spannableString =  getString(result,keyWord);
@@ -340,6 +366,9 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         waveLineView.setVisibility(View.INVISIBLE);
 
     }
+
+
+
     //    高亮显示专词
     private SpannableString getString(String all, ArrayList<String> keyWord){
 
@@ -393,12 +422,12 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
     @Override
     public void onMenuOpen() {
-        Toast.makeText(this, "Menu is opened!!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Menu is opened!!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onMenuClose() {
-        Toast.makeText(this, "Menu is closed!!!", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Menu is closed!!!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

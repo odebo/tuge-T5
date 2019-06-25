@@ -19,7 +19,7 @@
     </style>
 
     <style name="cameraScrollerBar">
-        <item name="android:textSize">13.0sp</item>
+        <item name="android:textSize">12.0sp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingLeft">6.0dip</item>
@@ -30,7 +30,7 @@
 
     <style name="cardHeadTitle">
         <item name="android:textColor">#ffffffff</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:shadowColor">#000000</item>
         <item name="android:shadowDx">1</item>
         <item name="android:shadowDy">1</item>

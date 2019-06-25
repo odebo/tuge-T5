@@ -174,7 +174,7 @@ public class PhotoTransActivity extends Activity {
         Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
 
         // 源语言方向：Language.ZH，目标语言方向:Language.EN，详见技术文档
-        client.getOcrResult(oriLan, desLan, bitmap1, new OcrCallback() {
+        client.getOcrResult(oriLan, desLan, bitmap, new OcrCallback() {
             @Override
             public void onOcrResult(OcrResult ocrResult) {
 

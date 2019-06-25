@@ -27,11 +27,11 @@
             <!--app:itemSpace="20"-->
             <!--app:moveSpeed="1.8"/>-->
 
-        <!--<View-->
-            <!--android:layout_height="1px"-->
-            <!--android:background="#000000"-->
-            <!--android:layout_gravity="center_vertical"-->
-            <!--android:layout_width="fill_parent" />-->
+        <View
+            android:layout_height="1px"
+            android:background="#aaa"
+            android:layout_gravity="center_vertical"
+            android:layout_width="fill_parent" />
 
     </RelativeLayout>
 

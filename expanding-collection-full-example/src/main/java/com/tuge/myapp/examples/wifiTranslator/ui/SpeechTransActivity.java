@@ -146,6 +146,11 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         mCardLayout = findViewById(R.id.cardLayout);
 
         initClient();
+//        initData();
+
+        // 翻译模式选项卡
+        initTransModeSele();
+
         String string = getSignature();
 
         Log.i("string",string+"00000"+this.getPackageName());
@@ -254,7 +259,9 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
             }
         });
 
+    }
 
+    private void initTransModeSele() {
         getMetrics();
 
         transModeMap.put("中文 <-> 英语", "mix_zh_en");
@@ -305,7 +312,6 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
                 .setPreferenceName("HamburgerPowerMenu")
                 .setInitializeRule(Lifecycle.Event.ON_CREATE, 0)
                 .build();
-
     }
 
 

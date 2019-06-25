@@ -1,13 +1,19 @@
 package com.tuge.myapp.examples.wifiTranslator.ui;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,8 +23,12 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.facebook.rebound.SpringConfig;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.ListBean;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MenuListener;
@@ -51,6 +61,8 @@ public class ObjectRecActivity extends Activity implements MenuListener {
     boolean stopAnimation = false;
     private ImageView  scanImage;
     SpringMenu mSpringMenu;
+    private boolean isGeneral=false;
+    private  JSONObject generalRecResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +73,9 @@ public class ObjectRecActivity extends Activity implements MenuListener {
         mPicpath = getIntent().getStringExtra("picPath");
 
 
+
         Bitmap bitmap = BitmapFactory.decodeFile(mPicpath);
+        Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1);
 
         mPic =findViewById(R.id.picIV);
         scanImage = findViewById(R.id.scan_line);
@@ -162,7 +176,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
         });
         scanImage.startAnimation(mTop2Bottom);
 
-
+//        initData();
 
 
 
@@ -170,7 +184,9 @@ public class ObjectRecActivity extends Activity implements MenuListener {
             @Override
             public void run() {
                 try {
-                    objectRecog(mPicpath);
+                   objectRecog(mPicpath);
+//                    objectRecog(getResourcesUri(R.drawable.pic_rec_test));
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -183,21 +199,71 @@ public class ObjectRecActivity extends Activity implements MenuListener {
 
 
     }
+    private View addView() {
+        // TODO 动态添加布局(xml方式)
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);  //LayoutInflater inflater1=(LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//  LayoutInflater inflater2 = getLayoutInflater();
+        LayoutInflater inflater3 = LayoutInflater.from(this);
+        View view = inflater3.inflate(R.layout.item_gerenal_rec, null);
+     TextView des =  view.findViewById(R.id.des);
+     TextView name =  view.findViewById(R.id.name);
+//     ImageView iv= view.findViewById(R.id.pic);
+//     iv.setImageDrawable(getResources().getDrawable(R.drawable.card01));
+
+     name.setText(results.get(0));
+        try {
+            JSONObject baike_info = new JSONObject(results.get(1));
+            if (baike_info.length()==0){
+                des.setVisibility(View.GONE);
+            }
+            des.setText(baike_info.getString("description"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+//        Glide.with(this).load("http://baike.baidu.com/item/%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91/213561").into(iv);
+
+//        view.setLayoutParams(lp);
+
+        return view;
+    }
     private void initData(){
 
 
         stopAnimation=true;
         scanImage.clearAnimation();
         mcontainer.setVisibility(View.VISIBLE);
+        if (isGeneral){
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(-1,-2);
+            layoutParams.gravity = Gravity.BOTTOM;
+
+            mcontainer.addView(addView(),layoutParams);
+
+
+            return;
+
+        }
 
 
         RecogResultAdapter adapter = new RecogResultAdapter(this,results);
 
         ListView listView =  findViewById(R.id.listView);
         listView.setAdapter(adapter);
+        isGeneral =false;
 
     }
-//万物识别
+    private String getResourcesUri(@DrawableRes int id) {
+        Resources resources = getResources();
+        String uriPath = ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
+                resources.getResourcePackageName(id) + "/" +
+                resources.getResourceTypeName(id) + "/" +
+                resources.getResourceEntryName(id);
+        return uriPath;
+    }
+
+
+    //万物识别
     private  void objectRecog(String path) throws JSONException {
 
         results = new ArrayList<>();
@@ -239,11 +305,12 @@ public class ObjectRecActivity extends Activity implements MenuListener {
                  results.add("wineNameCn");
              }
 
-         }else {
+         }
+         else {
 
+//                generalRecResult = obj;
 
-
-
+//
                  try {
 
                      Iterator it = obj.keys();
@@ -252,9 +319,16 @@ public class ObjectRecActivity extends Activity implements MenuListener {
                      while (it.hasNext()) {//遍历JSONObject
                          key = (String) it.next().toString();
                          vol = obj.getString(key);
-                         Log.i("vvvvv", vol);
+                         if (key.equals("score")||key.equals("root")) continue;
+                         if (key.equals("baike_info")){
+                            isGeneral = true;
+                             JSONObject jsonObject = new JSONObject(vol);
+                             results.add(jsonObject.toString());
 
-                         results.add(vol);
+                         }else {
+
+                             results.add(0,vol);
+                         }
 
                      }
 

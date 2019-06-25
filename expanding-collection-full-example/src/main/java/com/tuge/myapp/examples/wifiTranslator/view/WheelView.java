@@ -98,7 +98,7 @@ public class WheelView extends View {
     private int change;
 
     // 绘制几个条目，实际上第一项和最后一项Y轴压缩成0%了，所以可见的数目实际为9
-    private int itemsVisible = 7;
+    private int itemsVisible = 5;
 
     private int measuredHeight;// WheelView 控件高度
     private int measuredWidth;// WheelView 控件宽度

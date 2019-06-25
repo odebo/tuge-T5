@@ -37,28 +37,32 @@
 
         <TextView
             android:id="@+id/tv_language_original"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/trans"
             android:text="中文"
+            android:textSize="13dp"
             android:textColor="@android:color/white"/>
 
         <ImageView
-            android:layout_width="20dp"
+            android:layout_width="15dp"
             android:id="@+id/trans"
             android:layout_centerInParent="true"
             android:onClick="onClick"
             android:src="@drawable/arrow_left_right"
-            android:layout_height="20dp" />
+            android:layout_height="15dp" />
 
         <TextView
             android:id="@+id/tv_language_target"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/trans"
             android:text="英语"
+            android:textSize="13dp"
             android:textColor="@android:color/white"/>
 
         <TextView
@@ -71,13 +75,14 @@
             android:visibility="gone"
             android:layout_marginRight="10dp"
             android:onClick="onClick"
+            android:textSize="13dp"
             android:textColor="@android:color/white"/>
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/wheel_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_below="@+id/lan_select"
         android:background="@color/bg_language_select"
         android:visibility="gone">
@@ -100,25 +105,25 @@
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_height="150dp">
+        android:layout_height="80dp">
         <ImageView
             android:id="@+id/back"
-            android:layout_width="40dp"
+            android:layout_width="25dp"
             android:src="@drawable/back"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
-            android:layout_height="40dp" />
+            android:layout_height="25dp" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
             android:layout_centerInParent="true"
-            android:layout_height="150dp">
+            android:layout_height="80dp">
 
             <ImageView
                 android:id="@+id/img_take_photo"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/icon_take_photo" />

@@ -59,6 +59,7 @@ public class CameraActivity extends Activity implements View.OnClickListener {
     private boolean mSelectVisibility;
     boolean isTransPhoto = true;
     int isOtherPage;
+    private  ArrayList list, tempList;
     private  String oriLan="zh",desLan="en";
 //    选择的语种
     private  String oriSelLan="中文",desSelLan="英语";
@@ -67,6 +68,7 @@ public class CameraActivity extends Activity implements View.OnClickListener {
     private Map<String, String> transModeMap = new HashMap<>();
     private String[] mAllLan ;
     Point mPoint;
+    WheelView originalWheelView,targetWheelView;
     private Camera.AutoFocusCallback autoFocusCallback = new Camera.AutoFocusCallback() {
         @Override
         public void onAutoFocus(boolean b, Camera camera) {
@@ -145,6 +147,9 @@ public class CameraActivity extends Activity implements View.OnClickListener {
         mBottomView.findViewById(R.id.recog).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mBottomView.mCurrentPosition==1){
+                    return;
+                }
                 mBottomView.moveRight();
                 mLanLayout.setVisibility(View.INVISIBLE);
                 mCameraLineView.setVisibility(View.INVISIBLE);
@@ -157,6 +162,11 @@ public class CameraActivity extends Activity implements View.OnClickListener {
         mBottomView.findViewById(R.id.trans).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (mBottomView.mCurrentPosition==0){
+                    return;
+                }
+
                 mBottomView.moveLeft();
                 mLanLayout.setVisibility(View.VISIBLE);
 //                mCameraLineView.setVisibility(View.VISIBLE);
@@ -170,15 +180,17 @@ public class CameraActivity extends Activity implements View.OnClickListener {
 
     private void initView() {
         String [] languageArray = getResources().getStringArray(R.array.lang);
-        List list = Arrays.asList(languageArray);
+         list = new ArrayList(Arrays.asList(languageArray));
 
-        WheelView originalWheelView = findViewById(R.id.wheel_original);
-        WheelView targetWheelView = findViewById(R.id.wheel_target);
+
+         originalWheelView = findViewById(R.id.wheel_original);
+         targetWheelView = findViewById(R.id.wheel_target);
         originalWheelView.setAdapter(new ArrayWheelAdapter(list));
         targetWheelView.setAdapter(new ArrayWheelAdapter(list));
         originalWheelView.setCyclic(false);
         originalWheelView.setInitPosition(0);
-        targetWheelView.setInitPosition(1);
+        refreshLan(list,true);
+        targetWheelView.setInitPosition(0);
         targetWheelView.setCyclic(false);
 
         originalWheelView.setOnItemSelectedListener(new WheelView.OnItemSelectedListener() {
@@ -186,14 +198,23 @@ public class CameraActivity extends Activity implements View.OnClickListener {
             public void onItemSelected(int index) {
 
                 oriSelLan = languageArray[index];
-//
-                list.remove(oriSelLan);
-//                targetWheelView.setAdapter(new ArrayWheelAdapter(list));
-//                targetWheelView.notify();
 
+
+                LogUtil.showTestInfo(list);
                 if (oriSelLan.equals(desSelLan)){
+
+                    Log.e(TAG, "源语言为: " + oriSelLan+desSelLan+ tempList.get(0).toString());
+
                     targetWheelView.setCurrentItem(0);
+
+
+
+
                 }
+                refreshLan(list,false);
+
+//                newAdapter.notifyDataSetChanged();
+
                 Log.e(TAG, "源语言为: " + languageArray[index]);
             }
         });
@@ -201,11 +222,11 @@ public class CameraActivity extends Activity implements View.OnClickListener {
         targetWheelView.setOnItemSelectedListener(new WheelView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(int index) {
-                desSelLan = languageArray[index];
-                if (oriSelLan.equals(desSelLan)){
-                    originalWheelView.setCurrentItem(0);
-                }
-                Log.e(TAG, "翻译的源语言为: " + languageArray[index]);
+                desSelLan = tempList.get(index).toString();
+//                if (oriSelLan.equals(desSelLan)){
+//                    originalWheelView.setCurrentItem(0);
+//                }
+                Log.e(TAG, "翻译的源语言为: " + desSelLan);
             }
         });
     }
@@ -259,6 +280,31 @@ public class CameraActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    private  void  refreshLan(ArrayList arrayList,Boolean add){
+         tempList = new ArrayList();
+
+        tempList.addAll(arrayList);
+//        if (add)
+//
+//            tempList.add(desSelLan);
+
+
+
+            tempList.remove(oriSelLan);
+
+//        if (!add)
+//       desSelLan = tempList.get(0).toString();
+        if (oriSelLan.equals(desSelLan)){
+
+       desSelLan = tempList.get(0).toString();
+
+        }
+
+        WheelView.WheelAdapter newAdapter = new ArrayWheelAdapter(tempList);
+        targetWheelView.setAdapter(newAdapter);
+
+    }
+
     //交换起始语言和目标语言
     public static String[] swapString(String ori,String des){
 
@@ -304,6 +350,14 @@ public class CameraActivity extends Activity implements View.OnClickListener {
 
                 mOriTV.setText(lan[0]);
                 mDesTV.setText(lan[1]);
+                oriSelLan = lan[0];
+                desSelLan = lan[1];
+                refreshLan(list,true);
+                targetWheelView.setCurrentItem(tempList.indexOf(lan[1]));
+                originalWheelView.setCurrentItem(list.indexOf(lan[0]));
+
+
+
                 break;
 
             case R.id.lan_select:

@@ -19,6 +19,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.example.library.banner.BannerLayout;
 import com.tuge.myapp.examples.wifiTranslator.R;
 
@@ -58,13 +63,12 @@ public class WebBannerAdapter extends RecyclerView.Adapter<WebBannerAdapter.MzVi
         final int P = position % urlList.size();
         String url = urlList.get(P);
         ImageView img = (ImageView) holder.imageView;
+        Glide.with(context).load(url).into(img);
 
         Log.i("posiotnnn", String.valueOf(urlList.size()));
 
 
 
-
-        Glide.with(context).load(url).into(img);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

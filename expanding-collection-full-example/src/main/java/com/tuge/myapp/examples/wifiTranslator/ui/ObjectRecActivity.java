@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.facebook.rebound.SpringConfig;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.ListBean;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MenuListener;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MyAdapter;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.SpringMenu;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar;
 import com.tuge.myapp.examples.wifiTranslator.MainActivity;
 import com.tuge.myapp.examples.wifiTranslator.R;
 import com.tuge.myapp.examples.wifiTranslator.adapter.RecogResultAdapter;
@@ -31,8 +38,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public class ObjectRecActivity extends Activity {
+public class ObjectRecActivity extends Activity implements MenuListener {
     private ImageView mPic;
+    TitleBar mTitleBar;
     private String    mPicpath;
     private FrameLayout mcontainer;
     private ArrayList<String> results;
@@ -42,6 +50,8 @@ public class ObjectRecActivity extends Activity {
     Animation mTop2Bottom, mBottom2Top;
     boolean stopAnimation = false;
     private ImageView  scanImage;
+    SpringMenu mSpringMenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +60,44 @@ public class ObjectRecActivity extends Activity {
 
         mPicpath = getIntent().getStringExtra("picPath");
 
+
         Bitmap bitmap = BitmapFactory.decodeFile(mPicpath);
 
         mPic =findViewById(R.id.picIV);
         scanImage = findViewById(R.id.scan_line);
         mPic.setImageBitmap(bitmap);
         mcontainer = findViewById(R.id.container);
+        mTitleBar = (TitleBar) findViewById(R.id.title_bar);
+
+
+        //init SpringMenu
+        mSpringMenu = new SpringMenu(this, R.layout.view_menu);
+        mSpringMenu.setMenuListener(this);
+        mSpringMenu.setFadeEnable(true);
+        mSpringMenu.setChildSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20, 5));
+        mSpringMenu.setDragOffset(0.4f);
+        ListBean[] listBeen = {new ListBean(R.mipmap.icon_home, getString(R.string.home)), new ListBean(R.mipmap.icon_speech, getString(R.string.speechTranslate)), new ListBean(R.mipmap.icon_photo, getString(R.string.photoTranslate)), new ListBean(R.mipmap.icon_ask, getString(R.string.ask)),new ListBean(R.mipmap.icon_simu, getString(R.string.simultaneous)),new ListBean(R.mipmap.icon_group, getString(R.string.GroupTranslate)),new ListBean(R.mipmap.icon_setting, getString(R.string.Setting))};
+        MyAdapter adapter = new MyAdapter(this, listBeen);
+        ListView listView = (ListView) mSpringMenu.findViewById(R.id.test_listView);
+        listView.setAdapter(adapter);
+        mTitleBar.setBackgroundColor(this.getResources().getColor(R.color.colorPrimaryBlue));
+        mTitleBar.setDividerColor(Color.GRAY);
+        mTitleBar.setTitleColor(Color.WHITE);
+        mTitleBar.setActionTextColor(Color.WHITE);
+        mTitleBar.setTitleSize(14);
+        mTitleBar.setLeftClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        mTitleBar.setRightClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSpringMenu.setDirection(SpringMenu.DIRECTION_RIGHT);
+                mSpringMenu.openMenu();
+            }
+        });
 
 
 
@@ -146,6 +188,7 @@ public class ObjectRecActivity extends Activity {
 
         stopAnimation=true;
         scanImage.clearAnimation();
+        mcontainer.setVisibility(View.VISIBLE);
 
 
         RecogResultAdapter adapter = new RecogResultAdapter(this,results);
@@ -172,10 +215,10 @@ public class ObjectRecActivity extends Activity {
 
             JSONObject object = obj.getJSONObject("currency");
             if (object.getInt("hasdetail")==1) {
-                results.add("名称：" + "&" + object.getString("currencyName"));
-                results.add("代码：" + "&" + object.getString("currencyCode"));
-                results.add("面值：" + "&" + object.getString("currencyDenomination"));
-                results.add("年份：" + "&" + object.getString("year"));
+                results.add("名称 " + "&" + object.getString("currencyName"));
+                results.add("代码 " + "&" + object.getString("currencyCode"));
+                results.add("面值 " + "&" + object.getString("currencyDenomination"));
+                results.add("年份 " + "&" + object.getString("year"));
             }else{
 
                 results.add("currencyName");
@@ -185,11 +228,11 @@ public class ObjectRecActivity extends Activity {
 
              JSONObject object = obj.getJSONObject("redwine");
              if (object.getInt("hasdetail")==1) {
-                 results.add("名称：" + "&" + object.getString("wineNameCn"));
-                 results.add("国家：" + "&" + object.getString("countryCn"));
-                 results.add("产区：" + "&" + object.getString("regionCn"));
-                 results.add("酒庄：" + "&" + object.getString("wineryCn"));
-                 results.add("糖分：" + "&" + object.getString("classifyBySugar"));
+                 results.add("名称 " + "&" + object.getString("wineNameCn"));
+                 results.add("国家 " + "&" + object.getString("countryCn"));
+                 results.add("产区 " + "&" + object.getString("regionCn"));
+                 results.add("酒庄 " + "&" + object.getString("wineryCn"));
+                 results.add("糖分 " + "&" + object.getString("classifyBySugar"));
 
              }else{
 
@@ -243,6 +286,21 @@ public class ObjectRecActivity extends Activity {
 
 
 
+
+    }
+
+    @Override
+    public void onMenuOpen() {
+
+    }
+
+    @Override
+    public void onMenuClose() {
+
+    }
+
+    @Override
+    public void onProgressUpdate(float value, boolean bouncing) {
 
     }
 }

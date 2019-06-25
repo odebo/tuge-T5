@@ -30,9 +30,9 @@ android {
 //    }
     signingConfigs {
         releaseConfig {
-            keyAlias 'platform'
+            keyAlias 'androiddebugkey'
             keyPassword 'android'
-            storeFile file('/Users/huangziqing/Documents/翻译机/二代机交互设计/code-T5/debug.keystore')
+            storeFile file('debug.keystore')
             storePassword 'android'
         }
     }

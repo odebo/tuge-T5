@@ -4,9 +4,17 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"/>
     <ImageView
         android:id="@+id/picIV"
+        android:layout_below="@+id/title_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <ImageView
@@ -22,7 +30,9 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:background="#BB000000"
+        android:layout_below="@+id/title_bar"
+        android:background="#80000000"
+        android:visibility="gone"
         android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="wrap_content"

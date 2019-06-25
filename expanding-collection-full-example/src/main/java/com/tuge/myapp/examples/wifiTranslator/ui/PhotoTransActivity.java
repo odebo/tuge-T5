@@ -9,6 +9,7 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,6 +28,7 @@ import com.baidu.translate.ocr.OcrClientFactory;
 import com.baidu.translate.ocr.entity.Language;
 import com.baidu.translate.ocr.entity.OcrContent;
 import com.baidu.translate.ocr.entity.OcrResult;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.LogUtil;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.SpringMenu;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar;
 import com.tuge.myapp.examples.wifiTranslator.R;
@@ -46,6 +48,7 @@ public class PhotoTransActivity extends Activity {
     private ImageView  mPic;
     private String    mPicpath;
     private FrameLayout mcontainer;
+    private String oriLan,desLan;
 //    扫描线
     Animation mTop2Bottom, mBottom2Top;
     boolean stopAnimation = false;
@@ -61,6 +64,9 @@ public class PhotoTransActivity extends Activity {
         setContentView(R.layout.activity_photo_trans);
 
         mPicpath = getIntent().getStringExtra("picPath");
+        oriLan = getIntent().getStringExtra("ori");
+        desLan = getIntent().getStringExtra("des");
+        LogUtil.showTestInfo(oriLan+desLan);
 
 
         mPic =findViewById(R.id.picIV);
@@ -68,10 +74,17 @@ public class PhotoTransActivity extends Activity {
         scanImage = findViewById(R.id.scan_line);
         Bitmap bitmap = BitmapFactory.decodeFile(mPicpath);
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inScaled = false;
+//        options.inScaled = false;
         Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
 
         mPic.setImageBitmap(bitmap);
+
+        findViewById(R.id.scroller).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
 
 //扫描实现
         mTop2Bottom = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
@@ -140,7 +153,9 @@ public class PhotoTransActivity extends Activity {
 
         int width = wm.getDefaultDisplay().getWidth();
         int height = wm.getDefaultDisplay().getHeight();
-       Log.i("wk","图片的宽度:"+bitmap.getWidth()+"图片的高度"+bitmap.getHeight());
+        LogUtil.showTestInfo(width+"==999"+height);
+
+        Log.i("wk","图片的宽度:"+bitmap.getWidth()+"图片的高度"+bitmap.getHeight());
 
 
     }
@@ -153,13 +168,13 @@ public class PhotoTransActivity extends Activity {
         OcrClient client = OcrClientFactory.create(this, appId, appKey);
 
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inScaled = false;
+//        options.inScaled = false;
         Bitmap bitmap = BitmapFactory.decodeFile(path);
 
-      Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
+        Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
 
         // 源语言方向：Language.ZH，目标语言方向:Language.EN，详见技术文档
-        client.getOcrResult(Language.ZH, Language.EN, bitmap, new OcrCallback() {
+        client.getOcrResult(oriLan, desLan, bitmap, new OcrCallback() {
             @Override
             public void onOcrResult(OcrResult ocrResult) {
 
@@ -191,9 +206,9 @@ public class PhotoTransActivity extends Activity {
 
                     FrameLayout.LayoutParams layoutParams= new FrameLayout.LayoutParams(-2,-2);
 
-                    layoutParams.width = right-left ;
+                    layoutParams.width = (right-left) ;
 
-                    layoutParams.height = bottom-top;
+                    layoutParams.height = (bottom-top);
                     layoutParams.setMargins(left,top,0,0);//4个参数按顺序分别是左上右下
 
                     mcontainer.addView(textView);

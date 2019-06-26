@@ -325,6 +325,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
 
             mRecogResult.setText(spannableString);
+//            waveLineView.setVisibility(View.INVISIBLE);
+
         }else{
 
             mRecogResult.setText(result);
@@ -334,6 +336,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         BannerLayout recyclerBanner =  findViewById(R.id.recycler);
         mCardLayout.setVisibility(View.VISIBLE);
         recyclerBanner.setItemSpace(50);
+
         recyclerBanner.setCenterScale(Float.valueOf("1.2"));
         recyclerBanner.setShowIndicator(false);
 //         mImagelist = new ArrayList<>();
@@ -370,8 +373,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
 
 //
+
         recyclerBanner.setAdapter(webBannerAdapter);
-        waveLineView.setVisibility(View.INVISIBLE);
 
     }
 

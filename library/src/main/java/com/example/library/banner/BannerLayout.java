@@ -84,6 +84,7 @@ public class BannerLayout extends FrameLayout {
 
     public BannerLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
         initView(context, attrs);
     }
 
@@ -247,8 +248,9 @@ public class BannerLayout extends FrameLayout {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 int first = mLayoutManager.getCurrentPosition();
-                Log.d("xxx", "onScrollStateChanged"+first);
+                Log.d("xxx", "onScrollStateChanged"+first+"-"+currentIndex);
                 if (currentIndex != first) {
+
                     currentIndex = first;
                 }
                 if (newState == SCROLL_STATE_IDLE) {

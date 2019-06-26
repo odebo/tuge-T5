@@ -2,6 +2,7 @@ package com.tuge.myapp.examples.wifiTranslator.DetailActivity;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -61,6 +62,12 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
 
     public TitleBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.setBackgroundColor(Color.WHITE);
+
+        this.setTitleColor(this.getResources().getColor(R.color.colorPrimaryBlue));
+        this.setActionTextColor(Color.WHITE);
+        this.setTitleSize(14);
+
         init(context);
     }
 

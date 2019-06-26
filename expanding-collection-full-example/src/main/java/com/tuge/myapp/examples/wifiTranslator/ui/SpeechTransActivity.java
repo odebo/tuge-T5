@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.translate.asr.OnRecognizeListener;
+import com.baidu.translate.asr.OnTTSPlayListener;
 import com.baidu.translate.asr.TransAsrClient;
 import com.baidu.translate.asr.TransAsrConfig;
 import com.baidu.translate.asr.data.RecognitionResult;
@@ -80,7 +81,7 @@ import org.json.JSONObject;
 //import com.skydoves.powermenudemo.customs.items.NameCardMenuItem;
 
 
-public  class SpeechTransActivity extends Activity implements MenuListener {
+public  class SpeechTransActivity extends Activity implements MenuListener, View.OnClickListener {
 
     SpringMenu mSpringMenu;
     private WaveLineView waveLineView;
@@ -93,6 +94,9 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
     ArrayList<String> mImagelist,mKeyWord;
     private  Dialog dialog;
 
+    private  String resultId;
+    private  ImageView mPlayIV;
+    private int isOtherPage;
 
     // 【重要】 - 语音翻译功能关键类
     private TransAsrClient client;
@@ -146,6 +150,9 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         mRecogResult = findViewById(R.id.recogResult);
         mTransRusult = findViewById(R.id.transResult);
         mCardLayout = findViewById(R.id.cardLayout);
+        mPlayIV = findViewById(R.id.play);
+        isOtherPage = getIntent().getIntExtra("flag",0);
+
 
         initClient();
 //        initData();
@@ -175,7 +182,14 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+
+                if (isOtherPage==1){
+
+                    Intent intent = new Intent(SpeechTransActivity.this,MainActivity.class);
+                    startActivity(intent);
+                }else {
+                    finish();
+                }
             }
         });
         mTitleBar.setRightClickListener(new View.OnClickListener() {
@@ -325,7 +339,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
 
             mRecogResult.setText(spannableString);
-//            waveLineView.setVisibility(View.INVISIBLE);
+            waveLineView.setVisibility(View.INVISIBLE);
 
         }else{
 
@@ -496,6 +510,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
         // 	开始识别，调用这个函数
         client.startRecognize(extraParams);
+
         // 【重要】开始语音识别
 //        client.startRecognize("zh", "en");
     }
@@ -515,7 +530,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         // appId及私钥，可在API平台 管理控制台 查看
         config = new TransAsrConfig(APP_ID, SECRET_KEY);
         // 构造client
-//        config.setTtsCombined(true);
+       config.setTtsCombined(true);
+        config.setAutoPlayTts(false);
         WifiTranslatorConfig wifiTranslatorConfig = new WifiTranslatorConfig();
 
 
@@ -537,10 +553,14 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
                     if (result.getError() == 0) { // 表示正常，有识别结果
                         Log.d(TAG, "最终识别结果：" + result.getAsrResult());
 
+
 //                        initData();
 
                         mRecogResult.setText(result.getAsrResult());
                         mTransRusult.setText(result.getTransResult());
+
+                        mPlayIV.setVisibility(View.VISIBLE);
+                        resultId =  result.getId();
 
 
                         new Thread(new Runnable(){
@@ -559,16 +579,17 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
                         }).start();
                         Log.d(TAG, "翻译结果：" + result.getTransResult());
 
-                    }else if (resultType == OnRecognizeListener.TYPE_TTS_MP3_DATA) { // 最终结果
+                    }else if (resultType == OnRecognizeListener.TYPE_TTS_MP3_DATA) {
                         if (result.getError() == 0) { // 表示正常，有识别结果
-                            Log.d(TAG, "最终识别结果：" + result.getAsrResult());
+
+                            Log.d(TAG, "最终mp3：" + result.getAsrResult());
 
 
                         }
-                    }else if (resultType == OnRecognizeListener.TYPE_TTS_PCM_DATA) { // 最终结果
+                    }else if (resultType == OnRecognizeListener.TYPE_TTS_PCM_DATA) {
                         if (result.getError() == 0) { // 表示正常，有识别结果
-                            Log.d(TAG, "最终识别结果：" + result.getAsrResult());
 
+                            Log.d(TAG, "最终pcm：" + result.getAsrResult());
 
                         }
                     }
@@ -618,6 +639,17 @@ Log.i("666666666",mKeyWord.toString());
         });
 
 }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (isOtherPage==1) {
+
+            Intent intent = new Intent(SpeechTransActivity.this,MainActivity.class);
+            startActivity(intent);
+
+        }
+    }
+
 
     // 获取屏幕像素
     private void getMetrics() {
@@ -627,6 +659,40 @@ Log.i("666666666",mKeyWord.toString());
         getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
 //        int width = metrics.widthPixels;
 //        int height = metrics.heightPixels;
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()){
+            case  R.id.play:
+                mPlayIV.setImageDrawable(getResources().getDrawable(R.drawable.playing));
+
+
+
+                client.play(resultId, new OnTTSPlayListener() {
+                    @Override
+                    public void onPlayStop(String s) {
+
+                        mPlayIV.setImageDrawable(getResources().getDrawable(R.drawable.play));
+
+
+                    }
+
+                    @Override
+                    public void onPlayFailed(String s, int i, String s1) {
+
+                    }
+                });
+
+                break;
+                default:
+                    break;
+
+
+
+        }
 
     }
 }

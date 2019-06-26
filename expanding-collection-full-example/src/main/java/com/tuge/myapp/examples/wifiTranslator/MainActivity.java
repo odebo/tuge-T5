@@ -49,7 +49,6 @@ public class MainActivity extends Activity {
         initPermission();
 //      String string = getSignature();
 
-
         // Create adapter for pager
 
         ExampleDataset  exampleDataset = new ExampleDataset();
@@ -112,6 +111,8 @@ public class MainActivity extends Activity {
                                 break;
 
                                 default:
+
+                                    Toast.makeText(MainActivity.this,"该功能正在开发中",Toast.LENGTH_SHORT).show();
 
                                     break;
 

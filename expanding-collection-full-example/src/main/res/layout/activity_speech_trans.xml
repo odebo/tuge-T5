@@ -42,7 +42,18 @@
         android:gravity="center"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/title_bar"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <com.tuge.myapp.examples.wifiTranslator.view.PrinterTextView
+            android:id="@+id/pt_langA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#999999"
+            android:textSize="30dp"
+            android:gravity="center"/>
+
         <TextView
             android:id="@+id/transResult"
             android:gravity="center"
@@ -102,7 +113,18 @@
         android:layout_below="@+id/center"
         android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <com.tuge.myapp.examples.wifiTranslator.view.PrinterTextView
+            android:id="@+id/pt_langB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#999999"
+            android:textSize="30dp"
+            android:gravity="center" />
+
         <TextView
             android:id="@+id/recogResult"
             android:textSize="30dp"

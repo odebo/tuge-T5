@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.content.res.XmlResourceParser;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -46,6 +47,7 @@ import com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar;
 import com.tuge.myapp.examples.wifiTranslator.MainActivity;
 import com.tuge.myapp.examples.wifiTranslator.R;
 import com.tuge.myapp.examples.wifiTranslator.adapter.WebBannerAdapter;
+import com.tuge.myapp.examples.wifiTranslator.view.PrinterTextView;
 import com.tuge.myapp.examples.wifiTranslator.view.WaveLineView;
 
 import java.util.ArrayList;
@@ -82,6 +84,9 @@ import org.json.JSONObject;
 
 public  class SpeechTransActivity extends Activity implements MenuListener {
 
+    private PrinterTextView mPrinterTViewLangA;
+    private PrinterTextView mPrinterTViewLangB;
+
     SpringMenu mSpringMenu;
     private WaveLineView waveLineView;
 
@@ -112,6 +117,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
     // 翻译模式Map
     private Map<String, String> transModeMap = new HashMap<>();
+    private Map<String, Object> transModes = new HashMap<>();
+
     // 翻译语种选择菜单
     private static String curTransModeTxt = "中文 <-> 英语"; // 当前翻译模式
     private PowerMenu langMenu;
@@ -146,9 +153,14 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         mRecogResult = findViewById(R.id.recogResult);
         mTransRusult = findViewById(R.id.transResult);
         mCardLayout = findViewById(R.id.cardLayout);
+        mPrinterTViewLangA = (PrinterTextView) findViewById(R.id.pt_langA);
+        mPrinterTViewLangB = (PrinterTextView) findViewById(R.id.pt_langB);
 
         initClient();
 //        initData();
+
+        // 打印提示文案
+        startPrint();
 
         // 翻译模式选项卡
         initTransModeSele();
@@ -372,7 +384,6 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 //
         recyclerBanner.setAdapter(webBannerAdapter);
         waveLineView.setVisibility(View.INVISIBLE);
-
     }
 
 
@@ -536,6 +547,10 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
 
 //                        initData();
 
+
+                        mPrinterTViewLangA.setVisibility(View.INVISIBLE);
+                        mPrinterTViewLangB.setVisibility(View.INVISIBLE);
+
                         mRecogResult.setText(result.getAsrResult());
                         mTransRusult.setText(result.getTransResult());
 
@@ -625,5 +640,16 @@ Log.i("666666666",mKeyWord.toString());
 //        int width = metrics.widthPixels;
 //        int height = metrics.heightPixels;
 
+    }
+
+    /**
+     * 开始打印
+     */
+    private void startPrint() {
+        mPrinterTViewLangA.setPrintText("Hold down the microphone to speak", 100, "|");
+        mPrinterTViewLangA.startPrint();
+
+        mPrinterTViewLangB.setPrintText("按住麦克风说话", 300, "|");
+        mPrinterTViewLangB.startPrint();
     }
 }

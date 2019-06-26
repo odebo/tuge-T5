@@ -29,7 +29,7 @@ android {
 //             }
 //    }
     signingConfigs {
-        releaseConfig {
+        debugSign {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
             storeFile file('debug.keystore')
@@ -48,6 +48,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debugSign
         }
     }
     productFlavors {

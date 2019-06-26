@@ -49,7 +49,6 @@ public class MainActivity extends Activity {
         initPermission();
 //      String string = getSignature();
 
-
         // Create adapter for pager
 
         ExampleDataset  exampleDataset = new ExampleDataset();

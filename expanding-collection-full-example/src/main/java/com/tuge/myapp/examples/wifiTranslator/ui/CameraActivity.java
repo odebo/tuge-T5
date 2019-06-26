@@ -342,19 +342,19 @@ public class CameraActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.trans:
-                String [] lan = swapString(mOriTV.getText().toString(),mDesTV.getText().toString());
-                oriLan = transModeMap.get(lan[0]);
-
-                desLan = transModeMap.get(lan[1]);
-                LogUtil.showTestInfo(oriLan+desLan);
-
-                mOriTV.setText(lan[0]);
-                mDesTV.setText(lan[1]);
-                oriSelLan = lan[0];
-                desSelLan = lan[1];
-                refreshLan(list,true);
-                targetWheelView.setCurrentItem(tempList.indexOf(lan[1]));
-                originalWheelView.setCurrentItem(list.indexOf(lan[0]));
+//                String [] lan = swapString(mOriTV.getText().toString(),mDesTV.getText().toString());
+//                oriLan = transModeMap.get(lan[0]);
+//
+//                desLan = transModeMap.get(lan[1]);
+//                LogUtil.showTestInfo(oriLan+desLan);
+//
+//                mOriTV.setText(lan[0]);
+//                mDesTV.setText(lan[1]);
+//                oriSelLan = lan[0];
+//                desSelLan = lan[1];
+//                refreshLan(list,true);
+//                targetWheelView.setCurrentItem(tempList.indexOf(lan[1]));
+//                originalWheelView.setCurrentItem(list.indexOf(lan[0]));
 
 
 

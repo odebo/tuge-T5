@@ -79,14 +79,14 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
         mBackIV = new ImageView(context);
         mLeftLayout = new LinearLayout(context);
         mLeftLayout.setGravity(Gravity.LEFT);
-        mBackIV.setImageDrawable(getResources().getDrawable(R.mipmap.icon_back));
+        mBackIV.setImageDrawable(getResources().getDrawable(R.drawable.icon_back));
         mBackIV.setPadding(0,5,0,5);
         mLeftLayout.addView(mBackIV);
 
         mMenuIV = new ImageView(context);
         mRightLayout = new LinearLayout(context);
         mRightLayout.setGravity(Gravity.RIGHT);
-        mMenuIV.setImageDrawable(getResources().getDrawable(R.mipmap.icon_menu));
+        mMenuIV.setImageDrawable(getResources().getDrawable(R.drawable.menu));
         mMenuIV.setPadding(0,5,0,5);
         mRightLayout.addView(mMenuIV);
 

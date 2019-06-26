@@ -14,18 +14,58 @@
         android:layout_marginLeft="0dp"/>
     <ImageView
         android:id="@+id/picIV"
+        android:layout_width="match_parent"
+        android:scaleType="fitCenter"
         android:layout_below="@+id/title_bar"
-        android:layout_width="wrap_content"
+        android:adjustViewBounds="true"
         android:layout_height="wrap_content" />
     <ImageView
         android:id="@+id/scan_line"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_below="@+id/title_bar"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
         android:alpha="0.5"
         android:background="@color/colorPrimaryDark"
         />
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/result"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_below="@+id/picIV"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:visibility="gone"-->
+            <!--android:layout_height="match_parent">-->
+            <!--<TextView-->
+
+                <!--android:layout_width="match_parent"-->
+                <!--android:text="名称 "-->
+                <!--android:id="@+id/name"-->
+                <!--android:textSize="20dp"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:textColor="@color/colorPrimaryBlue"-->
+                <!--android:layout_height="wrap_content" />-->
+            <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/pic"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="50dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_gravity="center_horizontal"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="50dp" />&ndash;&gt;-->
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:text="详情"-->
+                <!--android:id="@+id/des"-->
+                <!--android:textSize="14dp"-->
+                <!--android:lineSpacingMultiplier="1.5"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginBottom="10dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_height="wrap_content" />-->
+        <!--</LinearLayout>-->
+
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -33,16 +73,20 @@
         android:layout_below="@+id/title_bar"
         android:background="#80000000"
         android:visibility="gone"
+
         android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_height="wrap_content">
-            <ListView
-                android:id="@+id/listView"
-                android:background="@color/colorPrimaryBlue"
-                android:layout_width="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/listView"
+            android:background="@color/colorPrimaryBlue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:alpha="0.7">
         </ListView>
         </RelativeLayout>
     </FrameLayout>

@@ -2,29 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="bottom"
-    android:background="@color/colorPrimaryBlue"
-    android:layout_height="wrap_content">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:layout_gravity="center"
+    android:background="@color/colorPrimaryBlue"
+    android:alpha="0.7">
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:maxHeight="100dp"
         android:layout_height="wrap_content">
     <TextView
-
         android:layout_width="match_parent"
         android:text="名称 "
         android:id="@+id/name"
-        android:textSize="20dp"
+        android:textSize="23dp"
+        android:textStyle="bold"
         android:gravity="center"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:layout_height="wrap_content" />
     <!--<ImageView-->
         <!--android:id="@+id/pic"-->
@@ -35,11 +37,14 @@
         android:layout_width="match_parent"
         android:text="详情"
         android:id="@+id/des"
-        android:textSize="14dp"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:lineSpacingMultiplier="1.5"
         android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"/>
     </LinearLayout>
 </ScrollView>
 </LinearLayout>

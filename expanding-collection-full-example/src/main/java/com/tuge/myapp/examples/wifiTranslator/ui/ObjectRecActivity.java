@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
@@ -30,6 +31,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.facebook.rebound.SpringConfig;
+import com.githang.statusbar.StatusBarCompat;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.ListBean;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MenuListener;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MyAdapter;
@@ -43,6 +45,7 @@ import com.tuge.translatorlib.TranslatorUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -69,10 +72,18 @@ public class ObjectRecActivity extends Activity implements MenuListener {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_object_rec);
+        StatusBarCompat.setStatusBarColor(this, Color.TRANSPARENT);
 
         mPicpath = getIntent().getStringExtra("picPath");
-
-
+//
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+//            try {
+//                Class decorViewClazz = Class.forName("com.android.internal.policy.DecorView");
+//                Field field = decorViewClazz.getDeclaredField("mSemiTransparentStatusBarColor");
+//                field.setAccessible(true);
+//                field.setInt(getWindow().getDecorView(), Color.TRANSPARENT);  //改为透明
+//            } catch (Exception e) {}
+//        }
 
         Bitmap bitmap = BitmapFactory.decodeFile(mPicpath);
         Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1);
@@ -94,7 +105,9 @@ public class ObjectRecActivity extends Activity implements MenuListener {
         MyAdapter adapter = new MyAdapter(this, listBeen);
         ListView listView = (ListView) mSpringMenu.findViewById(R.id.test_listView);
         listView.setAdapter(adapter);
-        mTitleBar.setBackgroundColor(this.getResources().getColor(R.color.colorPrimaryBlue));
+        mTitleBar.setBackgroundColor(Color.WHITE);
+
+//        mTitleBar.setBackgroundColor(this.getResources().getColor(R.color.colorPrimaryBlue));
         mTitleBar.setDividerColor(Color.GRAY);
         mTitleBar.setTitleColor(Color.WHITE);
         mTitleBar.setActionTextColor(Color.WHITE);
@@ -217,7 +230,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
             if (baike_info.length()==0){
                 des.setVisibility(View.GONE);
             }
-            des.setText(baike_info.getString("description"));
+            des.setText("\u3000\u3000"+baike_info.getString("description"));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -232,11 +245,31 @@ public class ObjectRecActivity extends Activity implements MenuListener {
 
 
         stopAnimation=true;
+        scanImage.setVisibility(View.GONE);
         scanImage.clearAnimation();
         mcontainer.setVisibility(View.VISIBLE);
         if (isGeneral){
+//            findViewById(R.id.result).setVisibility(View.VISIBLE);
+//
+//            TextView des =  findViewById(R.id.des);
+//            TextView name =  findViewById(R.id.name);
+////     ImageView iv= view.findViewById(R.id.pic);
+////     iv.setImageDrawable(getResources().getDrawable(R.drawable.card01));
+//
+//            name.setText(results.get(0));
+//            try {
+//                JSONObject baike_info = new JSONObject(results.get(1));
+//                if (baike_info.length()==0){
+//                    des.setVisibility(View.GONE);
+//                }
+//                des.setText("\u3000\u3000"+baike_info.getString("description"));
+//
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(-1,-2);
-            layoutParams.gravity = Gravity.BOTTOM;
+            layoutParams.gravity = Gravity.CENTER;
 
             mcontainer.addView(addView(),layoutParams);
 

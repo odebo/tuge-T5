@@ -36,6 +36,7 @@ import com.baidu.translate.wifitranslator.WifiTranslatorConfig;
 import com.example.library.banner.BannerLayout;
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
+import com.githang.statusbar.StatusBarCompat;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.ListBean;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.LogUtil;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MenuListener;
@@ -140,6 +141,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_trans);
+        StatusBarCompat.setStatusBarColor(this, Color.WHITE);
         mTitleBar = (TitleBar) findViewById(R.id.title_bar);
         mRecogResult = findViewById(R.id.recogResult);
         mTransRusult = findViewById(R.id.transResult);
@@ -163,10 +165,10 @@ public  class SpeechTransActivity extends Activity implements MenuListener {
         mSpringMenu.setDragOffset(0.4f);
 
 
-//        mTitleBar.setBackgroundColor(Color.parseColor("#008cc7"));
-        mTitleBar.setBackgroundColor(this.getResources().getColor(R.color.colorPrimaryBlue));
+        mTitleBar.setBackgroundColor(Color.WHITE);
+//        mTitleBar.setBackgroundColor(this.getResources().getColor(R.color.colorPrimaryBlue));
         mTitleBar.setDividerColor(Color.GRAY);
-        mTitleBar.setTitleColor(Color.WHITE);
+        mTitleBar.setTitleColor(this.getResources().getColor(R.color.colorPrimaryBlue));
         mTitleBar.setActionTextColor(Color.WHITE);
         mTitleBar.setTitle(curTransModeTxt);
         mTitleBar.setTitleSize(14);

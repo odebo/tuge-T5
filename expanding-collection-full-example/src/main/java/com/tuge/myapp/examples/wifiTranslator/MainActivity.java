@@ -112,6 +112,8 @@ public class MainActivity extends Activity {
 
                                 default:
 
+                                    Toast.makeText(MainActivity.this,"该功能正在开发中",Toast.LENGTH_SHORT).show();
+
                                     break;
 
                         }

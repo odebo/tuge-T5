@@ -3,6 +3,7 @@ package com.tuge.myapp.examples.wifiTranslator.DetailActivity;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.*;
 import android.os.Build;
@@ -10,8 +11,15 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.*;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import com.facebook.rebound.*;
+import com.tuge.myapp.examples.wifiTranslator.MainActivity;
+import com.tuge.myapp.examples.wifiTranslator.R;
+import com.tuge.myapp.examples.wifiTranslator.ui.CameraActivity;
+import com.tuge.myapp.examples.wifiTranslator.ui.SpeechTransActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +109,45 @@ public class SpringMenu extends RelativeLayout implements SpringListener {
         mFadeView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mFadeView.setBackgroundColor(Color.argb(180, 0, 0, 0));
         mFadeView.setAlpha(0);
+
+
+    }
+    public   void setAdapter (Context context){
+
+        ListBean[] listBeen = {new ListBean(R.mipmap.icon_home, getResources().getString(R.string.home)), new ListBean(R.mipmap.icon_speech,getResources().getString(R.string.speechTranslate)), new ListBean(R.mipmap.icon_photo, getResources().getString(R.string.photoTranslate)), new ListBean(R.mipmap.icon_ask, getResources().getString(R.string.ask)),new ListBean(R.mipmap.icon_simu, getResources().getString(R.string.simultaneous)),new ListBean(R.mipmap.icon_group, getResources().getString(R.string.GroupTranslate)),new ListBean(R.mipmap.icon_setting,getResources().getString(R.string.Setting))};
+        MyAdapter adapter = new MyAdapter(context, listBeen);
+        ListView listView = this.findViewById(R.id.test_listView);
+        listView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new MyAdapter.onListener() {
+            @Override
+            public void OnListener(int position) {
+                if (position==0){
+
+                    Intent intent = new Intent(context, MainActivity.class);
+                   context.startActivity(intent);
+                }else if(position==1){
+
+                    Intent intent = new Intent(context,SpeechTransActivity.class);
+                    intent.putExtra("flag",1);
+                    context.startActivity(intent);
+
+                }else if(position==2){
+
+                    Activity activity =(Activity) context;
+                    activity.finish();
+
+
+//                    Intent intent = new Intent(context, CameraActivity.class);
+//                    intent.putExtra("flag",1);
+//                    context.startActivity(intent);
+                }else{
+
+                    Toast.makeText(context,"该功能正在开发中",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
     }
 
     private void initSpring() {

@@ -3,6 +3,7 @@ package com.tuge.myapp.examples.wifiTranslator.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -109,6 +110,7 @@ public abstract class RenderView extends SurfaceView implements SurfaceHolder.Ca
                     Thread.sleep(SLEEP_TIME);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+
                 }
 
             }

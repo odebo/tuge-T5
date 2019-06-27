@@ -72,7 +72,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_object_rec);
-        StatusBarCompat.setStatusBarColor(this, Color.TRANSPARENT);
+        StatusBarCompat.setStatusBarColor(this, Color.WHITE);
 
         mPicpath = getIntent().getStringExtra("picPath");
 //
@@ -101,17 +101,8 @@ public class ObjectRecActivity extends Activity implements MenuListener {
         mSpringMenu.setFadeEnable(true);
         mSpringMenu.setChildSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20, 5));
         mSpringMenu.setDragOffset(0.4f);
-        ListBean[] listBeen = {new ListBean(R.mipmap.icon_home, getString(R.string.home)), new ListBean(R.mipmap.icon_speech, getString(R.string.speechTranslate)), new ListBean(R.mipmap.icon_photo, getString(R.string.photoTranslate)), new ListBean(R.mipmap.icon_ask, getString(R.string.ask)),new ListBean(R.mipmap.icon_simu, getString(R.string.simultaneous)),new ListBean(R.mipmap.icon_group, getString(R.string.GroupTranslate)),new ListBean(R.mipmap.icon_setting, getString(R.string.Setting))};
-        MyAdapter adapter = new MyAdapter(this, listBeen);
-        ListView listView = (ListView) mSpringMenu.findViewById(R.id.test_listView);
-        listView.setAdapter(adapter);
-        mTitleBar.setBackgroundColor(Color.WHITE);
+        mSpringMenu.setAdapter(this);
 
-//        mTitleBar.setBackgroundColor(this.getResources().getColor(R.color.colorPrimaryBlue));
-        mTitleBar.setDividerColor(Color.GRAY);
-        mTitleBar.setTitleColor(Color.WHITE);
-        mTitleBar.setActionTextColor(Color.WHITE);
-        mTitleBar.setTitleSize(14);
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,7 +130,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
 
         mBottom2Top.setRepeatMode(Animation.RESTART);
         mBottom2Top.setInterpolator(new LinearInterpolator());
-        mBottom2Top.setDuration(1200);
+        mBottom2Top.setDuration(1500);
         mBottom2Top.setFillEnabled(true);//使其可以填充效果从而不回到原地
         mBottom2Top.setFillAfter(true);//不回到起始位置
 //如果不添加setFillEnabled和setFillAfter则动画执行结束后会自动回到远点
@@ -166,7 +157,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
 
         mTop2Bottom.setRepeatMode(Animation.RESTART);
         mTop2Bottom.setInterpolator(new LinearInterpolator());
-        mTop2Bottom.setDuration(1200);
+        mTop2Bottom.setDuration(1500);
         mTop2Bottom.setFillEnabled(true);
         mTop2Bottom.setFillAfter(true);
         mTop2Bottom.setAnimationListener(new Animation.AnimationListener() {
@@ -226,11 +217,16 @@ public class ObjectRecActivity extends Activity implements MenuListener {
 
      name.setText(results.get(0));
         try {
-            JSONObject baike_info = new JSONObject(results.get(1));
-            if (baike_info.length()==0){
+            if (results.size()>1) {
+                JSONObject baike_info = new JSONObject(results.get(1));
+                if (baike_info.length() == 0) {
+                    des.setVisibility(View.GONE);
+                }
+                des.setText("\u3000\u3000" + baike_info.getString("description"));
+            }else{
                 des.setVisibility(View.GONE);
+
             }
-            des.setText("\u3000\u3000"+baike_info.getString("description"));
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -320,7 +316,9 @@ public class ObjectRecActivity extends Activity implements MenuListener {
                 results.add("年份 " + "&" + object.getString("year"));
             }else{
 
-                results.add("currencyName");
+                isGeneral = true;
+
+                results.add(object.getString("currencyName"));
             }
         }else if(obj.has("redwine")){
 
@@ -334,8 +332,8 @@ public class ObjectRecActivity extends Activity implements MenuListener {
                  results.add("糖分 " + "&" + object.getString("classifyBySugar"));
 
              }else{
-
-                 results.add("wineNameCn");
+                    isGeneral = true;
+                 results.add( object.getString("wineNameCn"));
              }
 
          }

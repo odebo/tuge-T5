@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +30,12 @@ import com.baidu.translate.ocr.OcrClientFactory;
 import com.baidu.translate.ocr.entity.Language;
 import com.baidu.translate.ocr.entity.OcrContent;
 import com.baidu.translate.ocr.entity.OcrResult;
+import com.facebook.rebound.SpringConfig;
+import com.githang.statusbar.StatusBarCompat;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.ListBean;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.LogUtil;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MenuListener;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MyAdapter;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.SpringMenu;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar;
 import com.tuge.myapp.examples.wifiTranslator.R;
@@ -41,7 +48,7 @@ import java.io.FileOutputStream;
 import java.io.PipedReader;
 import java.util.List;
 
-public class PhotoTransActivity extends Activity {
+public class PhotoTransActivity extends Activity implements MenuListener {
 
     private static final String appId = "20190514000297564";
     private static final String appKey = "CCsnJhtXmT4MHULTQpNI";
@@ -53,13 +60,18 @@ public class PhotoTransActivity extends Activity {
     Animation mTop2Bottom, mBottom2Top;
     boolean stopAnimation = false;
     private ImageView  scanImage;
+    TitleBar mTitleBar;
+    SpringMenu mSpringMenu;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        StatusBarCompat.setStatusBarColor(this, Color.WHITE);
 
         setContentView(R.layout.activity_photo_trans);
 
@@ -72,6 +84,35 @@ public class PhotoTransActivity extends Activity {
         mPic =findViewById(R.id.picIV);
         mcontainer = findViewById(R.id.container);
         scanImage = findViewById(R.id.scan_line);
+        mTitleBar = (TitleBar) findViewById(R.id.title_bar);
+        mTitleBar.setBackgroundColor(Color.WHITE);
+
+        //init SpringMenu
+        mSpringMenu = new SpringMenu(this, R.layout.view_menu);
+        mSpringMenu.setMenuListener(this);
+        mSpringMenu.setFadeEnable(true);
+        mSpringMenu.setChildSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20, 5));
+        mSpringMenu.setDragOffset(0.4f);
+        mSpringMenu.setAdapter(this);
+//        ListBean[] listBeen = {new ListBean(R.mipmap.icon_home, getString(R.string.home)), new ListBean(R.mipmap.icon_speech, getString(R.string.speechTranslate)), new ListBean(R.mipmap.icon_photo, getString(R.string.photoTranslate)), new ListBean(R.mipmap.icon_ask, getString(R.string.ask)),new ListBean(R.mipmap.icon_simu, getString(R.string.simultaneous)),new ListBean(R.mipmap.icon_group, getString(R.string.GroupTranslate)),new ListBean(R.mipmap.icon_setting, getString(R.string.Setting))};
+//        MyAdapter adapter = new MyAdapter(this, listBeen);
+//        ListView listView = (ListView) mSpringMenu.findViewById(R.id.test_listView);
+//        listView.setAdapter(adapter);
+
+        mTitleBar.setLeftClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        mTitleBar.setRightClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSpringMenu.setDirection(SpringMenu.DIRECTION_RIGHT);
+                mSpringMenu.openMenu();
+            }
+        });
+
         Bitmap bitmap = BitmapFactory.decodeFile(mPicpath);
         BitmapFactory.Options options = new BitmapFactory.Options();
 //        options.inScaled = false;
@@ -97,7 +138,7 @@ public class PhotoTransActivity extends Activity {
 
         mBottom2Top.setRepeatMode(Animation.RESTART);
         mBottom2Top.setInterpolator(new LinearInterpolator());
-        mBottom2Top.setDuration(1200);
+        mBottom2Top.setDuration(1500);
         mBottom2Top.setFillEnabled(true);//使其可以填充效果从而不回到原地
         mBottom2Top.setFillAfter(true);//不回到起始位置
 //如果不添加setFillEnabled和setFillAfter则动画执行结束后会自动回到远点
@@ -124,7 +165,7 @@ public class PhotoTransActivity extends Activity {
 
         mTop2Bottom.setRepeatMode(Animation.RESTART);
         mTop2Bottom.setInterpolator(new LinearInterpolator());
-        mTop2Bottom.setDuration(1200);
+        mTop2Bottom.setDuration(1500);
         mTop2Bottom.setFillEnabled(true);
         mTop2Bottom.setFillAfter(true);
         mTop2Bottom.setAnimationListener(new Animation.AnimationListener() {
@@ -180,8 +221,14 @@ public class PhotoTransActivity extends Activity {
 
                 stopAnimation=true;
                 scanImage.clearAnimation();
+                scanImage.setVisibility(View.GONE);
                 Log.i("TTTTTT", ocrResult.getErrorMsg()+ocrResult.getError());
                 if (ocrResult.getError()!=0){
+                    if (ocrResult.getError()==69004){
+
+                        Toast.makeText(PhotoTransActivity.this,"未识别到可翻译的内容",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     Toast.makeText(PhotoTransActivity.this,"识别有误",Toast.LENGTH_SHORT).show();
                     return;
@@ -222,6 +269,21 @@ public class PhotoTransActivity extends Activity {
 
             }
         });
+
+    }
+
+    @Override
+    public void onMenuOpen() {
+
+    }
+
+    @Override
+    public void onMenuClose() {
+
+    }
+
+    @Override
+    public void onProgressUpdate(float value, boolean bouncing) {
 
     }
 }

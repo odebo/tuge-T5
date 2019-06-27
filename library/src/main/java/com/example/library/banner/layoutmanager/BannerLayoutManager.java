@@ -164,7 +164,7 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
     protected void setItemViewProperty(View itemView, float targetOffset) {
 
         float scale = calculateScale(targetOffset + mSpaceMain);
-        Log.i("EEEE", String.valueOf(scale));
+        Log.i("EEEE", String.valueOf(scale)+targetOffset);
         if (scale>1.0){
             itemView.setAlpha(1);
 
@@ -658,6 +658,7 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
         positionCache.clear();
 
         final int itemCount = getItemCount();
+        Log.i("EEEEE",String.valueOf(itemCount));
         if (itemCount == 0) return;
 
         // make sure that current position start from 0 to 1
@@ -753,14 +754,24 @@ public  class BannerLayoutManager extends RecyclerView.LayoutManager {
         final int left = calItemLeft(scrap, targetOffset);
         final int top = calItemTop(scrap, targetOffset);
         if (mOrientation == VERTICAL) {
+
             layoutDecorated(scrap, mSpaceInOther + left, mSpaceMain + top,
                     mSpaceInOther + left + mDecoratedMeasurementInOther, mSpaceMain + top + mDecoratedMeasurement);
         } else {
 //            这里这里这里这里（修改的地方）
+            int tempLeft;
+            if (getItemCount()==2){
+
+                tempLeft = -left;
+            }else {
+                tempLeft = left;
+
+            }
 
 
-            layoutDecorated(scrap, mSpaceMain + left, mSpaceInOther + top,
-                    mSpaceMain + left + mDecoratedMeasurement, mSpaceInOther + top + mDecoratedMeasurementInOther);
+            Log.i("mspagege",mSpaceMain+"-"+left);
+           layoutDecorated(scrap, mSpaceMain + left, mSpaceInOther + top,
+                   mSpaceMain + left + mDecoratedMeasurement, mSpaceInOther + top + mDecoratedMeasurementInOther);
         }
         setItemViewProperty(scrap, targetOffset);
     }

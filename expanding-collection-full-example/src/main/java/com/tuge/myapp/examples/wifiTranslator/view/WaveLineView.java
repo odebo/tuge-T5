@@ -11,6 +11,7 @@ import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.LogUtil;
 import com.tuge.myapp.examples.wifiTranslator.R;
 
 import java.util.ArrayList;
@@ -310,6 +311,7 @@ public class WaveLineView extends RenderView {
                 canvas.drawPath(paths.get(i),paint);
             }
         }catch(Exception e){
+            LogUtil.showTestInfo(e.getMessage());
         }finally{
             if(canvas != null){
                 getHolder().unlockCanvasAndPost(canvas);

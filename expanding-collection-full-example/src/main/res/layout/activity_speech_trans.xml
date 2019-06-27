@@ -39,12 +39,22 @@
         android:layout_width="match_parent"
         android:layout_alignParentTop="true"
         android:layout_above="@+id/center"
-        android:gravity="center"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/title_bar"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
+
+        <ImageView
+            android:id="@+id/play"
+            android:layout_width="25dp"
+            android:src="@drawable/play"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:visibility="gone"
+            android:onClick="onClick"
+            android:layout_marginTop="10dp"
+            android:layout_height="25dp" />
 
         <com.tuge.myapp.examples.wifiTranslator.view.PrinterTextView
             android:id="@+id/pt_langA"
@@ -52,12 +62,14 @@
             android:layout_height="wrap_content"
             android:textColor="#999999"
             android:textSize="30dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:layout_centerInParent="true"/>
 
         <TextView
             android:id="@+id/transResult"
             android:gravity="center"
             android:textSize="30dp"
+            android:layout_centerInParent="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

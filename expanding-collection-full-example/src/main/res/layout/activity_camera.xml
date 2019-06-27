@@ -9,6 +9,7 @@
 
     <com.tuge.myapp.examples.wifiTranslator.view.CameraSurfaceView
         android:id="@+id/sv_camera"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
@@ -27,13 +28,31 @@
         android:layout_height="match_parent"
         />
 
-
     <RelativeLayout
         android:id="@+id/lan_select"
+        android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#B3000000"
-        android:onClick="onClick">
+        android:layout_height="30dp"
+        android:onClick="onClick"
+        android:background="#B3000000">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:id="@+id/back"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:onClick="onClick"
+            android:src="@drawable/back_white" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:id="@+id/right-menu"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:onClick="onClick"
+            android:src="@drawable/menu_white" />
 
         <TextView
             android:id="@+id/tv_language_original"
@@ -106,14 +125,14 @@
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_height="80dp">
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="25dp"
-            android:src="@drawable/back"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
-            android:layout_height="25dp" />
+        <!--<ImageView-->
+            <!--android:id="@+id/back"-->
+            <!--android:layout_width="25dp"-->
+            <!--android:src="@drawable/back"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_marginLeft="15dp"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_height="25dp" />-->
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"

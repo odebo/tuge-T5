@@ -685,7 +685,7 @@ Log.i("666666666",mKeyWord.toString());
      * 开始打印
      */
     private void startPrint() {
-        mPrinterTViewLangA.setPrintText("Hold down the microphone to speak", 100, "|");
+        mPrinterTViewLangA.setPrintText("Press and hold mic to speak", 100, "|");
         mPrinterTViewLangA.startPrint();
 
         mPrinterTViewLangB.setPrintText("按住麦克风说话", 300, "|");

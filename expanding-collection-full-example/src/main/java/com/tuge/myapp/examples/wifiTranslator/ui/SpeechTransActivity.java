@@ -580,8 +580,9 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
 //                    resultText.append("\n");
 
                 } else if (resultType == OnRecognizeListener.TYPE_FINAL_RESULT) { // 最终结果
+                    Log.d(TAG, "最终识别结果：" + result.getErrorMsg()+result.getError());
+
                     if (result.getError() == 0) { // 表示正常，有识别结果
-                        Log.d(TAG, "最终识别结果：" + result.getAsrResult()+result.getFrom()+result.getTo());
 
 
 //                        initData();
@@ -628,6 +629,10 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
                         }).start();
                         Log.d(TAG, "翻译结果：" + result.getTransResult());
 
+                    }else {
+//                        Toast.makeText(SpeechTransActivity.this,result.getErrorMsg(),Toast.LENGTH_SHORT).show();
+
+
                     }
 
                 }
@@ -649,9 +654,9 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
 
 
                 else { // 翻译出错
-
-                    Toast.makeText(SpeechTransActivity.this,result.getErrorMsg(),Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "语音翻译出错 错误码：" + result.getError() + " 错误信息：" + result.getErrorMsg());
+//
+//                    Toast.makeText(SpeechTransActivity.this,result.getErrorMsg(),Toast.LENGTH_SHORT).show();
+//                    Log.d(TAG, "语音翻译出错 错误码：" + result.getError() + " 错误信息：" + result.getErrorMsg());
 
                 }
             }

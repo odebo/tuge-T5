@@ -192,7 +192,7 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
 
     private void initView() {
 
-        initTitleBar();
+        initSpringMenu();
 
         String [] languageArray = getResources().getStringArray(R.array.lang);
         list = new ArrayList(Arrays.asList(languageArray));
@@ -419,13 +419,13 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
     }
 
     // 初始化TitleBar
-    private void initTitleBar() {
+    private void initSpringMenu() {
         //init SpringMenu
         mSpringMenu = new SpringMenu(this, R.layout.view_menu);
         mSpringMenu.setMenuListener(this);
         mSpringMenu.setFadeEnable(true);
         mSpringMenu.setChildSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20, 5));
-        mSpringMenu.setDragOffset(0.4f);
+        mSpringMenu.setDragOffset(0.1f);
         mSpringMenu.setDirection(SpringMenu.DIRECTION_RIGHT);
 
         ListBean[] listBeen = {new ListBean(R.mipmap.icon_home, getString(R.string.home)), new ListBean(R.mipmap.icon_speech, getString(R.string.speechTranslate)), new ListBean(R.mipmap.icon_photo, getString(R.string.photoTranslate)), new ListBean(R.mipmap.icon_ask, getString(R.string.ask)),new ListBean(R.mipmap.icon_simu, getString(R.string.simultaneous)),new ListBean(R.mipmap.icon_group, getString(R.string.GroupTranslate)),new ListBean(R.mipmap.icon_setting, getString(R.string.Setting))};

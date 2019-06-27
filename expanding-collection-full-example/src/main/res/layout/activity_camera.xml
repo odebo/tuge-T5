@@ -9,7 +9,6 @@
 
     <com.tuge.myapp.examples.wifiTranslator.view.CameraSurfaceView
         android:id="@+id/sv_camera"
-        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
@@ -20,21 +19,71 @@
         camera:focus_focusing_id="@drawable/focus_focusing"
         camera:focus_success_id="@drawable/focus_focused"
         camera:focus_fail_id="@drawable/focus_focus_failed" />
+
     <com.tuge.myapp.examples.wifiTranslator.view.CameraLineView
         android:id="@+id/cameraLine"
         android:visibility="gone"
-        android:layout_below="@+id/lan_select"
+        android:layout_below="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
 
     <RelativeLayout
-        android:id="@+id/lan_select"
-        android:layout_centerHorizontal="true"
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:onClick="onClick"
         android:background="#B3000000">
+
+        <RelativeLayout
+            android:id="@+id/lan_select"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:onClick="onClick">
+
+            <TextView
+                android:id="@+id/tv_language_original"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/trans"
+                android:text="中文"
+                android:textSize="13dp"
+                android:textColor="@android:color/white"/>
+
+            <ImageView
+                android:layout_width="15dp"
+                android:id="@+id/trans"
+                android:layout_centerInParent="true"
+                android:onClick="onClick"
+                android:src="@drawable/arrow_left_right"
+                android:layout_height="15dp" />
+
+            <TextView
+                android:id="@+id/tv_language_target"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/trans"
+                android:text="英语"
+                android:textSize="13dp"
+                android:textColor="@android:color/white"/>
+
+            <TextView
+                android:id="@+id/sure"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:text="完成"
+                android:visibility="gone"
+                android:layout_marginRight="10dp"
+                android:onClick="onClick"
+                android:textSize="13dp"
+                android:textColor="@android:color/white"/>
+        </RelativeLayout>
 
         <ImageView
             android:layout_width="50dp"
@@ -53,56 +102,13 @@
             android:layout_alignParentRight="true"
             android:onClick="onClick"
             android:src="@drawable/menu_white" />
-
-        <TextView
-            android:id="@+id/tv_language_original"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/trans"
-            android:text="中文"
-            android:textSize="13dp"
-            android:textColor="@android:color/white"/>
-
-        <ImageView
-            android:layout_width="15dp"
-            android:id="@+id/trans"
-            android:layout_centerInParent="true"
-            android:onClick="onClick"
-            android:src="@drawable/arrow_left_right"
-            android:layout_height="15dp" />
-
-        <TextView
-            android:id="@+id/tv_language_target"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/trans"
-            android:text="英语"
-            android:textSize="13dp"
-            android:textColor="@android:color/white"/>
-
-        <TextView
-            android:id="@+id/sure"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_alignParentRight="true"
-            android:text="完成"
-            android:visibility="gone"
-            android:layout_marginRight="10dp"
-            android:onClick="onClick"
-            android:textSize="13dp"
-            android:textColor="@android:color/white"/>
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/wheel_layout"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_below="@+id/lan_select"
+        android:layout_below="@+id/title_bar"
         android:background="@color/bg_language_select"
         android:visibility="gone">
 

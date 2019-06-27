@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.content.res.XmlResourceParser;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -48,6 +49,7 @@ import com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar;
 import com.tuge.myapp.examples.wifiTranslator.MainActivity;
 import com.tuge.myapp.examples.wifiTranslator.R;
 import com.tuge.myapp.examples.wifiTranslator.adapter.WebBannerAdapter;
+import com.tuge.myapp.examples.wifiTranslator.view.PrinterTextView;
 import com.tuge.myapp.examples.wifiTranslator.view.WaveLineView;
 
 import java.util.ArrayList;
@@ -83,6 +85,9 @@ import org.json.JSONObject;
 
 
 public  class SpeechTransActivity extends Activity implements MenuListener, View.OnClickListener {
+
+    private PrinterTextView mPrinterTViewLangA;
+    private PrinterTextView mPrinterTViewLangB;
 
     SpringMenu mSpringMenu;
     private WaveLineView waveLineView;
@@ -121,6 +126,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
 
     // 翻译模式Map
     private Map<String, String> transModeMap = new HashMap<>();
+    private Map<String, Object> transModes = new HashMap<>();
+
     // 翻译语种选择菜单
     private static String curTransModeTxt = "中文 <-> 英语"; // 当前翻译模式
     private PowerMenu langMenu;
@@ -155,12 +162,18 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
         mRecogResult = findViewById(R.id.recogResult);
         mTransRusult = findViewById(R.id.transResult);
         mCardLayout = findViewById(R.id.cardLayout);
+
+        mPrinterTViewLangA = (PrinterTextView) findViewById(R.id.pt_langA);
+        mPrinterTViewLangB = (PrinterTextView) findViewById(R.id.pt_langB);
+
         mPlayIV = findViewById(R.id.play);
         isOtherPage = getIntent().getIntExtra("flag",0);
 
-
         initClient();
 //        initData();
+
+        // 打印提示文案
+        startPrint();
 
         // 翻译模式选项卡
         initTransModeSele();
@@ -401,6 +414,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
 
         recyclerBanner.setAdapter(webBannerAdapter);
 
+        waveLineView.setVisibility(View.INVISIBLE);
+
     }
 
 
@@ -541,12 +556,11 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
         // appId及私钥，可在API平台 管理控制台 查看
         config = new TransAsrConfig(APP_ID, SECRET_KEY);
         // 构造client
-       config.setTtsCombined(true);
+        config.setTtsCombined(true);
         config.setAutoPlayTts(false);
+        config.setLogEnabled(true);
         config.setPartialCallbackEnabled(true);
         WifiTranslatorConfig wifiTranslatorConfig = new WifiTranslatorConfig();
-
-
         config.addExtraParams(WifiTranslatorConfig.getTranslatorConfig(this, "mix_zh_en"));
         Log.i("ttttttt",WifiTranslatorConfig.getTranslatorConfig(this, "mix_zh_en").toString());
         client = new TransAsrClient(this, config);
@@ -559,6 +573,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
                 if (resultType == OnRecognizeListener.TYPE_PARTIAL_RESULT) { // 中间结果
 
                     mRecogResult.setText(result.getAsrResult());
+                    mPrinterTViewLangA.setVisibility(View.INVISIBLE);
+                    mPrinterTViewLangB.setVisibility(View.INVISIBLE);
                     Log.d(TAG, "中间识别结果：" + result.getAsrResult());
 //                    resultText.append(getString(R.string.partial_update_title, result.getAsrResult()));
 //                    resultText.append("\n");
@@ -569,6 +585,10 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
 
 
 //                        initData();
+
+
+                        mPrinterTViewLangA.setVisibility(View.INVISIBLE);
+                        mPrinterTViewLangB.setVisibility(View.INVISIBLE);
 
                         mRecogResult.setText(result.getAsrResult());
                         mTransRusult.setText(result.getTransResult());
@@ -597,7 +617,6 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
                             public void run() {
                                 try {
 
-
                                     imageSearch(imamgeSearchStr);
                                     imamgeSearchStr=null;
 
@@ -609,26 +628,30 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
                         }).start();
                         Log.d(TAG, "翻译结果：" + result.getTransResult());
 
-                    }else if (resultType == OnRecognizeListener.TYPE_TTS_MP3_DATA) {
-                        if (result.getError() == 0) { // 表示正常，有识别结果
-
-                            Log.d(TAG, "最终mp3：" + result.getAsrResult());
-
-
-                        }
-                    }else if (resultType == OnRecognizeListener.TYPE_TTS_PCM_DATA) {
-                        if (result.getError() == 0) { // 表示正常，有识别结果
-
-                            Log.d(TAG, "最终pcm：" + result.getAsrResult());
-
-                        }
                     }
 
+                }
 
-                    else { // 翻译出错
-                        Log.d(TAG, "语音翻译出错 错误码：" + result.getError() + " 错误信息：" + result.getErrorMsg());
+                else if (resultType == OnRecognizeListener.TYPE_TTS_MP3_DATA) {
+                    if (result.getError() == 0) { // 表示正常，有识别结果
+
+                        Log.d(TAG, "最终mp3：" + result.getAsrResult());
+
 
                     }
+                }else if (resultType == OnRecognizeListener.TYPE_TTS_PCM_DATA) {
+                    if (result.getError() == 0) { // 表示正常，有识别结果
+
+                        Log.d(TAG, "最终pcm：" + result.getAsrResult());
+
+                    }
+                }
+
+
+                else { // 翻译出错
+
+                    Toast.makeText(SpeechTransActivity.this,result.getErrorMsg(),Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "语音翻译出错 错误码：" + result.getError() + " 错误信息：" + result.getErrorMsg());
 
                 }
             }
@@ -693,12 +716,28 @@ Log.i("666666666",mKeyWord.toString());
 
     }
 
+    /**
+     * 开始打印
+     */
+    private void startPrint() {
+        mPrinterTViewLangA.setPrintText("Press and hold mic to speak", 100, "|");
+        mPrinterTViewLangA.startPrint();
+
+        mPrinterTViewLangB.setPrintText("按住麦克风说话", 300, "|");
+        mPrinterTViewLangB.startPrint();
+
+    }
+    public boolean isMainThread() {
+        return Looper.getMainLooper() == Looper.myLooper();
+    }
     @Override
     public void onClick(View view) {
 
         switch (view.getId()){
             case  R.id.play:
+                Log.i("SHIFOUFHIFFF",String.valueOf(isMainThread()));
                 mPlayIV.setImageDrawable(getResources().getDrawable(R.drawable.playing));
+
 
                 client.play(resultId, new OnTTSPlayListener() {
                     @Override
@@ -711,11 +750,11 @@ Log.i("666666666",mKeyWord.toString());
 
                     @Override
                     public void onPlayFailed(String s, int i, String s1) {
-                        Looper.prepare();
-                        Toast.makeText(SpeechTransActivity.this,s+s1,Toast.LENGTH_SHORT).show();
+//                        Looper.prepare();
+//                        Toast.makeText(SpeechTransActivity.this,s+s1,Toast.LENGTH_SHORT).show();
 
                         LogUtil.showTestInfo(s+s1);
-                        Looper.loop();
+//                        Looper.loop();
 
                     }
                 });
@@ -723,8 +762,6 @@ Log.i("666666666",mKeyWord.toString());
                 break;
                 default:
                     break;
-
-
 
         }
 

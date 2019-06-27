@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: :translate-asr-sdk_v1.1.6:@aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/daemon/4.1/caches/transforms-2/files-2.1/8fa59312d46ec78950b34267e617b2db/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.gradle/daemon/4.1/caches/transforms-2/files-2.1/8fa59312d46ec78950b34267e617b2db/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -106,6 +107,10 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
     private static final String TAG = "444444";
 
     private LinearLayout mCardLayout;
+//
+    private   String imamgeSearchStr ;
+//    判断识别语言是否为中文
+    private  boolean isAsrResult;
 //    SeekBar mTensionbar, mFrictionBar;
 //
 //    TextView mTvTension, mTvFriction;
@@ -337,13 +342,19 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
         if (keyWord.size()>0) {
             SpannableString spannableString =  getString(result,keyWord);
 
+            if (isAsrResult) {
+                mRecogResult.setText(spannableString);
+            }else {
 
-            mRecogResult.setText(spannableString);
+                mTransRusult.setText(spannableString);
+
+
+            }
             waveLineView.setVisibility(View.INVISIBLE);
 
         }else{
 
-            mRecogResult.setText(result);
+//            mRecogResult.setText(result);
 
         }
 
@@ -505,7 +516,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
 
         Map<String, ?> extraParams = WifiTranslatorConfig.getTranslatorConfig(this, transModeMap.get(curTransModeTxt));
 
-        Log.i("ttttttt",extraParams.toString());
+        Log.i("ttttttt",transModeMap.get(curTransModeTxt));
 
 
         // 	开始识别，调用这个函数
@@ -532,6 +543,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
         // 构造client
        config.setTtsCombined(true);
         config.setAutoPlayTts(false);
+        config.setPartialCallbackEnabled(true);
         WifiTranslatorConfig wifiTranslatorConfig = new WifiTranslatorConfig();
 
 
@@ -545,13 +557,15 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
             @Override
             public void onRecognized(int resultType, @NonNull RecognitionResult result) {
                 if (resultType == OnRecognizeListener.TYPE_PARTIAL_RESULT) { // 中间结果
+
+                    mRecogResult.setText(result.getAsrResult());
                     Log.d(TAG, "中间识别结果：" + result.getAsrResult());
 //                    resultText.append(getString(R.string.partial_update_title, result.getAsrResult()));
 //                    resultText.append("\n");
 
                 } else if (resultType == OnRecognizeListener.TYPE_FINAL_RESULT) { // 最终结果
                     if (result.getError() == 0) { // 表示正常，有识别结果
-                        Log.d(TAG, "最终识别结果：" + result.getAsrResult());
+                        Log.d(TAG, "最终识别结果：" + result.getAsrResult()+result.getFrom()+result.getTo());
 
 
 //                        initData();
@@ -563,13 +577,29 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
                         resultId =  result.getId();
 
 
+
+                        if (result.getFrom().equals("zh")){
+
+                            imamgeSearchStr = result.getAsrResult();
+                            isAsrResult = true;
+
+                        }else if(result.getTo().equals("zh")){
+
+                            imamgeSearchStr = result.getTransResult();
+                            isAsrResult = false;
+                        }
+                        if (imamgeSearchStr==null)return;
+
+
+                        String finalImamgeSearchStr = imamgeSearchStr;
                         new Thread(new Runnable(){
                             @Override
                             public void run() {
                                 try {
 
 
-                                    imageSearch(result.getAsrResult());
+                                    imageSearch(imamgeSearchStr);
+                                    imamgeSearchStr=null;
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -610,6 +640,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
 
     private  void  imageSearch(String result) throws JSONException {
 
+        Log.i("search",result);
 
         String searchResult = TranslatorUtils.getSearchResult(result);
 Log.i("search",searchResult);
@@ -669,8 +700,6 @@ Log.i("666666666",mKeyWord.toString());
             case  R.id.play:
                 mPlayIV.setImageDrawable(getResources().getDrawable(R.drawable.playing));
 
-
-
                 client.play(resultId, new OnTTSPlayListener() {
                     @Override
                     public void onPlayStop(String s) {
@@ -682,6 +711,11 @@ Log.i("666666666",mKeyWord.toString());
 
                     @Override
                     public void onPlayFailed(String s, int i, String s1) {
+                        Looper.prepare();
+                        Toast.makeText(SpeechTransActivity.this,s+s1,Toast.LENGTH_SHORT).show();
+
+                        LogUtil.showTestInfo(s+s1);
+                        Looper.loop();
 
                     }
                 });

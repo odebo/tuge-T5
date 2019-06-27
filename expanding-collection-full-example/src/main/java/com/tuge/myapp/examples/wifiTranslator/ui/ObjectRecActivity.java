@@ -93,6 +93,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
         mPic.setImageBitmap(bitmap);
         mcontainer = findViewById(R.id.container);
         mTitleBar = (TitleBar) findViewById(R.id.title_bar);
+        mTitleBar.setBackgroundColor(Color.WHITE);
 
 
         //init SpringMenu

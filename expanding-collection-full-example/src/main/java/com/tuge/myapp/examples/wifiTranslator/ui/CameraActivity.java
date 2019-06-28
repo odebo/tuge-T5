@@ -12,6 +12,7 @@ import android.hardware.Camera;
 import android.media.ExifInterface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -214,23 +215,27 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
 
                 oriSelLan = languageArray[index];
 
+                Log.e(TAG, "源语言为: " + oriSelLan+targetWheelView.getCurrentItem()+index+tempList);
 
                 LogUtil.showTestInfo(list);
+
                 if (oriSelLan.equals(desSelLan)){
 
-                    Log.e(TAG, "源语言为: " + oriSelLan+desSelLan+ tempList.get(0).toString());
 
                     targetWheelView.setCurrentItem(0);
+//                    desSelLan = tempList.get(0).toString();
+
 
 
 
 
                 }
                 refreshLan(list,false);
+                desSelLan = tempList.get(targetWheelView.getCurrentItem()).toString();
+
 
 //                newAdapter.notifyDataSetChanged();
 
-                Log.e(TAG, "源语言为: " + languageArray[index]);
             }
         });
 
@@ -241,7 +246,7 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
 //                if (oriSelLan.equals(desSelLan)){
 //                    originalWheelView.setCurrentItem(0);
 //                }
-                Log.e(TAG, "翻译的源语言为: " + desSelLan);
+                Log.e(TAG, "翻译的语言为: " + desSelLan);
             }
         });
     }
@@ -309,11 +314,11 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
 
 //        if (!add)
 //       desSelLan = tempList.get(0).toString();
-        if (oriSelLan.equals(desSelLan)){
-
-       desSelLan = tempList.get(0).toString();
-
-        }
+//        if (oriSelLan.equals(desSelLan)){
+//
+//       desSelLan = tempList.get(0).toString();
+//
+//        }
 
         WheelView.WheelAdapter newAdapter = new ArrayWheelAdapter(tempList);
         targetWheelView.setAdapter(newAdapter);

@@ -160,6 +160,13 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
         StatusBarCompat.setStatusBarColor(this, Color.WHITE);
         mTitleBar = (TitleBar) findViewById(R.id.title_bar);
         mRecogResult = findViewById(R.id.recogResult);
+//        mRecogResult.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+        mRecogResult.setOnClickListener(this);
         mTransRusult = findViewById(R.id.transResult);
         mCardLayout = findViewById(R.id.cardLayout);
 
@@ -413,7 +420,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
 //
 
         recyclerBanner.setAdapter(webBannerAdapter);
-
+        if (mImagelist.size()==2)
+            recyclerBanner.positionInit();
         waveLineView.setVisibility(View.INVISIBLE);
 
     }

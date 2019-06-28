@@ -160,7 +160,11 @@ public class BannerLayout extends FrameLayout {
             indicatorContainer.setVisibility(GONE);
         }
     }
+    public  void  positionInit (){
 
+
+        mRecyclerView.scrollToPosition(1);
+    }
     // 设置是否禁止滚动播放
     public void setAutoPlaying(boolean isAutoPlaying) {
         this.isAutoPlaying = isAutoPlaying;

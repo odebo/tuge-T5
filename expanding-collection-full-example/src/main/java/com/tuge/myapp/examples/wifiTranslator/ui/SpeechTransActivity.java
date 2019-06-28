@@ -196,7 +196,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
         mTitleBar.setTitleColor(this.getResources().getColor(R.color.colorPrimaryBlue));
         mTitleBar.setActionTextColor(Color.WHITE);
         mTitleBar.setTitle(curTransModeTxt);
-        mTitleBar.setTitleSize(14);
+        mTitleBar.setTitleSize(12);
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -335,7 +335,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
                 .setMenuRadius(10f)
                 .setMenuShadow(10f)
                 .setTextColor(this.getResources().getColor(R.color.md_grey_800))
-                .setTextSize(14)
+                .setTextSize(10)
                 .setTextGravity(Gravity.CENTER)
                 .setTextTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
                 .setSelectedTextColor(Color.WHITE)

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -19,13 +20,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.translate.ocr.entity.Language;
+import com.facebook.rebound.SpringConfig;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.ListBean;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.LogUtil;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MenuListener;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MyAdapter;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.SpringMenu;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar;
 import com.tuge.myapp.examples.wifiTranslator.MainActivity;
@@ -47,14 +53,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CameraActivity extends Activity implements View.OnClickListener {
+public class CameraActivity extends Activity implements MenuListener, View.OnClickListener {
     private static final String TAG = "CameraActivity";
+    private TitleBar mTitleBar;
+    private SpringMenu mSpringMenu;
     private CameraSurfaceView mCameraSurfaceView;
     private BottomView mBottomView;
     private RelativeLayout mLanLayout;
     private TextView mOriTV,mDesTV;
     private CameraLineView mCameraLineView;
     private ImageView mBackButton;
+    private ImageView mRightMenuBtn;
     private FocusImageView mFocusImageView;
     private boolean mSelectVisibility;
     boolean isTransPhoto = true;
@@ -132,6 +141,9 @@ public class CameraActivity extends Activity implements View.OnClickListener {
         mBackButton = findViewById(R.id.back);
         mBackButton.setOnClickListener(this);
 
+        mRightMenuBtn = findViewById(R.id.right_menu);
+        mRightMenuBtn.setOnClickListener(this);
+
         img_take_photo.setOnClickListener(this);
 
 
@@ -179,12 +191,15 @@ public class CameraActivity extends Activity implements View.OnClickListener {
     }
 
     private void initView() {
+
+        initSpringMenu();
+
         String [] languageArray = getResources().getStringArray(R.array.lang);
-         list = new ArrayList(Arrays.asList(languageArray));
+        list = new ArrayList(Arrays.asList(languageArray));
 
 
-         originalWheelView = findViewById(R.id.wheel_original);
-         targetWheelView = findViewById(R.id.wheel_target);
+        originalWheelView = findViewById(R.id.wheel_original);
+        targetWheelView = findViewById(R.id.wheel_target);
         originalWheelView.setAdapter(new ArrayWheelAdapter(list));
         targetWheelView.setAdapter(new ArrayWheelAdapter(list));
         originalWheelView.setCyclic(false);
@@ -327,19 +342,16 @@ public class CameraActivity extends Activity implements View.OnClickListener {
             case R.id.img_take_photo:
                 takePhoto();
                 break;
-
             case R.id.back:
                 if (isOtherPage==1) {
-
                     Intent intent = new Intent(CameraActivity.this,MainActivity.class);
                     startActivity(intent);
-
                 }else{
-
-
                     finish();
-
                 }
+                break;
+            case R.id.right_menu:
+                mSpringMenu.openMenu();
                 break;
             case R.id.trans:
 //                String [] lan = swapString(mOriTV.getText().toString(),mDesTV.getText().toString());
@@ -355,16 +367,13 @@ public class CameraActivity extends Activity implements View.OnClickListener {
 //                refreshLan(list,true);
 //                targetWheelView.setCurrentItem(tempList.indexOf(lan[1]));
 //                originalWheelView.setCurrentItem(list.indexOf(lan[0]));
-
-
-
                 break;
-
             case R.id.lan_select:
                 mSelectVisibility = !mSelectVisibility;
                 int visibility = mSelectVisibility ? View.VISIBLE : View.GONE;
                 findViewById(R.id.wheel_layout).setVisibility(visibility);
                 findViewById(R.id.sure).setVisibility(visibility);
+                findViewById(R.id.right_menu).setVisibility(mSelectVisibility ? View.GONE : View.VISIBLE);
                 break;
             case R.id.sure:
                 mOriTV.setText(oriSelLan);
@@ -374,8 +383,7 @@ public class CameraActivity extends Activity implements View.OnClickListener {
                 desLan = transModeMap.get(desSelLan);
                 findViewById(R.id.wheel_layout).setVisibility(View.GONE);
                 findViewById(R.id.sure).setVisibility(View.GONE);
-
-
+                findViewById(R.id.right_menu).setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -408,5 +416,52 @@ public class CameraActivity extends Activity implements View.OnClickListener {
             startActivity(intent);
 
         }
+    }
+
+    // 初始化TitleBar
+    private void initSpringMenu() {
+        //init SpringMenu
+        mSpringMenu = new SpringMenu(this, R.layout.view_menu);
+        mSpringMenu.setMenuListener(this);
+        mSpringMenu.setFadeEnable(true);
+        mSpringMenu.setChildSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20, 5));
+        mSpringMenu.setDragOffset(0.1f);
+        mSpringMenu.setDirection(SpringMenu.DIRECTION_RIGHT);
+
+        ListBean[] listBeen = {new ListBean(R.mipmap.icon_home, getString(R.string.home)), new ListBean(R.mipmap.icon_speech, getString(R.string.speechTranslate)), new ListBean(R.mipmap.icon_photo, getString(R.string.photoTranslate)), new ListBean(R.mipmap.icon_ask, getString(R.string.ask)),new ListBean(R.mipmap.icon_simu, getString(R.string.simultaneous)),new ListBean(R.mipmap.icon_group, getString(R.string.GroupTranslate)),new ListBean(R.mipmap.icon_setting, getString(R.string.Setting))};
+        MyAdapter adapter = new MyAdapter(this, listBeen);
+        ListView listView = (ListView) mSpringMenu.findViewById(R.id.test_listView);
+        listView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new MyAdapter.onListener() {
+            @Override
+            public void OnListener(int position) {
+                if (position==0){
+                    finish();
+                }else if(position==1){
+                    Intent intent = new Intent(CameraActivity.this,SpeechTransActivity.class);
+                    intent.putExtra("flag",1);
+                    startActivity(intent);
+                }else if(position==2){
+                    mSpringMenu.closeMenu();
+                }else{
+                    Toast.makeText(CameraActivity.this,"该功能正在开发中",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onMenuOpen() {
+
+    }
+
+    @Override
+    public void onMenuClose() {
+
+    }
+
+    @Override
+    public void onProgressUpdate(float value, boolean bouncing) {
+
     }
 }

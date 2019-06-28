@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: :translatorlib-1.0.7:@aar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../.gradle/daemon/4.1/caches/transforms-2/files-2.1/814b34381f5cb4d9f52f342190f96c3c/res" />
-      <root url="jar://$PROJECT_DIR$/../.gradle/daemon/4.1/caches/transforms-2/files-2.1/814b34381f5cb4d9f52f342190f96c3c/jars/libs/fastjson-1.2.52.jar!/" />
-      <root url="jar://$PROJECT_DIR$/../.gradle/daemon/4.1/caches/transforms-2/files-2.1/814b34381f5cb4d9f52f342190f96c3c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66f3db9e503417305606a7d1df92bf59/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66f3db9e503417305606a7d1df92bf59/jars/libs/fastjson-1.2.52.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66f3db9e503417305606a7d1df92bf59/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

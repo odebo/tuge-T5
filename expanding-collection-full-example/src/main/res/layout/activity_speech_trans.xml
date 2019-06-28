@@ -9,7 +9,7 @@
     <com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="25dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_marginStart="0dp"
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_alignParentTop="true"
         android:layout_above="@+id/line"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:layout_below="@+id/title_bar"
         android:layout_height="wrap_content"
         >
@@ -62,13 +62,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#999999"
-            android:textSize="23dp"
+            android:textSize="20dp"
             android:gravity="center"
             android:layout_centerInParent="true"/>
 
         <TextView
             android:id="@+id/transResult"
-            android:textSize="23dp"
+            android:textSize="20dp"
             android:gravity="center"
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
@@ -135,12 +135,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#999999"
-            android:textSize="23dp"
+            android:textSize="20dp"
             android:gravity="center" />
 
         <TextView
             android:id="@+id/recogResult"
-            android:textSize="23dp"
+            android:textSize="20dp"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

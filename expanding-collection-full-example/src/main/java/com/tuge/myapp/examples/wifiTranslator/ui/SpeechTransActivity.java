@@ -373,7 +373,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
 
         BannerLayout recyclerBanner =  findViewById(R.id.recycler);
         mCardLayout.setVisibility(View.VISIBLE);
-        recyclerBanner.setItemSpace(50);
+        recyclerBanner.setItemSpace(30);
 
         recyclerBanner.setCenterScale(Float.valueOf("1.2"));
         recyclerBanner.setShowIndicator(false);
@@ -558,7 +558,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
         // 构造client
         config.setTtsCombined(true);
         config.setAutoPlayTts(false);
-        config.setLogEnabled(true);
+//        config.setLogEnabled(true);
         config.setPartialCallbackEnabled(true);
         WifiTranslatorConfig wifiTranslatorConfig = new WifiTranslatorConfig();
         config.addExtraParams(WifiTranslatorConfig.getTranslatorConfig(this, "mix_zh_en"));

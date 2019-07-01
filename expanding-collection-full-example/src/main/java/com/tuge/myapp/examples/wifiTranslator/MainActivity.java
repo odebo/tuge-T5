@@ -90,7 +90,7 @@ public class MainActivity extends Activity {
                 ImageView avatar = (ImageView) head.findViewById(R.id.avatar);
                 avatar.setImageResource(cardData.getPersonPictureResource());
                 TextView name = (TextView) head.findViewById(R.id.name);
-                name.setText(cardData.getPersonName() + ":");
+                name.setText(cardData.getPersonName() + " ");
                 TextView message = (TextView) head.findViewById(R.id.message);
                 message.setText(cardData.getPersonMessage());
 

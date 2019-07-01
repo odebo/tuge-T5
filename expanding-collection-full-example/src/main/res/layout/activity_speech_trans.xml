@@ -112,10 +112,10 @@
 
         <ImageButton
             android:id="@+id/speechBtn"
-            android:layout_width="50dp"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
             android:layout_marginRight="10dp"
             android:layout_gravity="center_vertical"
-            android:layout_height="50dp"
             android:background="@drawable/speech"
             android:layout_alignParentRight="true"
             />

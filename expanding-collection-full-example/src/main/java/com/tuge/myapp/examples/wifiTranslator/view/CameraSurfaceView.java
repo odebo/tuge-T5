@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.LogUtil;
+import com.tuge.myapp.examples.wifiTranslator.ui.CameraConfigurationManager;
 
 import java.io.IOException;
 import java.lang.reflect.Parameter;
@@ -35,6 +36,7 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     private int mScreenWidth;
     private int mScreenHeight;
     private boolean isOpen;
+    private CameraConfigurationManager cameraConfigurationManager;
     private  Camera.AutoFocusCallback mAutoFocusCallback;
 
     public CameraSurfaceView(Context context, AttributeSet attrs) {
@@ -246,43 +248,48 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         if (mCamera != null) {
+
+            cameraConfigurationManager = new CameraConfigurationManager(getContext());
+            cameraConfigurationManager.initFromCameraParameters(mCamera,mScreenWidth,mScreenHeight);
+            cameraConfigurationManager.setDesiredCameraParameters(mCamera);
+
 //           setCameraParams(mScreenWidth, mScreenHeight);
 
-            Camera.Parameters parameters = mCamera.getParameters();
-            // 设置照片格式
-            parameters.setPictureFormat(PixelFormat.JPEG);
-
-            //parameters.setFlashMode(Parameters.FLASH_MODE_TORCH);//加上闪光灯模式会报错
-            // 1连续对焦
-            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
-
-            Log.i("7777",this.getWidth()+"888"+this.getHeight());
-
-
-
-            List<Camera.Size> sizeList = parameters.getSupportedPreviewSizes();//获取所有支持的camera尺寸
-            Camera.Size size1 = sizeList.get(0);
-
-            for (int i=0;i<sizeList.size();i++){
-                Camera.Size size = sizeList.get(i);
-                LogUtil.showTestInfo(size.width+"=="+size.height);
-
-
-            }
-            Camera.Size optionSize = getOptimalPreviewSize(sizeList, this.getWidth(),this.getHeight());//获取一个最为适配的camera.size
-//            parameters.setPreviewSize(optionSize.width,optionSize.height);//把camera.size赋值到parameters
-          parameters.setPictureSize(640,480);//把camera.size赋值到parameters
-//           parameters.setPictureSize(size1.width,size1.height);//把camera.size赋值到parameters
-
-//            LogUtil.showTestInfo(optionSize.width+"=="+optionSize.height);
-
-
+//            Camera.Parameters parameters = mCamera.getParameters();
+//            // 设置照片格式
+//            parameters.setPictureFormat(PixelFormat.JPEG);
 //
-//            //设置大小和方向等参数
-//		 设置照相机参数
-            mCamera.setParameters(parameters);
+//            //parameters.setFlashMode(Parameters.FLASH_MODE_TORCH);//加上闪光灯模式会报错
+//            // 1连续对焦
+//            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+//
+//            Log.i("7777",this.getWidth()+"888"+this.getHeight());
+//
+//
+//
+//            List<Camera.Size> sizeList = parameters.getSupportedPreviewSizes();//获取所有支持的camera尺寸
+//            Camera.Size size1 = sizeList.get(0);
+//
+//            for (int i=0;i<sizeList.size();i++){
+//                Camera.Size size = sizeList.get(i);
+//                LogUtil.showTestInfo(size.width+"=="+size.height);
+//
+//
+//            }
+//            Camera.Size optionSize = getOptimalPreviewSize(sizeList, this.getWidth(),this.getHeight());//获取一个最为适配的camera.size
+////            parameters.setPreviewSize(optionSize.width,optionSize.height);//把camera.size赋值到parameters
+////          parameters.setPictureSize(640,480);//把camera.size赋值到parameters
+////           parameters.setPictureSize(size1.width,size1.height);//把camera.size赋值到parameters
+//
+//            LogUtil.showTestInfo(parameters.getPreviewSize().width+"00"+parameters.getPreviewSize().height);
+//
+//
+////
+////            //设置大小和方向等参数
+////		 设置照相机参数
+//            mCamera.setParameters(parameters);
             // 开始拍照
-            mCamera.startPreview();
+//            mCamera.startPreview();
 //            mCamera.cancelAutoFocus();// 一定要加上这句，才可以连续聚集
 
             mCamera.startPreview();

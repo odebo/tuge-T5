@@ -163,7 +163,13 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
 
         mBottomView = (BottomView) findViewById(R.id.bottomView);
         mBottomView.init();
-        initTransData();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                initTransData();
+
+            }
+        });
 
         mBottomView.findViewById(R.id.recog).setOnClickListener(new View.OnClickListener() {
             @Override

@@ -53,8 +53,14 @@ public class RecogResultAdapter extends BaseAdapter {
 
             if (mData.get(i).contains("&")){
 
-                holder.title.setText(mData.get(i).split("&")[0]);
-                holder.text.setText(mData.get(i).split("&")[1]);
+                if (mData.get(i).split("&").length>1) {
+//                Log.i("shibiedao de jiguo",mData.get(i));
+                    holder.title.setText(mData.get(i).split("&")[0]);
+                    holder.text.setText(mData.get(i).split("&")[1]);
+                }else {
+
+
+                }
 
             }else {
                 holder.text.setText(mData.get(i));

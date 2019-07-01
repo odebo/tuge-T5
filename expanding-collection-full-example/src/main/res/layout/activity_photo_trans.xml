@@ -9,17 +9,24 @@
         android:layout_width="match_parent"
         android:layout_height="25dp"
        />
-<ScrollView
-    android:layout_width="wrap_content"
-    android:id="@+id/scroller"
-    android:layout_below="@+id/title_bar"
-    android:layout_height="wrap_content">
     <ImageView
-        android:id="@+id/picIV"
-        android:layout_width="wrap_content"
+    android:id="@+id/picIV"
+    android:layout_width="match_parent"
+        android:layout_below="@+id/title_bar"
+        android:scaleType="fitXY"
         android:background="@android:color/holo_red_dark"
-        android:layout_height="wrap_content" />
-</ScrollView>
+    android:layout_height="match_parent" />
+<!--<ScrollView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:id="@+id/scroller"-->
+    <!--android:layout_below="@+id/title_bar"-->
+    <!--android:layout_height="wrap_content">-->
+    <!--<ImageView-->
+        <!--android:id="@+id/picIV"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:background="@android:color/holo_red_dark"-->
+        <!--android:layout_height="wrap_content" />-->
+<!--</ScrollView>-->
     <ImageView
         android:id="@+id/scan_line"
         android:layout_width="match_parent"

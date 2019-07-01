@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide;
 import com.facebook.rebound.SpringConfig;
 import com.githang.statusbar.StatusBarCompat;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.ListBean;
+import com.tuge.myapp.examples.wifiTranslator.DetailActivity.LogUtil;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MenuListener;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.MyAdapter;
 import com.tuge.myapp.examples.wifiTranslator.DetailActivity.SpringMenu;
@@ -75,6 +76,8 @@ public class ObjectRecActivity extends Activity implements MenuListener {
         StatusBarCompat.setStatusBarColor(this, Color.WHITE);
 
         mPicpath = getIntent().getStringExtra("picPath");
+
+//        LogUtil.showTestInfo(mPicpath);
 //
 //        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
 //            try {
@@ -90,7 +93,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
 
         mPic =findViewById(R.id.picIV);
         scanImage = findViewById(R.id.scan_line);
-        mPic.setImageBitmap(bitmap);
+       mPic.setImageBitmap(bitmap);
         mcontainer = findViewById(R.id.container);
         mTitleBar = (TitleBar) findViewById(R.id.title_bar);
         mTitleBar.setBackgroundColor(Color.WHITE);
@@ -189,8 +192,8 @@ public class ObjectRecActivity extends Activity implements MenuListener {
             @Override
             public void run() {
                 try {
-                   objectRecog(mPicpath);
-//                    objectRecog(getResourcesUri(R.drawable.pic_rec_test));
+                  objectRecog(mPicpath);
+//                   objectRecog(getResourcesUri(R.drawable.test1));
 
 
                 } catch (Exception e) {
@@ -328,13 +331,23 @@ public class ObjectRecActivity extends Activity implements MenuListener {
 
              JSONObject object = obj.getJSONObject("redwine");
              if (object.getInt("hasdetail")==1) {
-                 results.add("名称 " + "&" + object.getString("wineNameCn"));
+
+                 String key;
+                 if (object.getString("wineNameEn").equals("")) {
+                     key = "wineNameCn";
+                 }else {
+
+                     key = "wineNameEn";
+                 }
+                 results.add("名称 " + "&" + object.getString(key));
+
                  if (obj.has("国内价格")||obj.has("国外价格")) {
                      results.add("国内价格 " + "&" + obj.getString("国内价格"));
                      results.add("国外价格 " + "&" + obj.getString("国外价格"));
                  }
                  results.add("国家 " + "&" + object.getString("countryCn"));
                  results.add("产区 " + "&" + object.getString("regionCn"));
+                 if(!object.getString("wineryCn").equals(""))
                  results.add("酒庄 " + "&" + object.getString("wineryCn"));
                  results.add("糖分 " + "&" + object.getString("classifyBySugar"));
 
@@ -380,6 +393,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
              }
 
 
+//         Log.i("识别到的结果",results);
 
         ObjectRecActivity.this.runOnUiThread(new Runnable() {
             @Override

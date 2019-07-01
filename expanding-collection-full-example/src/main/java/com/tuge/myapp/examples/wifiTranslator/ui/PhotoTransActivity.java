@@ -1,7 +1,9 @@
 package com.tuge.myapp.examples.wifiTranslator.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -47,6 +49,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PipedReader;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class PhotoTransActivity extends Activity implements MenuListener {
@@ -63,6 +66,7 @@ public class PhotoTransActivity extends Activity implements MenuListener {
     private ImageView  scanImage;
     TitleBar mTitleBar;
     SpringMenu mSpringMenu;
+    Double x=1.0,y=1.0;
 
 
     @Override
@@ -72,7 +76,7 @@ public class PhotoTransActivity extends Activity implements MenuListener {
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        StatusBarCompat.setStatusBarColor(this, Color.WHITE);
+//        StatusBarCompat.setStatusBarColor(this, Color.WHITE);
 
         setContentView(R.layout.activity_photo_trans);
 
@@ -116,17 +120,17 @@ public class PhotoTransActivity extends Activity implements MenuListener {
 
         Bitmap bitmap = BitmapFactory.decodeFile(mPicpath);
         BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inScaled = false;
+        options.inScaled = false;
         Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
 
         mPic.setImageBitmap(bitmap);
 
-        findViewById(R.id.scroller).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return true;
-            }
-        });
+//        findViewById(R.id.scroller).setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                return true;
+//            }
+//        });
 //扫描实现
         mTop2Bottom = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
                 TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0f,
@@ -188,19 +192,47 @@ public class PhotoTransActivity extends Activity implements MenuListener {
         });
         scanImage.startAnimation(mTop2Bottom);
         startTrans(mPicpath);
-
-
+        int w = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        mTitleBar.measure(w, h);
+        int height1 = mTitleBar.getHeight();
+//
         WindowManager wm = this.getWindowManager();
 
         int width = wm.getDefaultDisplay().getWidth();
-        int height = wm.getDefaultDisplay().getHeight();
+
+        int height = wm.getDefaultDisplay().getHeight()-getStatusBarHeight(this)-50;
+
+        x= KeepTwoDecimal(width,bitmap.getWidth());
+        y= KeepTwoDecimal(height,bitmap.getHeight());
+
+        Log.i("wk","图片的宽度:"+bitmap.getWidth()+"---"+width+"gaodu"+height+bitmap.getHeight()+"99"+height1);
         LogUtil.showTestInfo(width+"==999"+height);
 
-        Log.i("wk","图片的宽度:"+bitmap.getWidth()+"---"+width+"图片的高度"+bitmap.getHeight()+"--"+height);
+//        Log.i("wk","图片的宽度:"+bitmap.getWidth()+"---"+width+"图片的高度"+bitmap.getHeight()+"--"+height);
 
 
     }
-
+    private static double KeepTwoDecimal (int number1, int number2){
+        double a=Double.valueOf(number1);
+        double b=Double.valueOf(number2);
+        double c=a/b;
+        return c=(double)((int)(c*100.0))/100;
+    }
+    /**
+     * 获取状态栏高度
+     * @param context
+     * @return
+     */
+    public static int getStatusBarHeight(Context context) {
+        Resources resources = context.getResources();
+        int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+        int height = resources.getDimensionPixelSize(resourceId);
+        LogUtil.showTestInfo(height);
+        return height;
+    }
 
 
     public void  startTrans(String path){
@@ -215,7 +247,7 @@ public class PhotoTransActivity extends Activity implements MenuListener {
         Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
 
         // 源语言方向：Language.ZH，目标语言方向:Language.EN，详见技术文档
-        client.getOcrResult(oriLan, desLan, bitmap, new OcrCallback() {
+        client.getOcrResult(Language.ZH, Language.EN, bitmap, new OcrCallback() {
             @Override
             public void onOcrResult(OcrResult ocrResult) {
 
@@ -251,12 +283,17 @@ public class PhotoTransActivity extends Activity implements MenuListener {
                         int bottom = (int) (ocrContent.getRect().bottom);
                         int right = (int) (ocrContent.getRect().right);
 
+
                     FrameLayout.LayoutParams layoutParams= new FrameLayout.LayoutParams(-1,-1);
 
-                    layoutParams.width = (right-left) ;
+                    layoutParams.width = getInt((right-left)*x);
+//                            (int) ((right-left)*x) ;
 
-                    layoutParams.height = (bottom-top);
-                    layoutParams.setMargins(left,top,0,0);//4个参数按顺序分别是左上右下
+                    layoutParams.height = getInt((bottom-top)*y);;
+                    LogUtil.showTestInfo(x+"-"+y+"-"+(right-left)*x+"-"+layoutParams.width+"-"+(bottom-top)*y+"-"+layoutParams.height);
+                    layoutParams.setMargins(getInt(left*x),getInt(top*y),0,0);//4个参数按顺序分别是左上右下
+
+//                    layoutParams.setMargins((int) (left*x),(int) (top*y),0,0);//4个参数按顺序分别是左上右下
 
                     mcontainer.addView(textView);
 
@@ -270,6 +307,18 @@ public class PhotoTransActivity extends Activity implements MenuListener {
             }
         });
 
+    }
+    public static int getInt(double number){
+        BigDecimal bd=new BigDecimal(number).setScale(0, BigDecimal.ROUND_HALF_UP);
+        return Integer.parseInt(bd.toString());
+    }
+    public int stringToInt(String string){  int j = 0;
+
+        String str = string.substring(0, string.indexOf(".")) + string.substring(string.indexOf(".") + 1);
+
+        int intgeo = Integer.parseInt(str);
+
+        return intgeo;
     }
 
     @Override

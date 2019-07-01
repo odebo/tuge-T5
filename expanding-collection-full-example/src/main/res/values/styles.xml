@@ -10,7 +10,7 @@
     <style name="AppSpash" parent="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen">
 
         <!-- 去掉window背景 -->
-        <item name="android:windowBackground">@mipmap/bg02</item>
+        <item name="android:windowBackground">@mipmap/bg_icon</item>
         <!-- 去掉Title -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
@@ -19,7 +19,7 @@
     </style>
 
     <style name="cameraScrollerBar">
-        <item name="android:textSize">12.0sp</item>
+        <item name="android:textSize">11.0sp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingLeft">6.0dip</item>

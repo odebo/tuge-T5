@@ -271,9 +271,10 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
             }
             Camera.Size optionSize = getOptimalPreviewSize(sizeList, this.getWidth(),this.getHeight());//获取一个最为适配的camera.size
 //            parameters.setPreviewSize(optionSize.width,optionSize.height);//把camera.size赋值到parameters
-            parameters.setPictureSize(size1.width,size1.height);//把camera.size赋值到parameters
+          parameters.setPictureSize(640,480);//把camera.size赋值到parameters
+//           parameters.setPictureSize(size1.width,size1.height);//把camera.size赋值到parameters
 
-            LogUtil.showTestInfo(optionSize.width+"=="+optionSize.height);
+//            LogUtil.showTestInfo(optionSize.width+"=="+optionSize.height);
 
 
 //

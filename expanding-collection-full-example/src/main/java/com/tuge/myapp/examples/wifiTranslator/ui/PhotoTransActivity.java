@@ -41,6 +41,7 @@ import com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar;
 import com.tuge.myapp.examples.wifiTranslator.R;
 import com.tuge.myapp.examples.wifiTranslator.view.AutoFitTextView;
 import com.tuge.myapp.examples.wifiTranslator.view.CameraSurfaceView;
+import com.tuge.myapp.examples.wifiTranslator.view.FitHeightTextView;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -126,7 +127,6 @@ public class PhotoTransActivity extends Activity implements MenuListener {
                 return true;
             }
         });
-
 //扫描实现
         mTop2Bottom = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
                 TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0f,
@@ -196,7 +196,7 @@ public class PhotoTransActivity extends Activity implements MenuListener {
         int height = wm.getDefaultDisplay().getHeight();
         LogUtil.showTestInfo(width+"==999"+height);
 
-//        Log.i("wk","图片的宽度:"+bitmap.getWidth()+"图片的高度"+bitmap.getHeight());
+        Log.i("wk","图片的宽度:"+bitmap.getWidth()+"---"+width+"图片的高度"+bitmap.getHeight()+"--"+height);
 
 
     }
@@ -251,7 +251,7 @@ public class PhotoTransActivity extends Activity implements MenuListener {
                         int bottom = (int) (ocrContent.getRect().bottom);
                         int right = (int) (ocrContent.getRect().right);
 
-                    FrameLayout.LayoutParams layoutParams= new FrameLayout.LayoutParams(-2,-2);
+                    FrameLayout.LayoutParams layoutParams= new FrameLayout.LayoutParams(-1,-1);
 
                     layoutParams.width = (right-left) ;
 

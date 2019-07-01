@@ -160,6 +160,13 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
         StatusBarCompat.setStatusBarColor(this, Color.WHITE);
         mTitleBar = (TitleBar) findViewById(R.id.title_bar);
         mRecogResult = findViewById(R.id.recogResult);
+//        mRecogResult.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
+        mRecogResult.setOnClickListener(this);
         mTransRusult = findViewById(R.id.transResult);
         mCardLayout = findViewById(R.id.cardLayout);
 
@@ -196,7 +203,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
         mTitleBar.setTitleColor(this.getResources().getColor(R.color.colorPrimaryBlue));
         mTitleBar.setActionTextColor(Color.WHITE);
         mTitleBar.setTitle(curTransModeTxt);
-        mTitleBar.setTitleSize(14);
+        mTitleBar.setTitleSize(12);
         mTitleBar.setLeftClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -335,7 +342,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
                 .setMenuRadius(10f)
                 .setMenuShadow(10f)
                 .setTextColor(this.getResources().getColor(R.color.md_grey_800))
-                .setTextSize(14)
+                .setTextSize(10)
                 .setTextGravity(Gravity.CENTER)
                 .setTextTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD))
                 .setSelectedTextColor(Color.WHITE)
@@ -373,7 +380,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
 
         BannerLayout recyclerBanner =  findViewById(R.id.recycler);
         mCardLayout.setVisibility(View.VISIBLE);
-        recyclerBanner.setItemSpace(50);
+        recyclerBanner.setItemSpace(30);
 
         recyclerBanner.setCenterScale(Float.valueOf("1.2"));
         recyclerBanner.setShowIndicator(false);
@@ -413,7 +420,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
 //
 
         recyclerBanner.setAdapter(webBannerAdapter);
-
+        if (mImagelist.size()==2)
+            recyclerBanner.positionInit();
         waveLineView.setVisibility(View.INVISIBLE);
 
     }
@@ -558,7 +566,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
         // 构造client
         config.setTtsCombined(true);
         config.setAutoPlayTts(false);
-        config.setLogEnabled(true);
+//        config.setLogEnabled(true);
         config.setPartialCallbackEnabled(true);
         WifiTranslatorConfig wifiTranslatorConfig = new WifiTranslatorConfig();
         config.addExtraParams(WifiTranslatorConfig.getTranslatorConfig(this, "mix_zh_en"));

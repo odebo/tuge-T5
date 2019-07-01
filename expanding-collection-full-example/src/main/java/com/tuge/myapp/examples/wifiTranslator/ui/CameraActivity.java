@@ -98,13 +98,21 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
                     + "tuge-T5"
                     + File.separator
                     + "PicTest_" + 1 + ".jpg";
-            savePic(data, fileName);
 
-            if (isTransPhoto) {
-                startIntent(PhotoTransActivity.class, fileName);
-            } else {
-                startIntent(ObjectRecActivity.class, fileName);
-            }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    savePic(data, fileName);
+                    if (isTransPhoto) {
+                        startIntent(PhotoTransActivity.class, fileName);
+                    } else {
+                        startIntent(ObjectRecActivity.class, fileName);
+                    }
+
+                }
+            }).start();
+
+
 //            Toast.makeText(CameraActivity.this, "拍照成功", Toast.LENGTH_SHORT).show();
         }
     };
@@ -383,8 +391,8 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
             case R.id.sure:
                 mOriTV.setText(oriSelLan);
                 mDesTV.setText(desSelLan);
-                oriLan = transModeMap.get(oriSelLan);
 
+                oriLan = transModeMap.get(oriSelLan);
                 desLan = transModeMap.get(desSelLan);
                 findViewById(R.id.wheel_layout).setVisibility(View.GONE);
                 findViewById(R.id.sure).setVisibility(View.GONE);

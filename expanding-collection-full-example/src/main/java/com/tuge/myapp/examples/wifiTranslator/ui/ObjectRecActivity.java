@@ -212,7 +212,9 @@ public class ObjectRecActivity extends Activity implements MenuListener {
         LayoutInflater inflater3 = LayoutInflater.from(this);
         View view = inflater3.inflate(R.layout.item_gerenal_rec, null);
      TextView des =  view.findViewById(R.id.des);
+     des.setTextSize(13);
      TextView name =  view.findViewById(R.id.name);
+     name.setTextSize(13);
 //     ImageView iv= view.findViewById(R.id.pic);
 //     iv.setImageDrawable(getResources().getDrawable(R.drawable.card01));
 
@@ -327,10 +329,15 @@ public class ObjectRecActivity extends Activity implements MenuListener {
              JSONObject object = obj.getJSONObject("redwine");
              if (object.getInt("hasdetail")==1) {
                  results.add("名称 " + "&" + object.getString("wineNameCn"));
+                 if (obj.has("国内价格")||obj.has("国外价格")) {
+                     results.add("国内价格 " + "&" + obj.getString("国内价格"));
+                     results.add("国外价格 " + "&" + obj.getString("国外价格"));
+                 }
                  results.add("国家 " + "&" + object.getString("countryCn"));
                  results.add("产区 " + "&" + object.getString("regionCn"));
                  results.add("酒庄 " + "&" + object.getString("wineryCn"));
                  results.add("糖分 " + "&" + object.getString("classifyBySugar"));
+
 
              }else{
                     isGeneral = true;

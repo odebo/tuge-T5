@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: :translate-asr-tts_v1.1.2:@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f5f6c8684f7d24bcca8d885c9920b056/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f5f6c8684f7d24bcca8d885c9920b056/jars/classes.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../.gradle/daemon/4.1/caches/transforms-2/files-2.1/cf6c8ba49d5878e95ccc09d85fe987ec/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.gradle/daemon/4.1/caches/transforms-2/files-2.1/cf6c8ba49d5878e95ccc09d85fe987ec/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

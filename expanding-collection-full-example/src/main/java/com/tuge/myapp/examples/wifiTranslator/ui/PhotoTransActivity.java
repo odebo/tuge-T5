@@ -191,13 +191,20 @@ public class PhotoTransActivity extends Activity implements MenuListener {
             }
         });
         scanImage.startAnimation(mTop2Bottom);
-        startTrans(mPicpath);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                startTrans(mPicpath);
+
+            }
+        }).start();
         int w = View.MeasureSpec.makeMeasureSpec(0,
                 View.MeasureSpec.UNSPECIFIED);
         int h = View.MeasureSpec.makeMeasureSpec(0,
                 View.MeasureSpec.UNSPECIFIED);
         mTitleBar.measure(w, h);
-        int height1 = mTitleBar.getHeight();
+        int height1 = mTitleBar.getMeasuredHeight();
 //
         WindowManager wm = this.getWindowManager();
 
@@ -265,44 +272,57 @@ public class PhotoTransActivity extends Activity implements MenuListener {
                     Toast.makeText(PhotoTransActivity.this,"识别有误",Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 List<OcrContent> list = ocrResult.getContents();
 
-                for (int i = 0; i < list.size(); i++) {
-
-                    OcrContent ocrContent = list.get(i);
-
-                        AutoFitTextView textView = new AutoFitTextView(PhotoTransActivity.this,null);
-                        textView.setText(ocrContent.getDst());
-
-                        textView.setBackgroundResource(android.R.color.darker_gray);
+                PhotoTransActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
 
 
-                        int left = (int) (ocrContent.getRect().left);
-                        int top = (int) (ocrContent.getRect().top);
-                        int bottom = (int) (ocrContent.getRect().bottom);
-                        int right = (int) (ocrContent.getRect().right);
+                            for (int i = 0; i < list.size(); i++) {
+
+                                OcrContent ocrContent = list.get(i);
+
+                                AutoFitTextView textView = new AutoFitTextView(PhotoTransActivity.this,null);
+                                textView.setText(ocrContent.getDst());
+
+                                textView.setBackgroundResource(android.R.color.darker_gray);
 
 
-                    FrameLayout.LayoutParams layoutParams= new FrameLayout.LayoutParams(-1,-1);
+                                int left = (int) (ocrContent.getRect().left);
+                                int top = (int) (ocrContent.getRect().top);
+                                int bottom = (int) (ocrContent.getRect().bottom);
+                                int right = (int) (ocrContent.getRect().right);
 
-                    layoutParams.width = getInt((right-left)*x);
+
+                                FrameLayout.LayoutParams layoutParams= new FrameLayout.LayoutParams(-1,-1);
+
+                                layoutParams.width = getInt((right-left)*x);
 //                            (int) ((right-left)*x) ;
 
-                    layoutParams.height = getInt((bottom-top)*y);;
-                    LogUtil.showTestInfo(x+"-"+y+"-"+(right-left)*x+"-"+layoutParams.width+"-"+(bottom-top)*y+"-"+layoutParams.height);
-                    layoutParams.setMargins(getInt(left*x),getInt(top*y),0,0);//4个参数按顺序分别是左上右下
+                                layoutParams.height = getInt((bottom-top)*y);;
+                                LogUtil.showTestInfo(x+"-"+y+"-"+(right-left)*x+"-"+layoutParams.width+"-"+(bottom-top)*y+"-"+layoutParams.height);
+                                layoutParams.setMargins(getInt(left*x),getInt(top*y),0,0);//4个参数按顺序分别是左上右下
 
 //                    layoutParams.setMargins((int) (left*x),(int) (top*y),0,0);//4个参数按顺序分别是左上右下
 
-                    mcontainer.addView(textView);
+                                mcontainer.addView(textView);
 
-                    textView.setLayoutParams(layoutParams);
+                                textView.setLayoutParams(layoutParams);
 
-                    Log.i("TTTTTT", ocrContent.getDst()+"zuobian"+ocrContent.getRect());
+                                Log.i("TTTTTT", ocrContent.getDst()+"zuobian"+ocrContent.getRect());
 
 
-                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+
+
 
             }
         });

@@ -124,75 +124,75 @@ public class ObjectRecActivity extends Activity implements MenuListener {
                 mSpringMenu.openMenu();
             }
         });
-         progressBar = findViewById(R.id.progressBar);
+//         progressBar = findViewById(R.id.progressBar);
 
 //        findViewById(R.id.pr)
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                //扫描实现
-//                mTop2Bottom = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
-//                        TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0f,
-//                        TranslateAnimation.RELATIVE_TO_PARENT, 0.7f);
-//
-//                mBottom2Top = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
-//                        TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0.7f,
-//                        TranslateAnimation.RELATIVE_TO_PARENT, 0f);
-//
-//                mBottom2Top.setRepeatMode(Animation.RESTART);
-//                mBottom2Top.setInterpolator(new LinearInterpolator());
-//                mBottom2Top.setDuration(1500);
-//                mBottom2Top.setFillEnabled(true);//使其可以填充效果从而不回到原地
-//                mBottom2Top.setFillAfter(true);//不回到起始位置
-////如果不添加setFillEnabled和setFillAfter则动画执行结束后会自动回到远点
-//                mBottom2Top.setAnimationListener(new Animation.AnimationListener() {
-//                    @Override
-//                    public void onAnimationStart(Animation animation) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(Animation animation) {
-//
-//                        if (!stopAnimation){
-//                            scanImage.startAnimation(mTop2Bottom);
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onAnimationRepeat(Animation animation) {
-//
-//                    }
-//                });
-//
-//                mTop2Bottom.setRepeatMode(Animation.RESTART);
-//                mTop2Bottom.setInterpolator(new LinearInterpolator());
-//                mTop2Bottom.setDuration(1500);
-//                mTop2Bottom.setFillEnabled(true);
-//                mTop2Bottom.setFillAfter(true);
-//                mTop2Bottom.setAnimationListener(new Animation.AnimationListener() {
-//                    @Override
-//                    public void onAnimationStart(Animation animation) {
-//                        scanImage.setVisibility(View.VISIBLE);
-//
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(Animation animation) {
-//                        if (!stopAnimation){
-//                            scanImage.startAnimation(mBottom2Top);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onAnimationRepeat(Animation animation) {
-//
-//                    }
-//                });
-//                scanImage.startAnimation(mTop2Bottom);
-//            }
-//        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //扫描实现
+                mTop2Bottom = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
+                        TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0f,
+                        TranslateAnimation.RELATIVE_TO_PARENT, 0.7f);
+
+                mBottom2Top = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
+                        TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0.7f,
+                        TranslateAnimation.RELATIVE_TO_PARENT, 0f);
+
+                mBottom2Top.setRepeatMode(Animation.RESTART);
+                mBottom2Top.setInterpolator(new LinearInterpolator());
+                mBottom2Top.setDuration(1500);
+                mBottom2Top.setFillEnabled(true);//使其可以填充效果从而不回到原地
+                mBottom2Top.setFillAfter(true);//不回到起始位置
+//如果不添加setFillEnabled和setFillAfter则动画执行结束后会自动回到远点
+                mBottom2Top.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+
+                        if (!stopAnimation){
+                            scanImage.startAnimation(mTop2Bottom);
+                        }
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+
+                mTop2Bottom.setRepeatMode(Animation.RESTART);
+                mTop2Bottom.setInterpolator(new LinearInterpolator());
+                mTop2Bottom.setDuration(1500);
+                mTop2Bottom.setFillEnabled(true);
+                mTop2Bottom.setFillAfter(true);
+                mTop2Bottom.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        scanImage.setVisibility(View.VISIBLE);
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        if (!stopAnimation){
+                            scanImage.startAnimation(mBottom2Top);
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                scanImage.startAnimation(mTop2Bottom);
+            }
+        }).start();
 
 
 
@@ -254,6 +254,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
                 if (baike_info.length() == 0) {
                     des.setVisibility(View.GONE);
                 }
+
                 des.setText("\u3000\u3000" + baike_info.getString("description"));
             }else{
                 des.setVisibility(View.GONE);
@@ -271,7 +272,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
     }
     private void initData(){
 
-    progressBar.setVisibility(View.GONE);
+//    progressBar.setVisibility(View.GONE);
         stopAnimation=true;
         scanImage.setVisibility(View.GONE);
         scanImage.clearAnimation();
@@ -329,13 +330,19 @@ public class ObjectRecActivity extends Activity implements MenuListener {
         LogUtil.showTestInfo("开始识别");
 
         results = new ArrayList<>();
+        String  result="";
 
-      String  result =
-//              "{ \"wineNameCn\": \"奔富Bin2西拉幕合怀特红葡萄酒\", \"regionEn\": \"South Australia\", \"color\": \"深紫红色/Dark Violet\", \"wineNameEn\": \"Penfolds Bin 2 Shiraz Mataro\", \"hasdetail\": 1, \"wineryCn\": \"奔富\", \"classifyBySugar\": \"干型/Dry\", \"tasteTemperature\": \"12-18℃\", \"regionCn\": \"南澳\", \"wineryEn\": \"Penfolds\", \"countryEn\": \"Australia\", \"description\": \"此酒为深紫红色\"}";
-              TranslatorUtils.getImageInfo(path);
-      if (result==null)return;
+        try {
+              result = TranslatorUtils.getImageInfo(path);
+        }catch (Exception E){
 
-//      Log.i("识别到的结果",result);
+              Log
+
+        }
+
+
+
+     Log.i("识别到的结果",result);
 
 
 

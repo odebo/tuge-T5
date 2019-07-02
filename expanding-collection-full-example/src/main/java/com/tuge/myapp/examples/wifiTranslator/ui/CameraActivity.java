@@ -204,7 +204,7 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
 
             }
         });
-        initView();
+       initView();
 //        mBottomView.moveLeft();
     }
 
@@ -297,7 +297,7 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
             bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);//向缓冲区压缩图片
             bos.flush();
             bos.close();
-            setPictureDegreeZero(fileName);
+//            setPictureDegreeZero(fileName);
         } catch (Exception e) {
             Log.i("4444", e.toString());
             // TODO Auto-generated catch block

@@ -14,6 +14,9 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 如果需要用到TTS播报功能，则需要外置存储卡写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 如果需要用到TTS播报功能，则需要外置存储卡写权限 -->
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
+
 
     <application
         android:allowBackup="true"
@@ -30,7 +33,8 @@
         <activity android:name=".MainActivity" android:theme="@style/AppSpash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

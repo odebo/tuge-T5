@@ -1,13 +1,24 @@
 <resources>
 
-    <!-- Base application theme. -->
+     Base application theme.
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="AppSpash" parent="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen">
+
+    <!--<style name="AppSpash" parent="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen">-->
+
+        <!--&lt;!&ndash; 去掉window背景 &ndash;&gt;-->
+        <!--<item name="android:windowBackground">@mipmap/bg_icon</item>-->
+        <!--&lt;!&ndash; 去掉Title &ndash;&gt;-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="android:windowFullscreen">true</item>-->
+        <!--<item name="android:windowContentOverlay">@null</item>-->
+        <!--&lt;!&ndash; All customizations that are NOT specific to a particular API-level can go here. &ndash;&gt;-->
+    <!--</style>-->
+    <style name="AppSpash" parent="@android:style/android:Theme">
 
         <!-- 去掉window背景 -->
         <item name="android:windowBackground">@mipmap/bg_icon</item>

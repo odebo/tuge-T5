@@ -104,8 +104,11 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
                 public void run() {
                     savePic(data, fileName);
                     if (isTransPhoto) {
+
                         startIntent(PhotoTransActivity.class, fileName);
                     } else {
+                        LogUtil.showTestInfo("开始跳转");
+
                         startIntent(ObjectRecActivity.class, fileName);
                     }
 
@@ -291,7 +294,7 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
         }
         try {
             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-            bm.compress(Bitmap.CompressFormat.JPEG, 100, bos);//向缓冲区压缩图片
+            bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);//向缓冲区压缩图片
             bos.flush();
             bos.close();
             setPictureDegreeZero(fileName);

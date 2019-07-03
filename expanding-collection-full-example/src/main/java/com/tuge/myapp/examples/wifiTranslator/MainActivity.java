@@ -30,7 +30,9 @@ import com.tuge.myapp.ECCardData;
 import com.tuge.myapp.ECPagerView;
 import com.tuge.myapp.ECPagerViewAdapter;
 import com.tuge.myapp.examples.wifiTranslator.pojo.CardData;
+import com.tuge.myapp.examples.wifiTranslator.pojo.SharedPreferencesUtils;
 import com.tuge.myapp.examples.wifiTranslator.ui.CameraActivity;
+import com.tuge.myapp.examples.wifiTranslator.ui.ObjectRecActivity;
 import com.tuge.myapp.examples.wifiTranslator.ui.PhotoTransActivity;
 import com.tuge.myapp.examples.wifiTranslator.ui.SpeechTransActivity;
 import com.tuge.myapp.examples.wifiTranslator.view.ItemsCountView;
@@ -50,10 +52,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-
         Drawable drawable = getResources().getDrawable(R.mipmap.bg_icon);
+        SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
+      sharedPreferencesUtils.clearData(this);
+
         BitmapDrawable bd  = (BitmapDrawable) drawable;
         Bitmap bmm = bd.getBitmap();
+
         try {
             setWallpaper(bmm);
         } catch (IOException e) {

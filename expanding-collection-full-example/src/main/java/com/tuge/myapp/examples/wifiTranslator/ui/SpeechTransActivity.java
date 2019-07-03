@@ -23,6 +23,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -156,6 +157,9 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_speech_trans);
         StatusBarCompat.setStatusBarColor(this, Color.WHITE);
         mTitleBar = (TitleBar) findViewById(R.id.title_bar);
@@ -285,6 +289,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
                     waveLineView.setVisibility(View.VISIBLE);
 
                     waveLineView.startAnim();
+                    mTransRusult.setText("");
+                    mRecogResult.setText("");
                     mCardLayout.setVisibility(View.GONE);
                     startRecognize();
 
@@ -568,6 +574,7 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
         config.setAutoPlayTts(false);
 //        config.setLogEnabled(true);
         config.setPartialCallbackEnabled(true);
+        config.setRecognizeStartAudioRes(R.raw.bdspeech_recognition_start);
         WifiTranslatorConfig wifiTranslatorConfig = new WifiTranslatorConfig();
         config.addExtraParams(WifiTranslatorConfig.getTranslatorConfig(this, "mix_zh_en"));
         Log.i("ttttttt",WifiTranslatorConfig.getTranslatorConfig(this, "mix_zh_en").toString());
@@ -630,6 +637,8 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
                                     imamgeSearchStr=null;
 
                                 } catch (Exception e) {
+
+                                    LogUtil.showTestInfo(e.getMessage());
                                     e.printStackTrace();
                                 }
 
@@ -676,10 +685,11 @@ public  class SpeechTransActivity extends Activity implements MenuListener, View
 
     private  void  imageSearch(String result) throws JSONException {
 
-        Log.i("search",result);
 
         String searchResult = TranslatorUtils.getSearchResult(result);
-Log.i("search",searchResult);
+        if (searchResult.equals(""))return;
+        LogUtil.showTestInfo(searchResult+"teststeet");
+
         JSONArray searchResultArray = new JSONArray(searchResult);
         mImagelist = new ArrayList<>();
         mKeyWord = new ArrayList<>();

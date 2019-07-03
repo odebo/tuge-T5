@@ -71,7 +71,9 @@ public class PhotoTransActivity extends Activity implements MenuListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -210,7 +212,7 @@ public class PhotoTransActivity extends Activity implements MenuListener {
 
         int width = wm.getDefaultDisplay().getWidth();
 
-        int height = wm.getDefaultDisplay().getHeight()-getStatusBarHeight(this)-dp2px();
+        int height = wm.getDefaultDisplay().getHeight()-50;
 
         x= KeepTwoDecimal(width,bitmap.getWidth());
         y= KeepTwoDecimal(height,bitmap.getHeight());

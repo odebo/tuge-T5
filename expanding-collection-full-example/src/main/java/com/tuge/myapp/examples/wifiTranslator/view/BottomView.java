@@ -25,7 +25,8 @@ public class BottomView extends LinearLayout {
 
     public void init(){
         mCameraScroller=(CameraScroller)findViewById(R.id.camera_scroller);
-        Util.setSelectedIndex(0);
+        Util.setSelectedIndex(1);
+        mCurrentPosition = 1;
 
     }
 

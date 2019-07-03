@@ -8,7 +8,7 @@ public class Util {
 
     public final static int MIN_INDEX=0;
     public final static int MAX_INDEX=2;
-    private static int selected_index=0;
+    private static int selected_index=1;
 
     public static int getCurrentSelectedIndex(){
         return selected_index;

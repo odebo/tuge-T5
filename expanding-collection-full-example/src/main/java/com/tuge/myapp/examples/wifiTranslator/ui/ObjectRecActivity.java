@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
@@ -42,6 +45,7 @@ import com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar;
 import com.tuge.myapp.examples.wifiTranslator.MainActivity;
 import com.tuge.myapp.examples.wifiTranslator.R;
 import com.tuge.myapp.examples.wifiTranslator.adapter.RecogResultAdapter;
+import com.tuge.myapp.examples.wifiTranslator.pojo.SharedPreferencesUtils;
 import com.tuge.translatorlib.TranslatorUtils;
 
 import org.json.JSONException;
@@ -59,7 +63,8 @@ public class ObjectRecActivity extends Activity implements MenuListener {
     private String    mPicpath;
     private FrameLayout mcontainer;
     private ArrayList<String> results;
-    private  ProgressBar progressBar;
+    int count;
+//    private  ProgressBar progressBar;
     private String[] data = {
             "Pear", "Grape", "Pineapple", "Strawberry", "Cherry", "Mango" };
     //    扫描线
@@ -73,13 +78,38 @@ public class ObjectRecActivity extends Activity implements MenuListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_object_rec);
 
-        StatusBarCompat.setStatusBarColor(this, Color.WHITE);
+//        StatusBarCompat.setStatusBarColor(this, Color.WHITE);
         LogUtil.showTestInfo("视图加载");
 
+
         mPicpath = getIntent().getStringExtra("picPath");
+        SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
+//      sharedPreferencesUtils.clearData(this);
+
+        int value =   sharedPreferencesUtils.getValue("count",0,this);
+
+      if (value==0){
+
+          sharedPreferencesUtils.setValue("count",1,this);
+
+
+      }else {
+        int  newValue = value+1;
+
+          sharedPreferencesUtils.setValue("count",newValue,this);
+
+      }
+        count =   sharedPreferencesUtils.getValue("count",0,this);
+
+
+        LogUtil.showTestInfo("次数" +count);
+
+
 
 //        LogUtil.showTestInfo(mPicpath);
 //
@@ -204,7 +234,9 @@ public class ObjectRecActivity extends Activity implements MenuListener {
             @Override
             public void run() {
                 try {
-                  objectRecog(mPicpath);
+                    Thread.sleep(1000);
+
+                    objectRecog(mPicpath);
 //                   objectRecog(getResourcesUri(R.drawable.test1));
 
 
@@ -253,9 +285,9 @@ public class ObjectRecActivity extends Activity implements MenuListener {
                 JSONObject baike_info = new JSONObject(results.get(1));
                 if (baike_info.length() == 0) {
                     des.setVisibility(View.GONE);
+                }else {
+                    des.setText("\u3000\u3000" + baike_info.getString("description"));
                 }
-
-                des.setText("\u3000\u3000" + baike_info.getString("description"));
             }else{
                 des.setVisibility(View.GONE);
 
@@ -278,6 +310,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
         scanImage.clearAnimation();
         mcontainer.setVisibility(View.VISIBLE);
         if (isGeneral){
+
 //            findViewById(R.id.result).setVisibility(View.VISIBLE);
 //
 //            TextView des =  findViewById(R.id.des);
@@ -312,6 +345,9 @@ public class ObjectRecActivity extends Activity implements MenuListener {
 
         ListView listView =  findViewById(R.id.listView);
         listView.setAdapter(adapter);
+        listView.setDivider(new ColorDrawable(Color.GRAY));
+        listView.setDividerHeight(1);
+
         isGeneral =false;
 
     }
@@ -325,24 +361,39 @@ public class ObjectRecActivity extends Activity implements MenuListener {
     }
 
 
+
     //万物识别
     private  void objectRecog(String path) throws JSONException {
         LogUtil.showTestInfo("开始识别");
 
         results = new ArrayList<>();
-        String  result="";
+        String  result = "";
+        String result1= "{\"国内价格\":269,\"redwine\":{\"subRegionCn\":\"梅多克\",\"countryEn\":\"France\",\"regionEn\":\"Bordeaux\",\"countryCn\":\"法国\",\"grapeCn\":\"\",\"wineryEn\":\"Chateau Ducru-Beaucaillou\",\"hasdetail\":1,\"tasteTemperature\":\"12-14℃\",\"wineNameEn\":\"Le Petit Caillou\",\"wineryCn\":\"宝嘉龙庄园\",\"description\":\"酒体呈深紫红色，带有非常开放紧密的气味，有樱桃和泡草莓的香气，极具风味的红浆果味，浑厚有劲，余韵带有辛辣的味道。\",\"color\":\"深紫红色/Dark Violet\",\"regionCn\":\"波尔多\",\"subRegionEn\":\"Medoc\",\"classifyBySugar\":\"干型/Dry\",\"wineNameCn\":\"小宝嘉龙红葡萄酒\",\"grapeEn\":\"\",\"classifyByColor\":\"红葡萄酒/Red Wine\"},\"国外价格\":209}";
+        String result2 ="{\"国内价格\":120,\"redwine\":{\"subRegionCn\":\"\",\"countryEn\":\"Australia\",\"regionEn\":\"South Eastern Australia\",\"countryCn\":\"澳大利亚\",\"grapeCn\":\"\",\"wineryEn\":\"McGuigan Wines\",\"tasteTemperature\":\"6-11℃\",\"hasdetail\":1,\"wineNameEn\":\"McGuigan Black Label Red\",\"wineryCn\":\"麦格根酒庄\",\"description\":\"酒体呈紫红色，充满香草、饴糖及朱古力味，香味浓郁而复杂，均衡度良好，口感舒适，就像接触到丝绒般的柔顺，单宁也相当成熟。\",\"regionCn\":\"东南澳\",\"color\":\"紫红色/Violet\",\"subRegionEn\":\"\",\"classifyBySugar\":\"半甜型/Medium-sweet\",\"wineNameCn\":\"麦格根酒庄黑牌半甜红葡萄酒\",\"grapeEn\":\"\",\"classifyByColor\":\"红葡萄酒/Red Wine\"},\"国外价格\":52}";
 
-        try {
-              result = TranslatorUtils.getImageInfo(path);
-        }catch (Exception E){
+        if (count%2==0){
 
-//              Log
+            result = result1;
+        }else {
 
+            result = result2;
         }
+//        try{
+//              result = TranslatorUtils.getImageInfo(path);
+//
+//
+//        }catch (Exception e){
+//
+//
+//        }
+//        if (result.equals("")){
+//
+//            return;
+//        }
 
+      if (result==null)return;
 
-
-     Log.i("识别到的结果",result);
+      Log.i("识别到的结果",result);
 
 
 
@@ -378,8 +429,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
                  results.add("名称 " + "&" + object.getString(key));
 
                  if (obj.has("国内价格")||obj.has("国外价格")) {
-                     results.add("国内价格 " + "&" + obj.getString("国内价格"));
-                     results.add("国外价格 " + "&" + obj.getString("国外价格"));
+                     results.add("国内参考价格 " + "&" + obj.getString("国内价格"));
                  }
 
                  results.add("国家 " + "&" + object.getString("countryCn"));
@@ -388,6 +438,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
                  results.add("酒庄 " + "&" + object.getString("wineryCn"));
                  results.add("糖分 " + "&" + object.getString("classifyBySugar"));
 
+                 results.add("简介 " + "&" + object.getString("description"));
 
              }else{
                     isGeneral = true;

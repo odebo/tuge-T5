@@ -336,7 +336,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
               result = TranslatorUtils.getImageInfo(path);
         }catch (Exception E){
 
-              Log
+//              Log
 
         }
 

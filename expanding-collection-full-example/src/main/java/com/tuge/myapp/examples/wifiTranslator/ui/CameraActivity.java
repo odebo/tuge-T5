@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -67,7 +68,7 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
     private ImageView mRightMenuBtn;
     private FocusImageView mFocusImageView;
     private boolean mSelectVisibility;
-    boolean isTransPhoto = true;
+    boolean isTransPhoto = false;
     int isOtherPage;
     private  ArrayList list, tempList;
     private  String oriLan="zh",desLan="en";
@@ -99,21 +100,37 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
                     + File.separator
                     + "PicTest_" + 1 + ".jpg";
 
+            LogUtil.showTestInfo("开始保存");
+
+            LogUtil.showTestInfo("保存完成");
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     savePic(data, fileName);
+
                     if (isTransPhoto) {
 
                         startIntent(PhotoTransActivity.class, fileName);
                     } else {
+
+
                         LogUtil.showTestInfo("开始跳转");
 
                         startIntent(ObjectRecActivity.class, fileName);
+
+
+
                     }
+
+//                    mCameraSurfaceView.releaseCameraAndPreview();
 
                 }
             }).start();
+
+
+
+
 
 
 //            Toast.makeText(CameraActivity.this, "拍照成功", Toast.LENGTH_SHORT).show();
@@ -131,6 +148,9 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_camera);
         ImageView img_take_photo = (ImageView) findViewById(R.id.img_take_photo);
         mCameraSurfaceView = (CameraSurfaceView) findViewById(R.id.sv_camera);
@@ -145,9 +165,9 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
             @Override
             public void OnListener(Point point)
             {
+                    mPoint = point;
+                    mFocusImageView.startFocus(point);
 
-                mPoint = point;
-                mFocusImageView.startFocus(point);
             }
         });
         mBackButton = findViewById(R.id.back);
@@ -166,10 +186,11 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
 
         mBottomView = (BottomView) findViewById(R.id.bottomView);
         mBottomView.init();
+        initTransData();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-                initTransData();
 
             }
         });
@@ -271,6 +292,7 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        LogUtil.showTestInfo("视图被销毁");
 
     }
 
@@ -403,6 +425,7 @@ public class CameraActivity extends Activity implements MenuListener, View.OnCli
 
                 oriLan = transModeMap.get(oriSelLan);
                 desLan = transModeMap.get(desSelLan);
+                LogUtil.showTestInfo(oriLan+desLan+"999");
                 findViewById(R.id.wheel_layout).setVisibility(View.GONE);
                 findViewById(R.id.sure).setVisibility(View.GONE);
                 findViewById(R.id.right_menu).setVisibility(View.VISIBLE);

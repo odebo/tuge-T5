@@ -358,11 +358,15 @@ public class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Call
         return qOpened;
     }
 
-    private void releaseCameraAndPreview() {
+    public void releaseCameraAndPreview() {
+
         if (mCamera != null) {
-            mCamera.stopPreview();
-            mCamera.release();
-            mCamera = null;
+
+            LogUtil.showTestInfo("相机被释放");
+return;
+//            mCamera.stopPreview();
+//            mCamera.release();
+//            mCamera = null;
         }
     }
 

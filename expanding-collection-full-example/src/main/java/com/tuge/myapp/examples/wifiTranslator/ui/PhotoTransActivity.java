@@ -71,7 +71,9 @@ public class PhotoTransActivity extends Activity implements MenuListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
 //        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -210,7 +212,7 @@ public class PhotoTransActivity extends Activity implements MenuListener {
 
         int width = wm.getDefaultDisplay().getWidth();
 
-        int height = wm.getDefaultDisplay().getHeight()-getStatusBarHeight(this)-50;
+        int height = wm.getDefaultDisplay().getHeight()-50;
 
         x= KeepTwoDecimal(width,bitmap.getWidth());
         y= KeepTwoDecimal(height,bitmap.getHeight());
@@ -254,7 +256,7 @@ public class PhotoTransActivity extends Activity implements MenuListener {
         Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
 
         // 源语言方向：Language.ZH，目标语言方向:Language.EN，详见技术文档
-        client.getOcrResult(Language.ZH, Language.EN, bitmap, new OcrCallback() {
+        client.getOcrResult(oriLan, desLan, bitmap, new OcrCallback() {
             @Override
             public void onOcrResult(OcrResult ocrResult) {
 

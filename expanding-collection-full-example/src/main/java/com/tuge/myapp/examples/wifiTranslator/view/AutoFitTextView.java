@@ -19,7 +19,7 @@ import android.util.Log;
 import android.util.TypedValue;
 public class AutoFitTextView extends TextView {
 
-    private static float DEFAULT_MIN_TEXT_SIZE = 15;
+    private static float DEFAULT_MIN_TEXT_SIZE = 10;
     private static float DEFAULT_MAX_TEXT_SIZE = 50;
 
     private TextPaint testPaint;

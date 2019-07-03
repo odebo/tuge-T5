@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
@@ -42,6 +45,7 @@ import com.tuge.myapp.examples.wifiTranslator.DetailActivity.TitleBar;
 import com.tuge.myapp.examples.wifiTranslator.MainActivity;
 import com.tuge.myapp.examples.wifiTranslator.R;
 import com.tuge.myapp.examples.wifiTranslator.adapter.RecogResultAdapter;
+import com.tuge.myapp.examples.wifiTranslator.pojo.SharedPreferencesUtils;
 import com.tuge.translatorlib.TranslatorUtils;
 
 import org.json.JSONException;
@@ -59,7 +63,8 @@ public class ObjectRecActivity extends Activity implements MenuListener {
     private String    mPicpath;
     private FrameLayout mcontainer;
     private ArrayList<String> results;
-    private  ProgressBar progressBar;
+    int count;
+//    private  ProgressBar progressBar;
     private String[] data = {
             "Pear", "Grape", "Pineapple", "Strawberry", "Cherry", "Mango" };
     //    扫描线
@@ -73,13 +78,38 @@ public class ObjectRecActivity extends Activity implements MenuListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_object_rec);
 
-        StatusBarCompat.setStatusBarColor(this, Color.WHITE);
+//        StatusBarCompat.setStatusBarColor(this, Color.WHITE);
         LogUtil.showTestInfo("视图加载");
 
+
         mPicpath = getIntent().getStringExtra("picPath");
+        SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
+//      sharedPreferencesUtils.clearData(this);
+
+        int value =   sharedPreferencesUtils.getValue("count",0,this);
+
+      if (value==0){
+
+          sharedPreferencesUtils.setValue("count",1,this);
+
+
+      }else {
+        int  newValue = value+1;
+
+          sharedPreferencesUtils.setValue("count",newValue,this);
+
+      }
+        count =   sharedPreferencesUtils.getValue("count",0,this);
+
+
+        LogUtil.showTestInfo("次数" +count);
+
+
 
 //        LogUtil.showTestInfo(mPicpath);
 //
@@ -124,75 +154,75 @@ public class ObjectRecActivity extends Activity implements MenuListener {
                 mSpringMenu.openMenu();
             }
         });
-         progressBar = findViewById(R.id.progressBar);
+//         progressBar = findViewById(R.id.progressBar);
 
 //        findViewById(R.id.pr)
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                //扫描实现
-//                mTop2Bottom = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
-//                        TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0f,
-//                        TranslateAnimation.RELATIVE_TO_PARENT, 0.7f);
-//
-//                mBottom2Top = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
-//                        TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0.7f,
-//                        TranslateAnimation.RELATIVE_TO_PARENT, 0f);
-//
-//                mBottom2Top.setRepeatMode(Animation.RESTART);
-//                mBottom2Top.setInterpolator(new LinearInterpolator());
-//                mBottom2Top.setDuration(1500);
-//                mBottom2Top.setFillEnabled(true);//使其可以填充效果从而不回到原地
-//                mBottom2Top.setFillAfter(true);//不回到起始位置
-////如果不添加setFillEnabled和setFillAfter则动画执行结束后会自动回到远点
-//                mBottom2Top.setAnimationListener(new Animation.AnimationListener() {
-//                    @Override
-//                    public void onAnimationStart(Animation animation) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(Animation animation) {
-//
-//                        if (!stopAnimation){
-//                            scanImage.startAnimation(mTop2Bottom);
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onAnimationRepeat(Animation animation) {
-//
-//                    }
-//                });
-//
-//                mTop2Bottom.setRepeatMode(Animation.RESTART);
-//                mTop2Bottom.setInterpolator(new LinearInterpolator());
-//                mTop2Bottom.setDuration(1500);
-//                mTop2Bottom.setFillEnabled(true);
-//                mTop2Bottom.setFillAfter(true);
-//                mTop2Bottom.setAnimationListener(new Animation.AnimationListener() {
-//                    @Override
-//                    public void onAnimationStart(Animation animation) {
-//                        scanImage.setVisibility(View.VISIBLE);
-//
-//                    }
-//
-//                    @Override
-//                    public void onAnimationEnd(Animation animation) {
-//                        if (!stopAnimation){
-//                            scanImage.startAnimation(mBottom2Top);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onAnimationRepeat(Animation animation) {
-//
-//                    }
-//                });
-//                scanImage.startAnimation(mTop2Bottom);
-//            }
-//        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //扫描实现
+                mTop2Bottom = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
+                        TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0f,
+                        TranslateAnimation.RELATIVE_TO_PARENT, 0.7f);
+
+                mBottom2Top = new TranslateAnimation(TranslateAnimation.ABSOLUTE, 0f,
+                        TranslateAnimation.ABSOLUTE, 0f, TranslateAnimation.RELATIVE_TO_PARENT, 0.7f,
+                        TranslateAnimation.RELATIVE_TO_PARENT, 0f);
+
+                mBottom2Top.setRepeatMode(Animation.RESTART);
+                mBottom2Top.setInterpolator(new LinearInterpolator());
+                mBottom2Top.setDuration(1500);
+                mBottom2Top.setFillEnabled(true);//使其可以填充效果从而不回到原地
+                mBottom2Top.setFillAfter(true);//不回到起始位置
+//如果不添加setFillEnabled和setFillAfter则动画执行结束后会自动回到远点
+                mBottom2Top.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+
+                        if (!stopAnimation){
+                            scanImage.startAnimation(mTop2Bottom);
+                        }
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+
+                mTop2Bottom.setRepeatMode(Animation.RESTART);
+                mTop2Bottom.setInterpolator(new LinearInterpolator());
+                mTop2Bottom.setDuration(1500);
+                mTop2Bottom.setFillEnabled(true);
+                mTop2Bottom.setFillAfter(true);
+                mTop2Bottom.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        scanImage.setVisibility(View.VISIBLE);
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        if (!stopAnimation){
+                            scanImage.startAnimation(mBottom2Top);
+                        }
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                scanImage.startAnimation(mTop2Bottom);
+            }
+        }).start();
 
 
 
@@ -204,7 +234,9 @@ public class ObjectRecActivity extends Activity implements MenuListener {
             @Override
             public void run() {
                 try {
-                  objectRecog(mPicpath);
+                    Thread.sleep(1000);
+
+                    objectRecog(mPicpath);
 //                   objectRecog(getResourcesUri(R.drawable.test1));
 
 
@@ -253,8 +285,9 @@ public class ObjectRecActivity extends Activity implements MenuListener {
                 JSONObject baike_info = new JSONObject(results.get(1));
                 if (baike_info.length() == 0) {
                     des.setVisibility(View.GONE);
+                }else {
+                    des.setText("\u3000\u3000" + baike_info.getString("description"));
                 }
-                des.setText("\u3000\u3000" + baike_info.getString("description"));
             }else{
                 des.setVisibility(View.GONE);
 
@@ -271,12 +304,13 @@ public class ObjectRecActivity extends Activity implements MenuListener {
     }
     private void initData(){
 
-    progressBar.setVisibility(View.GONE);
+//    progressBar.setVisibility(View.GONE);
         stopAnimation=true;
         scanImage.setVisibility(View.GONE);
         scanImage.clearAnimation();
         mcontainer.setVisibility(View.VISIBLE);
         if (isGeneral){
+
 //            findViewById(R.id.result).setVisibility(View.VISIBLE);
 //
 //            TextView des =  findViewById(R.id.des);
@@ -311,6 +345,9 @@ public class ObjectRecActivity extends Activity implements MenuListener {
 
         ListView listView =  findViewById(R.id.listView);
         listView.setAdapter(adapter);
+        listView.setDivider(new ColorDrawable(Color.GRAY));
+        listView.setDividerHeight(1);
+
         isGeneral =false;
 
     }
@@ -324,18 +361,39 @@ public class ObjectRecActivity extends Activity implements MenuListener {
     }
 
 
+
     //万物识别
     private  void objectRecog(String path) throws JSONException {
         LogUtil.showTestInfo("开始识别");
 
         results = new ArrayList<>();
+        String  result = "";
+        String result1= "{\"国内价格\":269,\"redwine\":{\"subRegionCn\":\"梅多克\",\"countryEn\":\"France\",\"regionEn\":\"Bordeaux\",\"countryCn\":\"法国\",\"grapeCn\":\"\",\"wineryEn\":\"Chateau Ducru-Beaucaillou\",\"hasdetail\":1,\"tasteTemperature\":\"12-14℃\",\"wineNameEn\":\"Le Petit Caillou\",\"wineryCn\":\"宝嘉龙庄园\",\"description\":\"酒体呈深紫红色，带有非常开放紧密的气味，有樱桃和泡草莓的香气，极具风味的红浆果味，浑厚有劲，余韵带有辛辣的味道。\",\"color\":\"深紫红色/Dark Violet\",\"regionCn\":\"波尔多\",\"subRegionEn\":\"Medoc\",\"classifyBySugar\":\"干型/Dry\",\"wineNameCn\":\"小宝嘉龙红葡萄酒\",\"grapeEn\":\"\",\"classifyByColor\":\"红葡萄酒/Red Wine\"},\"国外价格\":209}";
+        String result2 ="{\"国内价格\":120,\"redwine\":{\"subRegionCn\":\"\",\"countryEn\":\"Australia\",\"regionEn\":\"South Eastern Australia\",\"countryCn\":\"澳大利亚\",\"grapeCn\":\"\",\"wineryEn\":\"McGuigan Wines\",\"tasteTemperature\":\"6-11℃\",\"hasdetail\":1,\"wineNameEn\":\"McGuigan Black Label Red\",\"wineryCn\":\"麦格根酒庄\",\"description\":\"酒体呈紫红色，充满香草、饴糖及朱古力味，香味浓郁而复杂，均衡度良好，口感舒适，就像接触到丝绒般的柔顺，单宁也相当成熟。\",\"regionCn\":\"东南澳\",\"color\":\"紫红色/Violet\",\"subRegionEn\":\"\",\"classifyBySugar\":\"半甜型/Medium-sweet\",\"wineNameCn\":\"麦格根酒庄黑牌半甜红葡萄酒\",\"grapeEn\":\"\",\"classifyByColor\":\"红葡萄酒/Red Wine\"},\"国外价格\":52}";
 
-      String  result =
-//              "{ \"wineNameCn\": \"奔富Bin2西拉幕合怀特红葡萄酒\", \"regionEn\": \"South Australia\", \"color\": \"深紫红色/Dark Violet\", \"wineNameEn\": \"Penfolds Bin 2 Shiraz Mataro\", \"hasdetail\": 1, \"wineryCn\": \"奔富\", \"classifyBySugar\": \"干型/Dry\", \"tasteTemperature\": \"12-18℃\", \"regionCn\": \"南澳\", \"wineryEn\": \"Penfolds\", \"countryEn\": \"Australia\", \"description\": \"此酒为深紫红色\"}";
-              TranslatorUtils.getImageInfo(path);
+        if (count%2==0){
+
+            result = result1;
+        }else {
+
+            result = result2;
+        }
+//        try{
+//              result = TranslatorUtils.getImageInfo(path);
+//
+//
+//        }catch (Exception e){
+//
+//
+//        }
+//        if (result.equals("")){
+//
+//            return;
+//        }
+
       if (result==null)return;
 
-//      Log.i("识别到的结果",result);
+      Log.i("识别到的结果",result);
 
 
 
@@ -371,8 +429,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
                  results.add("名称 " + "&" + object.getString(key));
 
                  if (obj.has("国内价格")||obj.has("国外价格")) {
-                     results.add("国内价格 " + "&" + obj.getString("国内价格"));
-                     results.add("国外价格 " + "&" + obj.getString("国外价格"));
+                     results.add("国内参考价格 " + "&" + obj.getString("国内价格"));
                  }
 
                  results.add("国家 " + "&" + object.getString("countryCn"));
@@ -381,6 +438,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
                  results.add("酒庄 " + "&" + object.getString("wineryCn"));
                  results.add("糖分 " + "&" + object.getString("classifyBySugar"));
 
+                 results.add("简介 " + "&" + object.getString("description"));
 
              }else{
                     isGeneral = true;

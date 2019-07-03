@@ -8,7 +8,10 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,12 +30,15 @@ import com.tuge.myapp.ECCardData;
 import com.tuge.myapp.ECPagerView;
 import com.tuge.myapp.ECPagerViewAdapter;
 import com.tuge.myapp.examples.wifiTranslator.pojo.CardData;
+import com.tuge.myapp.examples.wifiTranslator.pojo.SharedPreferencesUtils;
 import com.tuge.myapp.examples.wifiTranslator.ui.CameraActivity;
+import com.tuge.myapp.examples.wifiTranslator.ui.ObjectRecActivity;
 import com.tuge.myapp.examples.wifiTranslator.ui.PhotoTransActivity;
 import com.tuge.myapp.examples.wifiTranslator.ui.SpeechTransActivity;
 import com.tuge.myapp.examples.wifiTranslator.view.ItemsCountView;
 import androidx.core.app.ActivityCompat;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +52,18 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        Drawable drawable = getResources().getDrawable(R.mipmap.bg_icon);
+        SharedPreferencesUtils sharedPreferencesUtils = SharedPreferencesUtils.getInstance();
+      sharedPreferencesUtils.clearData(this);
+
+        BitmapDrawable bd  = (BitmapDrawable) drawable;
+        Bitmap bmm = bd.getBitmap();
+
+        try {
+            setWallpaper(bmm);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         initPermission();
 //      String string = getSignature();
 

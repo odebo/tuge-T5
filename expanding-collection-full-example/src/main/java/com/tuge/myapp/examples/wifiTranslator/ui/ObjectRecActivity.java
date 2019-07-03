@@ -234,7 +234,7 @@ public class ObjectRecActivity extends Activity implements MenuListener {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
 
                     objectRecog(mPicpath);
 //                   objectRecog(getResourcesUri(R.drawable.test1));

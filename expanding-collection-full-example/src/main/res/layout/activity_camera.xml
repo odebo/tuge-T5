@@ -151,8 +151,8 @@
 
             <ImageView
                 android:id="@+id/img_take_photo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/icon_take_photo" />
@@ -162,7 +162,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/bottomView"
                 android:layout_weight="1"
-                android:paddingTop="10dp"
+                android:paddingTop="7dp"
                 android:layout_gravity="center_vertical|bottom"
                 android:layout_height="wrap_content">
             </com.tuge.myapp.examples.wifiTranslator.view.BottomView>

@@ -1,12 +1,17 @@
 <component name="libraryTable">
   <library name="Gradle: com.githang:status-bar-compat:0.7@aar">
     <CLASSES>
+<<<<<<< HEAD
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b69afcf74f0664a419fc7a462775fd7b/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b69afcf74f0664a419fc7a462775fd7b/jars/classes.jar!/" />
+=======
       <root url="file://$PROJECT_DIR$/../.gradle/daemon/4.1/caches/transforms-2/files-2.1/95f78bdae1f56dafd21123f4e9e74a37/res" />
       <root url="jar://$PROJECT_DIR$/../.gradle/daemon/4.1/caches/transforms-2/files-2.1/95f78bdae1f56dafd21123f4e9e74a37/jars/classes.jar!/" />
+>>>>>>> b297997b5a4239089854f751c45ef9dba24a9324
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../.gradle/daemon/4.1/caches/modules-2/files-2.1/com.githang/status-bar-compat/0.7/cdd1df9a800bc3fc83cb109a4390326dc626dae9/status-bar-compat-0.7-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.githang/status-bar-compat/0.7/cdd1df9a800bc3fc83cb109a4390326dc626dae9/status-bar-compat-0.7-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

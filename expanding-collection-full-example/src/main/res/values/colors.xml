@@ -6,6 +6,7 @@
     <color name="colorPrimary">#2e2e2e</color>
     <color name="colorPrimaryDark">#1d1d1d</color>
     <color name="colorAccent">#797979</color>
+    <color name="colorBlackA">#80000000</color>
 
     <color name="bgGradientStart">#000000</color>
     <color name="bgGradientEnd">#d8000000</color>

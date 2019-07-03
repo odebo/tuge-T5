@@ -121,9 +121,9 @@ public class PhotoTransActivity extends Activity implements MenuListener {
         });
 
         Bitmap bitmap = BitmapFactory.decodeFile(mPicpath);
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inScaled = false;
-        Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inScaled = false;
+//        Bitmap bitmap1 =  BitmapFactory.decodeResource(getResources(),R.drawable.test1,options);
 
         mPic.setImageBitmap(bitmap);
 
@@ -218,12 +218,28 @@ public class PhotoTransActivity extends Activity implements MenuListener {
         y= KeepTwoDecimal(height,bitmap.getHeight());
 
         Log.i("wk","图片的宽度:"+bitmap.getWidth()+"---"+width+"gaodu"+height+bitmap.getHeight()+"99"+height1);
-        LogUtil.showTestInfo(width+"==999"+height);
+        LogUtil.showTestInfo(width+"==999"+dp2px());
+
 
 //        Log.i("wk","图片的宽度:"+bitmap.getWidth()+"---"+width+"图片的高度"+bitmap.getHeight()+"--"+height);
 
 
     }
+    private  int dp2px(){
+
+
+        float dp = 25;
+        final float scale = getResources().getDisplayMetrics().density;
+        int px = (int) (dp * scale + 0.5f);
+       return px;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LogUtil.showTestInfo(mcontainer.getHeight()+"9999");
+    }
+
     private static double KeepTwoDecimal (int number1, int number2){
         double a=Double.valueOf(number1);
         double b=Double.valueOf(number2);
@@ -288,6 +304,8 @@ public class PhotoTransActivity extends Activity implements MenuListener {
 
                                 AutoFitTextView textView = new AutoFitTextView(PhotoTransActivity.this,null);
                                 textView.setText(ocrContent.getDst());
+//                                80000000
+//                                textView.setBackgroundColor(getResources().getColor(R.color.md_grey_800));
 
                                 textView.setBackgroundResource(android.R.color.darker_gray);
 
@@ -306,6 +324,7 @@ public class PhotoTransActivity extends Activity implements MenuListener {
                                 layoutParams.height = getInt((bottom-top)*y);;
                                 LogUtil.showTestInfo(x+"-"+y+"-"+(right-left)*x+"-"+layoutParams.width+"-"+(bottom-top)*y+"-"+layoutParams.height);
                                 layoutParams.setMargins(getInt(left*x),getInt(top*y),0,0);//4个参数按顺序分别是左上右下
+                                LogUtil.showTestInfo(x+"-"+y+"-"+getInt(left*x)+"-"+left*x+"-"+getInt(top*y)+"-"+top*y);
 
 //                    layoutParams.setMargins((int) (left*x),(int) (top*y),0,0);//4个参数按顺序分别是左上右下
 
